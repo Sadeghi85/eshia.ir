@@ -13,7 +13,29 @@
 
 App::before(function($request)
 {
-	//
+	$viewRegex = Config::get('app_settings.view_regex');
+	
+	foreach ($viewRegex as $regex => $view)
+	{
+		if (preg_match('#'.$regex.'#iu', Request::url()))
+		{
+			switch ($view)
+			{
+				case 'ar':
+					App::setLocale('ar');
+					Config::set('app.locale', 'ar');
+				break 2;
+				case 'en':
+					App::setLocale('en');
+					Config::set('app.locale', 'en');
+				break 2;
+				default:
+					App::setLocale('fa');
+					Config::set('app.locale', 'fa');
+			}
+		}
+	}
+	
 });
 
 

@@ -46,9 +46,27 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
+App::fatal(function($exception)
+{
+	Log::error($exception);
+	
+	if ( ! Config::get('app.debug')) {
+		return Response::view('404');
+	}
+});
+
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+	
+	if ( ! Config::get('app.debug')) {
+		return Response::view('404');
+	}
+});
+
+App::missing(function($exception)
+{
+    return Response::view('404');
 });
 
 /*
@@ -64,7 +82,7 @@ App::error(function(Exception $exception, $code)
 
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+	return Response::view('404');
 });
 
 /*
