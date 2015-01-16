@@ -10,20 +10,32 @@ class SiteController extends BaseController {
 		$docObject->defaultDocument = '';
 		$docObject->completePath    = '';
 		
-		foreach ($defaultDocuments as $doc)
-		{
-			if (is_file($completePath = $basePath.$doc)) {
-				$docObject->defaultDocument = $doc;
-				$docObject->completePath    = $completePath;
-			} elseif (is_file($completePath = $basePath.'\\'.$doc)) {
-				$docObject->defaultDocument = $doc;
-				$docObject->completePath    = $completePath;
-			}
-		}
-		
+		# Static file
 		if (is_file($completePath = $basePath)) {
 			$docObject->defaultDocument = '';
 			$docObject->completePath    = $completePath;
+		}
+		
+		foreach ($defaultDocuments as $doc)
+		{
+			# $basePath already contains defaultDocument
+			if (FALSE !== stripos($basePath, $doc)) {
+				$docObject->defaultDocument = $doc;
+				$docObject->completePath    = $basePath;
+				break;
+			}
+			
+			if (is_file($completePath = $basePath.$doc)) {
+				$docObject->defaultDocument = $doc;
+				$docObject->completePath    = $completePath;
+				break;
+			}
+
+			if (is_file($completePath = $basePath.'\\'.$doc)) {
+				$docObject->defaultDocument = $doc;
+				$docObject->completePath    = $completePath;
+				break;
+			}
 		}
 		
 		return $docObject;
@@ -31,6 +43,8 @@ class SiteController extends BaseController {
 	
 	private function _getContent($rawContent)
 	{
+		# Convert every html to UTF-8 and do some cleaning
+	
 		$content = '';
 		$tempContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
 
@@ -68,7 +82,7 @@ class SiteController extends BaseController {
 				{
 					foreach ($scripts[1] as $script)
 					{
-						$content .= $script;
+						$content .= preg_replace('#src\s*=\s*([\'"])([^\'"]*)[\'"]#i', 'src=$1/$2$1', $script);
 					}
 				}
 			}
@@ -82,7 +96,6 @@ class SiteController extends BaseController {
 		}
 		
 		return $content;
-
 	}
 	
 	public function index($requestPath)
@@ -103,14 +116,11 @@ class SiteController extends BaseController {
 			$localPathSegments = explode('\\', $localPath);
 			
 			# Static file
-			if (FALSE !== strpos(end($localPathSegments), '.')) {
-				return Redirect::to($dataUrl.'/'.$requestPath, 301);
+			if ($docObject->completePath and FALSE !== strpos(end($localPathSegments), '.')) {
+				return Redirect::to($dataUrl.'/'.$requestPath, 301, array('Cache-Control' => 'public,max-age=86400'));
 			} else {
 				App::abort(404);
 			}
-			
 		}
-
 	}
-
 }
