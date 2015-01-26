@@ -11,6 +11,11 @@
 	<link href="/assets/css/default.css" rel="stylesheet" type="text/css" />
 	<link href="/Styles/eShia.css" rel="stylesheet" type="text/css" />
 	
+	@section('style') 
+	   <style type="text/css">
+	   
+	   </style>
+	@show
 	<link rel="icon" href="/assets/icon/favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="/assets/icon/favicon.ico" type="image/x-icon" />
 </head>
@@ -82,5 +87,10 @@
 	<map name="Map" id="Map">
 		<area shape="rect" coords="6,6,177,209" href="/" alt="logo" />
 	</map>
+	
+	
+@section('javascript')
+
+@show
 </body>
 </html>

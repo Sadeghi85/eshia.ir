@@ -11,4 +11,7 @@
 |
 */
 
+Route::get('convert/{teacher}/{course}', 'ConvertController@index');
+Route::post('convert/{teacher}/{course}', array('as' => 'convert', 'uses' => 'ConvertController@convert'));
+
 Route::get('{path}', 'SiteController@index')->where('path', '.*');
