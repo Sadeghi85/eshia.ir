@@ -1,0 +1,20 @@
+
+html {direction: rtl; font-family: "Traditional Arabic"; font-size: 22px; font-weight: bold;}
+body {overflow-x:hidden;}
+
+.Titr { color:#0066ff !important }
+.Imam { color:White !important }
+.Ravayat { color:Green !important }
+.Sayer { color:Navy !important }
+.Mabna { color:Blue !important }
+.Reserve { color:rgb(0,255,0) !important }
+
+a:hover {
+color: #FF6600;
+}
+a {
+color: #66799c;
+font-weight: bold;
+text-decoration: none;
+cursor: pointer;
+}

@@ -49,7 +49,8 @@
 
 @section('javascript')
 @parent
-	<script src="/assets/js/jquery-1.8.0.min.js"></script>
+	<script src="/assets/js/jquery-1.10.2.min.js"></script>
+	<script src="/assets/js/jquery.form.js"></script>
 
 	<script>
 		$(document)
