@@ -8,6 +8,50 @@
 			background-color: white !important;
 			cursor: text !important;
 		}
+		
+		div.fileinputs {
+	position: relative;
+}
+
+div.fakefile {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	z-index: 1;
+}
+
+#fakeinput {
+text-align: left;
+direction: ltr;
+}
+
+input.file {
+	position: relative;
+	text-align: right;
+	-moz-opacity:0 ;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+}
+
+.iframe-container {
+	position: relative;
+    padding-bottom: 56.25%;
+	padding-left: 20px;
+	padding-right: 20px;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 95%;
+    height: 100%;
+}
 	</style>
 @stop
 
@@ -15,25 +59,34 @@
 
 
 
-{{ Form::open(array('route' => 'convert', 'class' => 'form-horizontal', 'method' => 'post', 'files' => true, 'id' => 'uploadForm', 'name' => 'uploadForm')) }}
+{{ Form::open(array('route' => array('convert', $teacher, $course), 'class' => 'form-horizontal', 'method' => 'post', 'files' => true, 'id' => 'uploadForm', 'name' => 'uploadForm')) }}
+	<br>
 	<div class="form-group">
 	
 		<div class="input-group col-md-24">
 			<span class="input-group-btn">
-				<span class="btn btn-primary btn-file">
-					Browse… <input type="file" multiple="" name="doc" id="doc">
+				<span class=" btn-primary btn-file">
+				
+					
+
+					<div class="fileinputs">
+						<input type="file" class="file hidden" multiple="" name="doc" id="doc">
+					<div class="fakefile"><span>فایل را انتخاب کنید: </span><input type="text" name="fakeinput" id="fakeinput" /></div></div>
+				
+				
+					<!-- Browse… <input type="file" multiple="" name="doc" id="doc"> -->
 				</span>
 			</span>
-			<input class="form-control" readonly="" type="text">
+			<!-- <input class="form-control" readonly="" type="text"> -->
 		</div>
 
 	<span class="help-block"></span>
 	</div>
-	
+	<br><br>
 <!-- Form Actions -->
 <div class="form-group">
-	<button type="submit" class="btn btn-primary" name="upload" id="upload">Upload</button>
-	<button type="submit" class="btn btn-primary" name="download" id="download" style="display:none;">Download as Zip</button>
+	<button type="submit" class=" btn-primary" name="upload" id="upload">آپلود</button>
+	<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">دانلود زیپ</button>
 </div>
 {{ Form::close() }}
 
@@ -154,7 +207,7 @@
 		
 		function displayError() {
 			
-			$('span.help-block').text('Error');
+			$('span.help-block').text('خطا');
 		};
 		
 		function processJson(data) {

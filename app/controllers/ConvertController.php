@@ -9,7 +9,7 @@ class ConvertController extends BaseController {
 	{
 		
 		
-		return Response::view('convert', array('content' => ''));
+		return Response::view('convert', compact('teacher', 'course'));
 
 	}
 	
@@ -146,8 +146,7 @@ EOT;
 			$zip = new \ZipArchive();
 			$res = $zip->open($filepath, ZipArchive::CREATE);
 			
-			
-			$zip->addEmptyDir($filename);
+			if (version_compare(PHP_VERSION, '5.4.0') < 0) $zip->addEmptyDir($filename);
 			$zip->addFromString($filename.'/eShia.css', file_get_contents(public_path().'/assets/css/eShia.css'));
 			$zip->addFromString($filename.'/Default.htm', $html);
 			$zip->close();
