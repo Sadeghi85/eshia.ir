@@ -16,8 +16,7 @@ class SiteController extends BaseController {
 			$docObject->completePath    = $completePath;
 		}
 		
-		foreach ($defaultDocuments as $doc)
-		{
+		foreach ($defaultDocuments as $doc) {
 			# $basePath already contains defaultDocument
 			if (FALSE !== stripos($basePath, $doc)) {
 				$docObject->defaultDocument = $doc;
@@ -48,50 +47,44 @@ class SiteController extends BaseController {
 		$content = '';
 		$tempContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
 
-		if ($tempContent && mb_detect_encoding($rawContent, 'UTF-8', TRUE))
-		{
+		if ($tempContent && mb_detect_encoding($rawContent, 'UTF-8', true)) {
 			$rawContent = $tempContent;
-		}
-		else
-		{
-			$tempContent = @iconv('UTF-16', 'UTF-8//IGNORE', $rawContent);
-			
-			if ($tempContent)
-			{
+		} else {
+			$tempContent = @iconv('UCS-2LE', 'UTF-8//IGNORE', $rawContent);
+
+			if ($tempContent) {
 				$rawContent = $tempContent;
-			}
-			else
-			{
-				$rawContent = @iconv('CP1256', 'UTF-8//IGNORE', $rawContent);
+			} else {
+				App::abort(404);
 			}
 		}
 
-		if (preg_match('#((<body[^<>]*>)(.*?)</body>)#is', $rawContent, $body))
-		{
-			if (preg_match('#<head[^<>]*>(.*?)</head>#is', $rawContent, $head))
-			{
-				if (preg_match_all('#(<style[^<>]*>.*?</style>)#is', $head[1], $styles))
-				{
-					foreach ($styles[1] as $style)
-					{
+		$rawContent =  preg_replace('#[[:space:]]+#', ' ',
+				preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
+					str_replace(pack('H*', 'c2a0'), '',
+						str_replace(pack('H*', 'efbbbf'), '', $rawContent)
+					)
+				)
+			);
+
+		if (preg_match('#((<body[^<>]*>)(.*?)(</body>))#is', $rawContent, $body)) {
+			if (preg_match('#<head[^<>]*>(.*?)</head>#is', $rawContent, $head)) {
+				if (preg_match_all('#(<style[^<>]*>.*?</style>)#is', $head[1], $styles)) {
+					foreach ($styles[1] as $style) {
 						$content .= $style;
 					}
 				}
 				
-				if (preg_match_all('#(<script[^<>]*>.*?</script>)#is', $head[1], $scripts))
-				{
-					foreach ($scripts[1] as $script)
-					{
-						$content .= preg_replace('#src\s*=\s*([\'"])([^\'"]*)[\'"]#i', 'src=$1/$2$1', $script);
+				if (preg_match_all('#(<script[^<>]*>.*?</script>)#is', $head[1], $scripts)) {
+					foreach ($scripts[1] as $script) {
+						$content .= $script;
 					}
 				}
 			}
-			
+
 			$content .= $body[1];
 
-		}
-		else
-		{
+		} else {
 			$content = $rawContent;
 		}
 		
@@ -109,7 +102,24 @@ class SiteController extends BaseController {
 		
 		# We've found a default page
 		if ($docObject->defaultDocument) {
-			return Response::view('page', array('content' => $this->_getContent(file_get_contents($docObject->completePath))));
+			$searchForm = '';
+			
+			if (strtolower(Request::segment(1)) === 'ar' and strtolower(Request::segment(2)) === 'feqh' and strtolower(Request::segment(3)) === 'archive') {
+				$teacher = strtolower(Request::segment(4));
+				$course  = strtolower(Request::segment(5));
+				$year    = strtolower(Request::segment(6));
+			} elseif (strtolower(Request::segment(1)) === 'feqh' and strtolower(Request::segment(2)) === 'archive') {
+				$teacher = strtolower(Request::segment(3));
+				$course  = strtolower(Request::segment(4));
+				$year    = strtolower(Request::segment(5));
+			}
+			
+			if ($teacher and $course and $year) {
+				$searchForm = View::make('search-form', array('teacher' => $teacher, 'course' => $course, 'year' => $year));
+			}
+			
+			return Response::view('page', array('content' => $this->_getContent(file_get_contents($docObject->completePath)), 
+			'searchForm' => $searchForm));
 		}
 		# Either static file or 404
 		else {

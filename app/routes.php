@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('search/{teacher}/{course}/{year}', 'ConvertController@index');
+
+
 Route::get('convert/{teacher}/{course}', 'ConvertController@index');
 Route::post('convert/{teacher}/{course}', array('as' => 'convert', 'uses' => 'ConvertController@convert'));
 
