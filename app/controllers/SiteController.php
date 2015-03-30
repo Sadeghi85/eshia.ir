@@ -102,19 +102,16 @@ class SiteController extends BaseController {
 		
 		# We've found a default page
 		if ($docObject->defaultDocument) {
-			$searchForm = '';
+			$searchForm = $teacher = $course = $year = '';
 			
-			if (strtolower(Request::segment(1)) === 'ar' and strtolower(Request::segment(2)) === 'feqh' and strtolower(Request::segment(3)) === 'archive') {
-				$teacher = strtolower(Request::segment(4));
-				$course  = strtolower(Request::segment(5));
-				$year    = strtolower(Request::segment(6));
-			} elseif (strtolower(Request::segment(1)) === 'feqh' and strtolower(Request::segment(2)) === 'archive') {
-				$teacher = strtolower(Request::segment(3));
-				$course  = strtolower(Request::segment(4));
-				$year    = strtolower(Request::segment(5));
-			}
+			preg_match('#(?:ar/)?feqh/archive/(?:text/)?([^/]+)/([^/]+)/([^/]+)#i', Request::path(), $matches);
 			
-			if ($teacher and $course and $year) {
+			if (count($matches) == 4) {
+				$teacher = $matches[1];
+				$course = $matches[2];
+				$year = explode('_', $matches[3]);
+				$year = array_shift($year);
+			
 				$searchForm = View::make('search-form', array('teacher' => $teacher, 'course' => $course, 'year' => $year));
 			}
 			

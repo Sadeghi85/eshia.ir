@@ -12,6 +12,10 @@ MySQL - 5.6.17-log : Database - sphinx_www_eshia_ir
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`sphinx_www_eshia_ir` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+
+USE `sphinx_www_eshia_ir`;
+
 /*Table structure for table `documents` */
 
 DROP TABLE IF EXISTS `documents`;
@@ -27,6 +31,8 @@ CREATE TABLE `documents` (
   `course_hash` bigint(20) unsigned NOT NULL,
   `year` varchar(50) NOT NULL,
   `year_hash` bigint(20) unsigned NOT NULL,
+  `date` varchar(50) NOT NULL,
+  `date_hash` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`auto_id`),
   KEY `index_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
