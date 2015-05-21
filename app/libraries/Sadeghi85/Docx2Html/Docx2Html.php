@@ -524,8 +524,8 @@ class Docx2Html
 		
 		$ret = '';
 		
-		 //use the xpath to get expecific children from a node
-		$xpath = new \DOMXPath($this->domDocument);
+		//use the xpath to get expecific children from a node
+		//$xpath = new \DOMXPath($this->domDocument);
 		
 		//var_dump($ret);
 		return $ret;

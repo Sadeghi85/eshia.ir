@@ -181,6 +181,7 @@ input.file {
 
 			$('button[type="submit"]').click(function(e){
 			   button = $(this).attr("name");
+			   $('span.help-block').text('');
 			});
 			
 			 // bind to the form's submit event 
@@ -208,6 +209,30 @@ input.file {
 		function displayError() {
 			
 			$('span.help-block').text('خطا');
+			$('#download').css('display','none');
+			
+			var iframe = $('iframe#result').get(0);
+			
+					var iframeDoc = iframe.document;
+				if (iframe.contentDocument)
+					iframeDoc = iframe.contentDocument;
+				else if (iframe.contentWindow)
+					iframeDoc = iframe.contentWindow.document;
+
+			 if (iframeDoc){
+				 // Put the content in the iframe
+				 
+				 iframeDoc.open();
+				 iframeDoc.write('');
+				 iframeDoc.close();
+				 $(window).scrollTop(0);
+				 
+			 } else {
+				//just in case of browsers that don't support the above 3 properties.
+				//fortunately we don't come across such case so far.
+				alert('Cannot inject dynamic contents into iframe.');
+			 }
+			
 		};
 		
 		function processJson(data) {

@@ -15,8 +15,37 @@ class ConvertController extends BaseController {
 	
 	private function _footnote($content)
 	{
+		$content = preg_replace('#</ref>#', "</ref>\r\n", $content);
+		
+		$content = preg_replace_callback(sprintf('#<ref> *%s *([\p{L} \p{M}]+) *%s *(%s|%s|%s) *(\d+) *([^<]*)</ref>#iu', base64_decode('2LPZiNix2Yc='), base64_decode('2Iw='), base64_decode('2KLbjNmH'), base64_decode('2KLZitmH'), base64_decode('2KLZitip')),
+					function ($matches)
+					{
+						$surehList = Config::get('sureh.list');
+						$surehString = array_key_exists(Helpers::persianizeString($matches[1]), $surehList) ? Helpers::persianizeString($matches[1]) : array_key_exists(preg_replace(sprintf('#^%s#iu', base64_decode('2KfZhA==')), '', Helpers::persianizeString($matches[1])), $surehList) ? trim(preg_replace(sprintf('#^%s#iu', base64_decode('2KfZhA==')), '', Helpers::persianizeString($matches[1]))) : '';
+						
+						if($surehString)
+						{
+							$sureh = $surehList[$surehString][1];
+							$page = 0;
+							foreach ($sureh as $k => $v)
+							{
+								if ($matches[3] >= $k)
+									$page = $v;
+							}
+							$link = sprintf('http://lib.eshia.ir/17001/1/%s/%s', $page, $matches[3]);
+							
+							return sprintf('<ref>[%s %s %s%s %s %s %s]</ref>', $link, base64_decode('2LPZiNix2Yc='), $matches[1], base64_decode('2Iw='), $matches[2], $matches[3], $matches[4]);
+						}
+						else
+						{
+							return $matches[0];
+						}
+					},
+				$content);
+		
 		$outlink_counter = 0;
-	$content = preg_replace_callback('#(?:^|>)[^<]*#iu',
+		$content = preg_replace_callback('#(?:^|>)[^<]*#i',
+		//$content = preg_replace_callback('#<ref>([^\r\n]+?)</ref>#i',
 					function ($matches) use (&$outlink_counter)
 					{
 						return preg_replace_callback('#(?<!\[)\[ *([^\[\]\r\n ]+) *([^\[\]\r\n]*) *\](?!\])#iu',
@@ -32,48 +61,55 @@ class ConvertController extends BaseController {
 					},
 				$content);
 
-			$ref_matches = array();
-			$footnotes = '';
-			
-			$content = preg_replace_callback('#<ref>([^\r\n]+?)</ref>#iu',
-							function ($matches) use (&$ref_matches)
-							{
-								static $c = 0;
-								
-								$ref_matches[] = $matches[1];
-								$c++;
-								
-								return '<a href="#_ftn'.$c.'" name="_ftnref'.$c.'" title="'.strip_tags($matches[1]).'">['.$c.']</a>';
-							},
-						$content);
-			
-			if(isset($ref_matches[0]))
-			{
-
-				foreach($ref_matches as $k => $v )
-				{
-					$footnotes .= '<div><a href="#_ftnref'.($k+1).'" name="_ftn'.($k+1).'">['.($k+1).']</a> '.$v.'</div>'; 
-				}
-
-			}
-			
-			
-			
-			
-			$content = '<div>'.$content . '</div><hr>' . $footnotes;
-			
-			$content = preg_replace_callback('#(?:^|>)[^<]*#iu',
-				function ($matches)
-				{
-					return str_replace(array('1','2','3','4','5','6','7','8','9','0'), array('۱','۲','۳','۴','۵','۶','۷','۸','۹','۰'), $matches[0]);
-				},
-			$content);
-			$content = preg_replace_callback('#(<script[^>]*>)([^<]*)(</script>)#iu',
-						function ($matches)
+		$ref_matches = array();
+		$footnotes = '';
+		
+		$content = preg_replace_callback('#<ref>([^\r\n]+?)</ref>#i',
+						function ($matches) use (&$ref_matches)
 						{
-							return $matches[1].str_replace(array('۱','۲','۳','۴','۵','۶','۷','۸','۹','۰'), array('1','2','3','4','5','6','7','8','9','0'), $matches[2]).$matches[3];
+							static $c = 0;
+							
+							$ref_matches[] = $matches[1];
+							$c++;
+							
+							return '<a href="#_ftn'.$c.'" name="_ftnref'.$c.'" title="'.strip_tags($matches[1]).'">['.$c.']</a>';
 						},
 					$content);
+			
+		if(isset($ref_matches[0]))
+		{
+
+			foreach($ref_matches as $k => $v )
+			{
+				$footnotes .= '<div><a href="#_ftnref'.($k+1).'" name="_ftn'.($k+1).'">['.($k+1).']</a> '.$v.'</div>'; 
+			}
+
+		}
+
+		$content = '<div>'.$content . '</div><hr>' . $footnotes;
+		
+		$content = preg_replace_callback('#(?:^|>)[^<]*#i',
+			function ($matches)
+			{
+				return str_replace(
+						array('0','1','2','3','4','5','6','7','8','9'),
+						array(pack('H*', 'd9a0'),pack('H*', 'd9a1'),pack('H*', 'd9a2'),pack('H*', 'd9a3'),pack('H*', 'd9a4'),pack('H*', 'd9a5'),pack('H*', 'd9a6'),pack('H*', 'd9a7'),pack('H*', 'd9a8'),pack('H*', 'd9a9')),
+						$matches[0]
+					);
+			},
+		$content);
+		$content = preg_replace_callback('#(<script[^>]*>)([^<]*)(</script>)#i',
+					function ($matches)
+					{
+						return sprintf('%s%s%s', $matches[1], 
+							str_replace(
+								array(pack('H*', 'd9a0'),pack('H*', 'd9a1'),pack('H*', 'd9a2'),pack('H*', 'd9a3'),pack('H*', 'd9a4'),pack('H*', 'd9a5'),pack('H*', 'd9a6'),pack('H*', 'd9a7'),pack('H*', 'd9a8'),pack('H*', 'd9a9')),
+								array('0','1','2','3','4','5','6','7','8','9'),
+								$matches[2]
+							),
+							$matches[3]);
+					},
+				$content);
 
 		return $content;
 	
@@ -111,12 +147,12 @@ class ConvertController extends BaseController {
 		
 		$content = $converter->getHtml();
 		
+		$content = $this->_footnote($content);
+		
 		foreach (Config::get('eshia') as $color => $class)
 		{
 			$content = preg_replace('#<span class="'.$color.'"#i', '<span class="'.$class.'"', $content);
 		}
-		
-		$content = $this->_footnote($content);
 		
 		if ( ! is_null(Input::get('download')))
 		{

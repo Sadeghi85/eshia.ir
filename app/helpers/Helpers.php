@@ -36,4 +36,21 @@ class Helpers {
 		return link_to($url, $title, $attributes, $secure);
 	}
 	
+	public static function persianizeString($string)
+	{
+		$string = str_replace(pack('H*', 'efbbbf'), '', $string);
+		$string = str_replace(pack('H*', 'c2a0'), '', $string);
+		$string = str_replace(pack('H*', 'd980'), '', $string); # مـزمل
+		$string = str_replace(array(pack('H*', 'd98a'), pack('H*', 'd989'), pack('H*', 'd8a6')), pack('H*', 'db8c'), $string); # ی
+		$string = str_replace(array(pack('H*', 'd8a5'), pack('H*', 'd8a3'), pack('H*', 'd8a2')), pack('H*', 'd8a7'), $string); # ا
+		$string = str_replace(array(pack('H*', 'd8a9'), pack('H*', 'db80')), pack('H*', 'd987'), $string); # ه
+		$string = str_replace(pack('H*', 'd8a4'), pack('H*', 'd988'), $string); # و
+		$string = str_replace(pack('H*', 'd983'), pack('H*', 'daa9'), $string); # ک
+		
+		$string = preg_replace('#[[:space:]]+#u', ' ', $string);
+		$string = preg_replace('#\p{Cf}+#u', ' ', $string); # zwnj, etc.;
+		$string = preg_replace('#\p{M}+#u', '', $string);
+		
+		return trim($string);
+	}
 }
