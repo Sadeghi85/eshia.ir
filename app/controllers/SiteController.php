@@ -45,27 +45,27 @@ class SiteController extends BaseController {
 		# Convert every html to UTF-8 and do some cleaning
 	
 		$content = '';
-		$tempContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
+		$rawContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
+		// $tempContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
 
-		if ($tempContent && mb_detect_encoding($rawContent, 'UTF-8', true)) {
-			$rawContent = $tempContent;
-		} else {
-			$tempContent = @iconv('UCS-2LE', 'UTF-8//IGNORE', $rawContent);
+		// if ($tempContent && mb_detect_encoding($rawContent, 'UTF-8', true)) {
+			// $rawContent = $tempContent;
+		// } else {
+			// $tempContent = @iconv('UCS-2LE', 'UTF-8//IGNORE', $rawContent);
 
-			if ($tempContent) {
-				$rawContent = $tempContent;
-			} else {
-				App::abort(404);
-			}
-		}
+			// if ($tempContent) {
+				// $rawContent = $tempContent;
+			// } else {
+				// App::abort(404);
+			// }
+		// }
 
-		$rawContent =  preg_replace('#[[:space:]]+#', ' ',
+		$rawContent =  
 				preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
 					str_replace(pack('H*', 'c2a0'), '',
 						str_replace(pack('H*', 'efbbbf'), '', $rawContent)
 					)
-				)
-			);
+				);
 
 		if (preg_match('#((<body[^<>]*>)(.*?)(</body>))#is', $rawContent, $body)) {
 			if (preg_match('#<head[^<>]*>(.*?)</head>#is', $rawContent, $head)) {

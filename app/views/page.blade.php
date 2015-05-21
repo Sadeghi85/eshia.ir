@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('search-form')
-{{ $searchForm }}
+{{-- $searchForm --}}
 @stop
 
 @section('content')
