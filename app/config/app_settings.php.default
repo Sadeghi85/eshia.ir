@@ -1,9 +1,9 @@
 <?php
 
-return array(
+return [
 
-	'data_path' => 'E:\Sites\eShiaNew\Data',
-    'data_url' => 'http://data.eshia.ir',
+	'data_path' => 'E:\\Sites\\eShiaNew\\Data',
+    'data_url' => 'http://phpdata.eshia.ir',
 	
 	'results_per_page' => 10,
 	'search_result_limit' => 1000,
@@ -11,19 +11,25 @@ return array(
 	'search_index_name' => 'www_eshia_ir_main',
 	'search_index_main_name' => 'www_eshia_ir_main',
 	
-	'default_documents' => array(
+	'default_documents' => [
 		'DefaultM.htm',
 		'DefaultM.html',
 		'default.htm',
 		'default.html',
 		'index.htm',
 		'index.html',
-	),
+	],
 
-	'view_regex' => array(
-		'/ar$|/ar/.*' => array('layout' => 'default-ar', 'error_404' => 'error_404-ar'),
-		'.*/(alerazi|alheidary|arzooni|bashir_najafi|fazlollah|haery2|iravani|javaheri|khouee|makaremAr|moosavi|sanad)/.*' => array('layout' => 'default-ar', 'error_404' => 'error_404-ar'),
-		'.*' => array('layout' => 'default', 'error_404' => 'error_404'),
-	),
+	'view_regex' => [
 	
-);
+		'.*/(alerazi|alheidary|arzooni|bashir_najafi|fazlollah|haery2|iravani|javaheri|khouee|makaremAr|moosavi|sanad)/.*' => 
+						['locale' => 'ar', 'layout' => 'layouts.master-ar', 'error_404' => 'error_404-ar'],
+						
+		'/ar$|/ar/.*' => 
+						['locale' => 'ar', 'layout' => 'layouts.master-ar', 'error_404' => 'error_404-ar'],
+		
+		'.*' => 
+						['locale' => 'fa', 'layout' => 'layouts.master', 'error_404' => 'error_404'],
+	],
+	
+];

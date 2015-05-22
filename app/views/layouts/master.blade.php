@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html >
 <head>
 	<title>مدرسه فقاهت</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -144,7 +144,9 @@
 					<img src="/Images/BaharSound.png" alt="logo"/>
 				</p>
 				<p>
-					<a href="http://www.baharsound.com/">www.baharsound.com,</a><a href="http://www.wikifeqh.ir">www.wikifeqh.ir,</a><a href="http://lib.eshia.ir">lib.eshia.ir</a>
+					<a href="http://www.baharsound.com/">www.baharsound.com,</a>
+					<a href="http://www.wikifeqh.ir">www.wikifeqh.ir,</a>
+					<a href="http://lib.eshia.ir">lib.eshia.ir</a>
 				</p>
 			</td>
 			<td></td>

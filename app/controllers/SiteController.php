@@ -2,6 +2,13 @@
 
 class SiteController extends BaseController {
 
+	protected $layout;
+	
+	public function __construct()
+	{
+		$this->layout = Config::get('app_settings.settings')['layout'];
+    }
+	
 	private function _getDocument($basePath)
 	{
 		$defaultDocuments = Config::get('app_settings.default_documents');
@@ -40,12 +47,11 @@ class SiteController extends BaseController {
 		return $docObject;
 	}
 	
-	private function _getContent($rawContent)
+	private function _getContent($pagePath)
 	{
 		# Convert every html to UTF-8 and do some cleaning
 	
 		$content = '';
-		$rawContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
 		// $tempContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
 
 		// if ($tempContent && mb_detect_encoding($rawContent, 'UTF-8', true)) {
@@ -60,22 +66,34 @@ class SiteController extends BaseController {
 			// }
 		// }
 
-		$rawContent =  
-				preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
-					str_replace(pack('H*', 'c2a0'), '',
-						str_replace(pack('H*', 'efbbbf'), '', $rawContent)
-					)
-				);
+		$rawContent =  	preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
+							str_replace(pack('H*', 'c2a0'), '',
+								str_replace(pack('H*', 'efbbbf'), '',
+									str_replace(pack('H*', '00'), '',
+										iconv('UTF-8', 'UTF-8//IGNORE',
+											@file_get_contents($pagePath)
+										)
+									)
+								)
+							)
+						);
+						
+		// $rawContent =  
+				// preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
+					// str_replace(pack('H*', 'c2a0'), '',
+						// str_replace(pack('H*', 'efbbbf'), '', $rawContent)
+					// )
+				// );
 
-		if (preg_match('#((<body[^<>]*>)(.*?)(</body>))#is', $rawContent, $body)) {
-			if (preg_match('#<head[^<>]*>(.*?)</head>#is', $rawContent, $head)) {
-				if (preg_match_all('#(<style[^<>]*>.*?</style>)#is', $head[1], $styles)) {
+		if (preg_match('#((<body[^>]*>)(.*?)(</body>))#isu', $rawContent, $body)) {
+			if (preg_match('#<head[^>]*>(.*?)</head>#isu', $rawContent, $head)) {
+				if (preg_match_all('#(<style[^>]*>.*?</style>)#isu', $head[1], $styles)) {
 					foreach ($styles[1] as $style) {
 						$content .= $style;
 					}
 				}
 				
-				if (preg_match_all('#(<script[^<>]*>.*?</script>)#is', $head[1], $scripts)) {
+				if (preg_match_all('#(<script[^>]*>.*?</script>)#isu', $head[1], $scripts)) {
 					foreach ($scripts[1] as $script) {
 						$content .= $script;
 					}
@@ -93,7 +111,7 @@ class SiteController extends BaseController {
 	
 	public function index($requestPath)
 	{
-		$dataPath    = preg_replace('#\\\\+$#', '', str_replace('/', '\\', Config::get('app_settings.data_path')));
+		$dataPath = preg_replace('#\\\\+$#', '', str_replace('/', '\\', Config::get('app_settings.data_path')));
 		$localPath = trim(str_replace('/', '\\', $requestPath), '\\');
 		
 		$dataUrl = Config::get('app_settings.data_url');
@@ -112,11 +130,10 @@ class SiteController extends BaseController {
 				$year = explode('_', $matches[3]);
 				$year = array_shift($year);
 			
-				$searchForm = View::make('search-form', array('teacher' => $teacher, 'course' => $course, 'year' => $year));
+				$searchForm = View::make('search-form', ['teacher' => $teacher, 'course' => $course, 'year' => $year]);
 			}
 			
-			return Response::view('page', array('content' => $this->_getContent(file_get_contents($docObject->completePath)), 
-			'searchForm' => $searchForm));
+			$this->layout->content = View::make('page', ['content' => $this->_getContent($docObject->completePath), 'searchForm' => $searchForm]);
 		}
 		# Either static file or 404
 		else {
@@ -124,7 +141,7 @@ class SiteController extends BaseController {
 			
 			# Static file
 			if ($docObject->completePath and FALSE !== strpos(end($localPathSegments), '.')) {
-				return Redirect::to($dataUrl.'/'.$requestPath, 301, array('Cache-Control' => 'public,max-age=86400'));
+				return Redirect::to($dataUrl.'/'.$requestPath, 301, ['Cache-Control' => 'public,max-age=86400']);
 			} else {
 				App::abort(404);
 			}

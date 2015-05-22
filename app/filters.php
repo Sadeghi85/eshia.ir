@@ -15,33 +15,48 @@ App::before(function($request)
 {
 	$viewRegex = Config::get('app_settings.view_regex');
 	
-	foreach ($viewRegex as $regex => $view)
+	foreach ($viewRegex as $regex => $settings)
 	{
-		if (preg_match('#'.$regex.'#iu', Request::url()))
+		if (preg_match(sprintf('#%s#iu', $regex), Request::url()))
 		{
-			switch ($view)
+			switch ($settings['locale'])
 			{
 				case 'ar':
 					App::setLocale('ar');
 					Config::set('app.locale', 'ar');
+					Config::set('app_settings.settings', $settings);
 				break 2;
 				case 'en':
 					App::setLocale('en');
 					Config::set('app.locale', 'en');
+					Config::set('app_settings.settings', $settings);
 				break 2;
 				default:
 					App::setLocale('fa');
 					Config::set('app.locale', 'fa');
+					Config::set('app_settings.settings', $settings);
 			}
 		}
 	}
 	
 });
 
-
 App::after(function($request, $response)
 {
-	//
+    if(App::Environment() != 'local')
+    {
+        if($response instanceof Illuminate\Http\Response)
+        {
+            $output = $response->getOriginalContent();
+            
+			$output = str_replace("\r\n", '<crlf>', $output);
+			$output = preg_replace('#[[:space:]]+#u', ' ', $output);
+			$output = str_replace('<crlf>', "\r\n", $output);
+			$output = preg_replace('#[\r\n]+\s*[\r\n]*#u', "\r\n", $output);
+			
+            $response->setContent($output);
+        }
+    }
 });
 
 /*

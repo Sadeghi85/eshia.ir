@@ -1,4 +1,3 @@
-@extends('layout.default')
 
 @section('search-form')
 {{-- $searchForm --}}
