@@ -1,25 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
-<div id="contents">
-<div id="contents_cover" class="Page_showPage">
-<table class="content_headers" align="center" cellpadding="0" cellspacing="0">
-<tr>
-<td>	
-<table class="Page-query-noresualt">
-<tr>
-<td>
-<span class="not-found">
-{{ preg_replace('#"(.+)?"#', sprintf('&nbsp;<i><font color="#000000"> %s </font></i>&nbsp;', '$1'), $message) }}
-</span>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</div>
-</div>
+
+<br />
+	<p style="padding:10px;">
+		@if ($message)
+			{{ preg_replace('#"(.+)?"#', sprintf('&nbsp;<i><font color="#000000"> %s </font></i>&nbsp;', '$1'), $message) }}
+		@else
+			@lang('app.not_found')
+		@endif
+	</p>
+<br />
+
 @stop
 
 @section('title')

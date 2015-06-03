@@ -6,7 +6,7 @@ class SiteController extends BaseController {
 	
 	public function __construct()
 	{
-		$this->layout = Config::get('app_settings.settings')['layout'];
+		$this->layout = 'layouts.master';
     }
 	
 	private function _getDocument($basePath)
@@ -49,25 +49,10 @@ class SiteController extends BaseController {
 	
 	private function _getContent($pagePath)
 	{
-		# Convert every html to UTF-8 and do some cleaning
-	
 		$content = '';
-		// $tempContent = @iconv('UTF-8', 'UTF-8//IGNORE', $rawContent);
-
-		// if ($tempContent && mb_detect_encoding($rawContent, 'UTF-8', true)) {
-			// $rawContent = $tempContent;
-		// } else {
-			// $tempContent = @iconv('UCS-2LE', 'UTF-8//IGNORE', $rawContent);
-
-			// if ($tempContent) {
-				// $rawContent = $tempContent;
-			// } else {
-				// App::abort(404);
-			// }
-		// }
-
+		
 		$rawContent =  	preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
-							str_replace(pack('H*', 'c2a0'), '',
+							str_replace(pack('H*', 'c2a0'), ' ',
 								str_replace(pack('H*', 'efbbbf'), '',
 									str_replace(pack('H*', '00'), '',
 										iconv('UTF-8', 'UTF-8//IGNORE',
@@ -77,14 +62,7 @@ class SiteController extends BaseController {
 								)
 							)
 						);
-						
-		// $rawContent =  
-				// preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
-					// str_replace(pack('H*', 'c2a0'), '',
-						// str_replace(pack('H*', 'efbbbf'), '', $rawContent)
-					// )
-				// );
-
+		
 		if (preg_match('#((<body[^>]*>)(.*?)(</body>))#isu', $rawContent, $body)) {
 			if (preg_match('#<head[^>]*>(.*?)</head>#isu', $rawContent, $head)) {
 				if (preg_match_all('#(<style[^>]*>.*?</style>)#isu', $head[1], $styles)) {
@@ -122,16 +100,16 @@ class SiteController extends BaseController {
 		if ($docObject->defaultDocument) {
 			$searchForm = $teacher = $course = $year = '';
 			
-			preg_match('#(?:ar/)?feqh/archive/(?:text/)?([^/]+)/([^/]+)/([^/]+)#i', Request::path(), $matches);
+			// preg_match('#(?:ar/)?feqh/archive/(?:text/)?([^/]+)/([^/]+)/([^/]+)#i', Request::path(), $matches);
 			
-			if (count($matches) == 4) {
-				$teacher = $matches[1];
-				$course = $matches[2];
-				$year = explode('_', $matches[3]);
-				$year = array_shift($year);
+			// if (count($matches) == 4) {
+				// $teacher = $matches[1];
+				// $course = $matches[2];
+				// $year = explode('_', $matches[3]);
+				// $year = array_shift($year);
 			
-				$searchForm = View::make('search-form', ['teacher' => $teacher, 'course' => $course, 'year' => $year]);
-			}
+				// $searchForm = View::make('search-form', ['teacher' => $teacher, 'course' => $course, 'year' => $year]);
+			// }
 			
 			$this->layout->content = View::make('page', ['content' => $this->_getContent($docObject->completePath), 'searchForm' => $searchForm]);
 		}

@@ -22,7 +22,7 @@ return [
 
 	'view_regex' => [
 	
-		'.*/(alerazi|alheidary|arzooni|bashir_najafi|fazlollah|haery2|iravani|javaheri|khouee|makaremAr|moosavi|sanad)/.*' => 
+		'.*/(alerazi|alheidary|arzooni|bashir_najafi|fazlollah|haery2|iravani|javaheri|khouee|makaremAr|moosavi|sanad|faiyaz|fazeli|sabzevari|Haeri|Haery|modaresi|romaity|heidar_moosavi|Sobaity|taleb|swedan|damavandi|makki|hoseiny|dehnin|namr|alabidan|shahroudiar|ashrafiar|rashadar)/.*' => 
 						['locale' => 'ar', 'layout' => 'layouts.master-ar', 'error_404' => 'error_404-ar'],
 						
 		'/ar$|/ar/.*' => 

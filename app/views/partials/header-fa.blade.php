@@ -1,0 +1,9 @@
+<span><a href="/Ar/">العربیة</a>&zwnj;</span>
+<span><a href="/DownLoad/">دریافت نرم‌افزار</a>&zwnj;</span>
+<span><a href="/Contact/">ارتباط با‌ ما</a>&zwnj;</span>
+<span><a href="/Support/">پشتیبانان</a>&zwnj;</span>
+<span><a href="/News/">تازه‌ها</a>&zwnj;</span>
+<span><a href="/Poster/">تبلیغات</a>&zwnj;</span>
+<span><a href="/feqh/report/asatid/">آمار</a>&zwnj;</span>
+<span><a href="/eshia/">درباره ما</a>&zwnj;</span>
+<span><a href="/map/">نقشه سایت</a>&zwnj;</span>

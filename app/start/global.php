@@ -56,8 +56,8 @@ App::fatal(function($exception)
 	if ( ! Config::get('app.debug'))
 	{
 		$message = Helpers::getExceptionErrorMessage();
-		//return Response::view('error.error', compact('message'), 500);
-		return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
+		
+		return (Request::ajax() ? Response::make('', 500) : Response::view('error.error', compact('message'), 500));
 	}
 });
 
@@ -72,20 +72,20 @@ App::error(function(Exception $exception, $code)
 		switch ($code)
 		{
 			case 403:
-				//return Response::view('error.error', compact('message'), 403);
+				return (Request::ajax() ? Response::make('', 403) : Response::view('error.error', compact('message'), 403));
 				
 			case 405:
-				//return Response::view('error.error', compact('message'), 405);
+				return (Request::ajax() ? Response::make('', 405) : Response::view('error.error', compact('message'), 405));
 
 			case 500:
-				//return Response::view('error.error', compact('message'), 500);
+				return (Request::ajax() ? Response::make('', 500) : Response::view('error.error', compact('message'), 500));
 				
 			case 503:
-				//return Response::view('error.error', compact('message'), 503);
+				return (Request::ajax() ? Response::make('', 503) : Response::view('error.error', compact('message'), 503));
 
 			default:
-				//return Response::view('error.error', compact('message'), 404);
-				return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
+				
+				return (Request::ajax() ? Response::make('', 404) : Response::view('error.error', compact('message'), 404));
 		}
 	}
 });
@@ -93,8 +93,8 @@ App::error(function(Exception $exception, $code)
 App::missing(function($exception)
 {
     $message = Helpers::getExceptionErrorMessage();
-    //return Response::view('error.error', compact('message'), 404);
-	return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
+    
+	return (Request::ajax() ? Response::make('', 404) : Response::view('error.error', compact('message'), 404));
 });
 
 /*
@@ -113,8 +113,8 @@ App::down(function()
 	//return Response::make("Be right back!", 503);
 	
 	$message = Helpers::getExceptionErrorMessage();
-    //return Response::view('error.error', compact('message'), 503);
-	return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
+    
+	return (Request::ajax() ? Response::make('', 503) : Response::view('error.error', compact('message'), 503));
 });
 
 /*
@@ -129,6 +129,27 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| Blade Extends
+|--------------------------------------------------------------------------
+|
+*/
+Blade::extend(function($value)
+{
+	return preg_replace('/@php((.|\s)*?)@endphp/', '<?php $1 ?>', $value);
+});
+
+Blade::extend(function($value)
+{
+	return preg_replace_callback('/@comment((.|\s)*?)@endcomment/',
+              function ($matches) {
+                    return '<?php /* ' . preg_replace('/@|\{/', '\\\\$0\\\\', $matches[1]) . ' */ ?>';
+              },
+              $value
+			);
+});
 
 // Paginator page must be positive
 Input::merge(array(Paginator::getPageName() => abs(Input::get(Paginator::getPageName(), 1))));
