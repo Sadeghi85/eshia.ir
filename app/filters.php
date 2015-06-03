@@ -13,6 +13,14 @@
 
 App::before(function($request)
 {
+	if (stripos(Request::header('referer'), 'old.eshia.ir') !== false)
+	{
+		return Redirect::to(sprintf('http://old.eshia.ir/%s', Request::path()));
+	}
+});
+
+App::before(function($request)
+{
 	$viewRegex = Config::get('app_settings.view_regex');
 	
 	foreach ($viewRegex as $regex => $settings)
