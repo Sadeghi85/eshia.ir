@@ -3,7 +3,7 @@
 return [
 
 	'data_path' => 'E:\\Sites\\eShiaNew\\Data',
-    'data_url' => 'http://phpdata.eshia.ir',
+    'data_url' => 'http://data.eshia.ir',
 	
 	'results_per_page' => 10,
 	'search_result_limit' => 1000,
@@ -23,13 +23,13 @@ return [
 	'view_regex' => [
 	
 		'.*/(alerazi|alheidary|arzooni|bashir_najafi|fazlollah|haery2|iravani|javaheri|khouee|makaremAr|moosavi|sanad|faiyaz|fazeli|sabzevari|Haeri|Haery|modaresi|romaity|heidar_moosavi|Sobaity|taleb|swedan|damavandi|makki|hoseiny|dehnin|namr|alabidan|shahroudiar|ashrafiar|rashadar)/.*' => 
-						['locale' => 'ar', 'layout' => 'layouts.master-ar', 'error_404' => 'error_404-ar'],
+						['locale' => 'ar'],
 						
 		'/ar$|/ar/.*' => 
-						['locale' => 'ar', 'layout' => 'layouts.master-ar', 'error_404' => 'error_404-ar'],
+						['locale' => 'ar'],
 		
 		'.*' => 
-						['locale' => 'fa', 'layout' => 'layouts.master', 'error_404' => 'error_404'],
+						['locale' => 'fa'],
 	],
 	
 ];
