@@ -3,13 +3,18 @@
 use Sadeghi85\Docx2Html\Docx2Html;
 
 class ConvertController extends BaseController {
-
 	
-	public function index($teacher, $course)
+	protected $layout;
+	
+	public function __construct()
+	{
+		$this->layout = 'layouts.master';
+    }
+	
+	public function index($feqh, $archive, $convert, $teacher, $course, $year)
 	{
 		
-		
-		return Response::view('convert', compact('teacher', 'course'));
+		$this->layout->content = View::make('convert', compact('feqh', 'archive', 'convert', 'teacher', 'course', 'year'));
 
 	}
 	
@@ -160,7 +165,7 @@ class ConvertController extends BaseController {
 		}
 		else
 		{
-			$link = '<link href="/assets/css/eShia.css" rel="stylesheet">';
+			$link = '<link href="/styles/eShia.css" rel="stylesheet"><link href="/styles/Default.css" rel="stylesheet">';
 		}
 		
 		$html = <<<EOT
@@ -169,7 +174,13 @@ class ConvertController extends BaseController {
 <meta charset="UTF-8">
 </head>
 <body>
+<div id="content">
+<div class="text-page">
+<div class="course-content">
 {$content}
+</div>
+</div>
+</div>
 </body></html>
 EOT;
 		

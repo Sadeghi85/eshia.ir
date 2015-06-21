@@ -14,7 +14,11 @@
 //Route::get('search/{teacher}/{course}/{year}', 'SearchController@index');
 
 
-//Route::get('convert/{teacher}/{course}', 'ConvertController@index');
-//Route::post('convert/{teacher}/{course}', array('as' => 'convert', 'uses' => 'ConvertController@convert'));
+Route::pattern('feqh', '(?i)feqh(?-i)');
+Route::pattern('archive', '(?i)archive(?-i)');
+Route::pattern('convert', '(?i)convert(?-i)');
+
+Route::get('/{feqh}/{archive}/{convert}/{teacher}/{course}/{year}', 'ConvertController@index');
+Route::post('/{feqh}/{archive}/{convert}/{teacher}/{course}/{year}', array('as' => 'convert', 'uses' => 'ConvertController@convert'));
 
 Route::get('{path}', 'SiteController@index')->where('path', '.*');

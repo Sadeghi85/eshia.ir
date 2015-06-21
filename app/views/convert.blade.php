@@ -1,4 +1,3 @@
-@extends('layout.default')
 
 @section('style')
 @parent
@@ -32,6 +31,7 @@ input.file {
 	filter:alpha(opacity: 0);
 	opacity: 0;
 	z-index: 2;
+	width: 500px;
 }
 
 .iframe-container {
@@ -57,9 +57,7 @@ input.file {
 
 @section('content')
 
-
-
-{{ Form::open(array('route' => array('convert', $teacher, $course), 'class' => 'form-horizontal', 'method' => 'post', 'files' => true, 'id' => 'uploadForm', 'name' => 'uploadForm')) }}
+{{ Form::open(array('route' => array('convert', $feqh, $archive, $convert, $teacher, $course, $year), 'class' => 'form-horizontal', 'method' => 'post', 'files' => true, 'id' => 'uploadForm', 'name' => 'uploadForm')) }}
 	<br>
 	<div class="form-group">
 	
@@ -86,7 +84,7 @@ input.file {
 <!-- Form Actions -->
 <div class="form-group">
 	<button type="submit" class=" btn-primary" name="upload" id="upload">آپلود</button>
-	<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">دانلود زیپ</button>
+	<!--<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">دانلود زیپ</button>-->
 </div>
 {{ Form::close() }}
 
