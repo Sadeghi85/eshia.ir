@@ -22,7 +22,8 @@
 <a href="/Feqh/Archive/Moaser/" style="font-size:0.7em; text-indent:1.5em !important;">بزرگان معاصر</a>
 <a href="/Feqh/Archive/Subject/" style="font-size:0.7em; text-indent:1.5em !important;">فقه موضوعی</a> 
 <a href="/Aqaed/Archive/" style="font-size:0.7em; text-indent:1.5em !important;">کلام و فلسفه</a>
-<a href="/feqh/Archive/tafsir" style="font-size:0.7em; text-indent:1.5em !important;">تفسیر</a>
+<a href="/feqh/Archive/qom/tafsir" style="font-size:0.7em; text-indent:1.5em !important;">تفسیر - قم</a>
+<a href="/feqh/Archive/mashhad/tafsir" style="font-size:0.7em; text-indent:1.5em !important;">تفسیر - مشهد</a>
 <a href="/Feqh/Archive/Rejal/" style="font-size:0.7em; text-indent:1.5em !important;">رجال</a>
 <div class="khat"></div>
 <a href="/Feqh/Archive/Sayeredoroos/" style="font-size:0.7em; text-indent:1.5em !important;">سایر دروس</a>

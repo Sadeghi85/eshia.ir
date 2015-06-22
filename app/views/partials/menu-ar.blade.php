@@ -24,7 +24,8 @@
 <a href="/Feqh/Archive/Subject/" style="font-size:0.7em; text-indent:1.5em !important;">الفقه الموضوعي</a>
 <div class="khat"></div>
 <a href="/Aqaed/Archive/" style="font-size:0.7em; text-indent:1.5em !important;">الکلام و الفلسفة</a>
-<a href="/Feqh/Archive/tafsir/" style="font-size:0.7em; text-indent:1.5em !important;">التفسیر</a>
+<a href="/Feqh/Archive/qom/tafsir/" style="font-size:0.7em; text-indent:1.5em !important;">التفسیر - قم المقدسة</a>
+<a href="/Feqh/Archive/mashhad/tafsir/" style="font-size:0.7em; text-indent:1.5em !important;">التفسیر - مشهد المقدسة</a>
 <a href="/Feqh/Archive/Rejal/" style="font-size:0.7em; text-indent:1.5em !important;">علم الرجال</a>
 <a href="/Ar/Feqh/Archive/Translate/" style="font-size:0.7em; text-indent:1.5em !important;">تقرير الدروس باللغة العربية</a>
 <div class="khat"></div>
