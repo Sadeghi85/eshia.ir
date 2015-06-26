@@ -49,42 +49,55 @@ class SiteController extends BaseController {
 	
 	private function _getContent($pagePath)
 	{
-		$content = '';
-		
-		$rawContent =  	preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
-							str_replace(pack('H*', 'c2a0'), ' ',
-								str_replace(pack('H*', 'efbbbf'), '',
-									str_replace(pack('H*', '00'), '',
-										iconv('UTF-8', 'UTF-8//IGNORE',
-											@file_get_contents($pagePath)
+		if (is_readable($pagePath))
+		{
+			$content = '';
+			
+			$_utf8Content = @iconv('UTF-8', 'UTF-8//IGNORE', file_get_contents($pagePath));
+			If ( ! $_utf8Content)
+			{
+				Log::error(sprintf('Detected an incomplete multibyte character in file "%s".', $pagePath));
+				
+				App::abort('404');
+			}
+			
+			$rawContent =  	preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
+								str_replace(pack('H*', 'c2a0'), ' ',
+									str_replace(pack('H*', 'efbbbf'), '',
+										str_replace(pack('H*', '00'), '',
+											$_utf8Content
 										)
 									)
 								)
-							)
-						);
-		
-		if (preg_match('#((<body[^>]*>)(.*?)(</body>))#isu', $rawContent, $body)) {
-			if (preg_match('#<head[^>]*>(.*?)</head>#isu', $rawContent, $head)) {
-				if (preg_match_all('#(<style[^>]*>.*?</style>)#isu', $head[1], $styles)) {
-					foreach ($styles[1] as $style) {
-						$content .= $style;
+							);
+			
+			if (preg_match('#((<body[^>]*>)(.*?)(</body>))#isu', $rawContent, $body)) {
+				if (preg_match('#<head[^>]*>(.*?)</head>#isu', $rawContent, $head)) {
+					if (preg_match_all('#(<style[^>]*>.*?</style>)#isu', $head[1], $styles)) {
+						foreach ($styles[1] as $style) {
+							$content .= $style;
+						}
+					}
+					
+					if (preg_match_all('#(<script[^>]*>.*?</script>)#isu', $head[1], $scripts)) {
+						foreach ($scripts[1] as $script) {
+							$content .= $script;
+						}
 					}
 				}
-				
-				if (preg_match_all('#(<script[^>]*>.*?</script>)#isu', $head[1], $scripts)) {
-					foreach ($scripts[1] as $script) {
-						$content .= $script;
-					}
-				}
+
+				$content .= $body[1];
+
+			} else {
+				$content = $rawContent;
 			}
-
-			$content .= $body[1];
-
-		} else {
-			$content = $rawContent;
+			
+			return $content;
 		}
-		
-		return $content;
+		else
+		{
+			App::abort(404);
+		}
 	}
 	
 	public function index($requestPath)

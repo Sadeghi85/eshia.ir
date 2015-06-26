@@ -491,11 +491,6 @@ class Docx2Html
         }
     }
 
-
-
-
-    
-
     /**
      * return a text end of line
      *
@@ -505,9 +500,6 @@ class Docx2Html
     {
 	   return "\r\n";
     }
-
-    
-
 
     /** 
      * 
