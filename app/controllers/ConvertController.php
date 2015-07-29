@@ -11,14 +11,47 @@ class ConvertController extends BaseController {
 		$this->layout = 'layouts.master';
     }
 	
-	public function index($feqh, $archive, $convert, $teacher, $course, $year)
+	public function index($feqh, $archive, $convert, $teacher = '', $course = '', $year = '')
 	{
 		
 		$this->layout->content = View::make('convert', compact('feqh', 'archive', 'convert', 'teacher', 'course', 'year'));
 
 	}
 	
-	public function convert($feqh, $archive, $convert, $teacher, $course, $year)
+	public function word()
+	{
+		
+		// Creating the new document...
+		$phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+		/* Note: any element you append to a document must reside inside of a Section. */
+
+		// Adding an empty Section to the document...
+		$section = $phpWord->addSection();
+		// Adding Text element to the Section having font styled by default...
+		$section->addText(
+			htmlspecialchars(
+				'"Learn from yesterday, live for today, hope for tomorrow. '
+					. 'The important thing is not to stop questioning." '
+					. '(Albert Einstein)'
+			)
+		);
+		
+		// Saving the document as OOXML file...
+		$filepath  = storage_path().'\cache\helloWorld.docx';
+		$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+		$objWriter->save($filepath);
+		
+		App::finish(function($request, $response) use ($filepath)
+		{
+			unlink($filepath);
+		});
+			
+		return Response::download($filepath);
+		
+	}
+	
+	public function convert($feqh, $archive, $convert, $teacher = '', $course = '', $year = '')
 	{
 		$validator = Validator::make(Input::all(), ['doc' => 'required']);
 	
@@ -42,7 +75,7 @@ class ConvertController extends BaseController {
 			$converter = new Docx2Html($doc->getRealPath());
 		}
 		catch (\Exception $e)
-		{
+		{dd($e);
 			//return Response::json(array('content' => 'Error'));
 			App::abort(404);
 		}
@@ -111,29 +144,39 @@ class ConvertController extends BaseController {
 </body></html>
 EOT;
 		
-		// if ( ! is_null(Input::get('download')))
-		// {
-			// $filename = trim(preg_replace('/[^\x20-\x7e]*/', '', str_replace('.'.$doc->getClientOriginalExtension(), '', $doc->getClientOriginalName())));
-			// $filename = $filename ? $filename : md5(microtime(true));
+		if ( ! is_null(Input::get('download')))
+		{
+			$html = str_ireplace('<link href="/', '<link href="', $html);
 			
-			// $filepath = storage_path().'/'.$filename.'.zip';
-			// $zip = new \ZipArchive();
-			// $res = $zip->open($filepath, ZipArchive::CREATE);
+			$filename = trim(preg_replace('/[^\x20-\x7e]*/', '', str_replace('.'.$doc->getClientOriginalExtension(), '', $doc->getClientOriginalName())));
+			$filename = $filename ? $filename : md5(microtime(true));
 			
-			// if (version_compare(PHP_VERSION, '5.4.0') < 0) $zip->addEmptyDir($filename);
-			// $zip->addFromString($filename.'/eShia.css', file_get_contents(public_path().'/assets/css/eShia.css'));
-			// $zip->addFromString($filename.'/Default.htm', $html);
-			// $zip->close();
+			$filepath = storage_path().'/cache/'.$filename.'.zip';
+			$zip = new \ZipArchive();
+			$res = $zip->open($filepath, ZipArchive::CREATE);
+			
+			if (version_compare(PHP_VERSION, '5.4.0') < 0)
+			{
+				$zip->addEmptyDir($filename);
+				$zip->addEmptyDir($filename.'/Styles');
+				$zip->addEmptyDir($filename.'/Styles/Fonts');
+			}
+			$zip->addFromString($filename.'/Styles/eShia.css', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\eShia.css'));
+			$zip->addFromString($filename.'/Styles/Default.css', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Default.css'));
+			$zip->addFromString($filename.'/Styles/Fonts/eshiatrad.eot', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.eot'));
+			$zip->addFromString($filename.'/Styles/Fonts/eshiatrad.ttf', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.ttf'));
+			$zip->addFromString($filename.'/Default.htm', $html);
+			$zip->close();
 			
 			
-			// App::finish(function($request, $response) use ($filepath)
-			// {
-				// unlink($filepath);
-			// });
+			App::finish(function($request, $response) use ($filepath)
+			{
+				unlink($filepath);
+			});
 			
-			// return Response::download($filepath);
+			return Response::download($filepath);
 			
-		// }
+		}
 		
 		return Response::json(array('content' => $html));
 

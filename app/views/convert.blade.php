@@ -84,7 +84,7 @@ input.file {
 <!-- Form Actions -->
 <div class="form-group">
 	<button type="submit" class=" btn-primary" name="upload" id="upload">آپلود</button>
-	<!--<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">دانلود زیپ</button>-->
+	<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">دانلود زیپ</button>
 </div>
 {{ Form::close() }}
 

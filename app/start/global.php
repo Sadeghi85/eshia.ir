@@ -61,6 +61,14 @@ App::fatal(function($exception)
 	}
 });
 
+App::error(function(\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException $exception)
+{
+	Log::error(Route::current());
+    Log::error($exception);
+
+    Response::make('', 405);
+});
+
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);

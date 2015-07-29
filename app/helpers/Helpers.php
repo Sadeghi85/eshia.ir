@@ -135,7 +135,7 @@ class Helpers {
 								return
 									sprintf
 									(
-										'<ref>[%s %s %s%s %s %s%s]</ref>',
+										'<ref><a href="%s" target="_blank">%s %s%s %s %s%s</a></ref>',
 										$link,
 										$matches[1],
 										$matches[2],
@@ -169,25 +169,24 @@ class Helpers {
 	
 	public static function insertSomethingInFootnote($content)
 	{
+	//die($content);
 	
-	
-		$outlink_counter = 0;
-		$content = preg_replace_callback('#(?:^|>)[^<]*#i',
-		//$content = preg_replace_callback('#<ref>([^\r\n]+?)</ref>#i',
-				function ($matches) use (&$outlink_counter)
-				{
-					return preg_replace_callback('#(?<!\[)\[ *([^\[\]\r\n ]+) *([^\[\]\r\n]*) *\](?!\])#iu',
-								function ($_outlink_matches) use (&$outlink_counter)
-								{
-									$outlink_counter++;
+		// $outlink_counter = 0;
+		// $content = preg_replace_callback('#(?:^|>)[^<]*#i',
+				// function ($matches) use (&$outlink_counter)
+				// {
+					// return preg_replace_callback('#(?<!\[)\[ *([^\[\]\r\n ]+) *([^\[\]\r\n]*) *\](?!\])#iu',
+								// function ($_outlink_matches) use (&$outlink_counter)
+								// {
+									// $outlink_counter++;
 									
-									$title = ($_outlink_matches[2] ? $_outlink_matches[2] : '['.$outlink_counter.']');
+									// $title = ($_outlink_matches[2] ? $_outlink_matches[2] : '['.$outlink_counter.']');
 									
-									return '<a href="'.$_outlink_matches[1].'" title="'.$title.'" name="outlink" target="_blank">'.$title.'</a><span class="outlink">&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-								},
-							$matches[0]);
-				},
-			$content);
+									// return '<a href="'.$_outlink_matches[1].'" title="'.$title.'" name="outlink" target="_blank">'.$title.'</a><span class="outlink">&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+								// },
+							// $matches[0]);
+				// },
+			// $content);
 
 		$ref_matches = array();
 		$footnotes = '';
@@ -214,7 +213,7 @@ class Helpers {
 
 		}
 
-		$content = '<div>'.$content . '</div><hr>' . $footnotes;
+		$content = '<div>'.$content . '</div>' . ($footnotes ? '<hr>'.$footnotes : '');
 		
 		$content = preg_replace_callback('#(?:^|>)[^<]*#i',
 			function ($matches)

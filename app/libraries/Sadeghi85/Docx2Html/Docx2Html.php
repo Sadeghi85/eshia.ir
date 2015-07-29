@@ -17,18 +17,25 @@ class Docx2Html
     private $domDocument;
 	
 	/**
-     * object domXPath
+     * object domDocument from footnotes.xml
      * @var string
      * @access private
      */
-	private $xpath;
+    private $domFootnote;
     
     /**
      * xml from document.xml
      * @var string
      * @access private
      */
-    private $_document; 
+    private $_document;
+	
+	/**
+     *  xml from footnote
+     * @var string
+     * @access private
+     */
+    private $_footnote;
     
     /**
      * xml from numbering.xml
@@ -37,23 +44,20 @@ class Docx2Html
      */
     private $_numbering;
     
-    /**
-     *  xml from footnote
-     * @var string
-     * @access private
-     */
-    private $_footnote;
-	
 	private $_footnoteRelation;
+	
+	private $_documentRelation;
     
     /**
      * array of all the footnotes of the document
      * @var string
      * @access private
      */
-    private $footnotes;
+    #private $footnotes;
 	
 	private $footnoteRelations;
+	
+	private $documentRelations;
 
     /**
      * array of characters to insert like a list
@@ -88,6 +92,7 @@ class Docx2Html
 		$this->list2html = isset($options['list']) ? (bool) $options['list'] : true;
 
 		$this->domDocument = new \DomDocument();
+		$this->domFootnote = new \DomDocument();
 		
         $this->htmlOutput = '';  
         $this->docx = null;
@@ -100,7 +105,10 @@ class Docx2Html
         if (true === ($ZipArchiveErrorCode = $this->docx->open($docPath)))
 		{
             $this->_document = $this->docx->getFromName('word/document.xml');
+			$this->_documentRelation = $this->docx->getFromName('word/_rels/document.xml.rels');
+			
 			$this->_numbering = $this->docx->getFromName('word/numbering.xml');
+			
             $this->_footnote = $this->docx->getFromName('word/footnotes.xml');
             $this->_footnoteRelation = $this->docx->getFromName('word/_rels/footnotes.xml.rels');
         }
@@ -128,11 +136,14 @@ class Docx2Html
             throw new Docx2HtmlException('Can\'t open the document.');
         }
 		
-		//use the xpath to get expecific children from a node
-        $this->xpath = new \DOMXPath($this->domDocument);
-		
-		$this->_loadFootnotes();
+		if ($this->_footnote and ! $this->domFootnote->loadXML($this->_footnote))
+		{
+            throw new Docx2HtmlException('Can\'t open the document.');
+        }
+
+		#$this->_loadFootnotes();
 		$this->_loadFootnoteRelations();
+		$this->_loadDocumentRelations();
 		
 		$this->_convert();
     }
@@ -144,20 +155,17 @@ class Docx2Html
      */
     private function _convert()
     {
-        //get the body node to check the content from all his children
-        $bodyNode = $this->domDocument->getElementsByTagNameNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 'body');
-        //We get the body node. it is known that there is only one body tag
-        $bodyNode = $bodyNode->item(0);
+		$xpath = new \DOMXPath($this->domDocument);
 		
-        foreach($bodyNode->childNodes as $key => $child)
+		//get the body node to check the content from all its children. it is known that there is only one body tag
+        $bodyNode = $this->domDocument->getElementsByTagNameNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 'body');
+		
+        $query = 'w:p';
+		$paragraphs = $xpath->query($query, $bodyNode->item(0));
+		
+        foreach($paragraphs as $paragraph)
 		{
-			if ($child->localName == 'p')
-			{
-				
-				//this node is a paragraph
-				//if ($key == 2) //die(var_dump($child));
-				$this->htmlOutput .= sprintf('<p>%s</p>', $this->_render($child));
-			}
+			$this->htmlOutput .= sprintf('<p>%s</p>', $this->_render($paragraph));
         }
     }
 	
@@ -171,13 +179,15 @@ class Docx2Html
     {
 		$ret = '';
 		
-        $query = 'w:r';
-		$xmlRuns = $this->xpath->query($query, $node);
+		$xpath = new \DOMXPath($this->domDocument);
+		
+        $query = './/w:r';
+		$xmlRuns = $xpath->query($query, $node);
 		
 		foreach ($xmlRuns as $xmlRun)
 		{
 			$query = 'w:footnoteReference';
-			$footnoteReference = $this->xpath->query($query, $xmlRun);
+			$footnoteReference = $xpath->query($query, $xmlRun);
 			if ($footnoteReference->length)
 			{
 				$ret .= $this->_renderFootnote($footnoteReference->item(0));
@@ -185,29 +195,37 @@ class Docx2Html
 			}
 			
 			$query = 'w:cr';
-			$cr = $this->xpath->query($query, $xmlRun);
+			$cr = $xpath->query($query, $xmlRun);
 			if ($cr->length)
 			{
 				$ret .= '<br/>';
 				continue;
 			}
 			
+			$query = '..';
+			$hyperlink = $xpath->query($query, $xmlRun);
+			$hyperlinkTarget = '';
+			if ($hyperlink->item(0)->localName == 'hyperlink')
+			{
+				$hyperlinkTarget = $this->documentRelations[$hyperlink->item(0)->getAttribute('r:id')];
+			}
+			
 			$query = 'w:t';
-			$text = $this->xpath->query($query, $xmlRun);
+			$text = $xpath->query($query, $xmlRun);
 			if ($text->length)
 			{
 				$tmpText = $text->item(0)->textContent;
 				
 				$query = 'w:rPr/w:color';
-				$color = $this->xpath->query($query, $xmlRun);
+				$color = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:b';
-				$bold = $this->xpath->query($query, $xmlRun);
+				$bold = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:i';
-				$italic = $this->xpath->query($query, $xmlRun);
+				$italic = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:u';
-				$underline = $this->xpath->query($query, $xmlRun);
+				$underline = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:strike';
-				$strike = $this->xpath->query($query, $xmlRun);
+				$strike = $xpath->query($query, $xmlRun);
 				
 				if ($color->length)
 				{
@@ -234,8 +252,13 @@ class Docx2Html
 					$tmpText = sprintf('<strike>%s</strike>', $tmpText);
 				}
 				
+				if ($hyperlinkTarget)
+				{
+					$tmpText = sprintf('<a href="%s" target="_blank">%s</a>', $hyperlinkTarget, $tmpText);
+				}
+				
 				$ret .= $tmpText;
-				continue;
+				
 			}
 			
 		}
@@ -345,14 +368,101 @@ class Docx2Html
 
 	private function _renderFootnote($node) 
     {
-		$text = $this->footnotes[$node->getAttribute('w:id')]['text'];
+		$xpath = new \DOMXPath($this->domFootnote);
 		
-		if (isset($this->footnotes[$node->getAttribute('w:id')]['hyperlinkId']))
+        $footnotesNode = $this->domDocument->getElementsByTagNameNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 'footnotes');
+		
+		$query = sprintf('%s[@%s=%s]', 'w:footnote', 'w:id', $node->getAttribute('w:id'));
+		$footnoteNode = $xpath->query($query, $footnotesNode->item(0));
+		
+        $query = './/w:r';
+		$xmlRuns = $xpath->query($query, $footnoteNode->item(0));
+		
+		$ret = '';
+		
+		foreach ($xmlRuns as $key => $xmlRun)
 		{
-			return sprintf('<ref>[%s %s]</ref>', $this->footnoteRelations[$this->footnotes[$node->getAttribute('w:id')]['hyperlinkId']], $text);
+			$query = 'w:cr';
+			$cr = $xpath->query($query, $xmlRun);
+			if ($cr->length)
+			{
+				$ret .= '<br/>';
+				continue;
+			}
+			
+			$query = '..';
+			$hyperlink = $xpath->query($query, $xmlRun);
+			$hyperlinkTarget = '';
+			if ($hyperlink->item(0)->localName == 'hyperlink')
+			{
+				$hyperlinkTarget = $this->footnoteRelations[$hyperlink->item(0)->getAttribute('r:id')];
+			}
+			
+			$query = 'w:t';
+			$text = $xpath->query($query, $xmlRun);
+			if ($text->length)
+			{
+				$tmpText = $text->item(0)->textContent;
+				
+				$query = 'w:rPr/w:color';
+				$color = $xpath->query($query, $xmlRun);
+				$query = 'w:rPr/w:b';
+				$bold = $xpath->query($query, $xmlRun);
+				$query = 'w:rPr/w:i';
+				$italic = $xpath->query($query, $xmlRun);
+				$query = 'w:rPr/w:u';
+				$underline = $xpath->query($query, $xmlRun);
+				$query = 'w:rPr/w:strike';
+				$strike = $xpath->query($query, $xmlRun);
+				
+				if ($color->length)
+				{
+					$tmpText = sprintf('<span class="%s">%s</span>', $color->item(0)->getAttribute('w:val'), $tmpText);
+				}
+				
+				if ($bold->length)
+				{
+					$tmpText = sprintf('<b>%s</b>', $tmpText);
+				}
+				
+				if ($italic->length)
+				{
+					$tmpText = sprintf('<i>%s</i>', $tmpText);
+				}
+				
+				if ($underline->length)
+				{
+					$tmpText = sprintf('<u>%s</u>', $tmpText);
+				}
+				
+				if ($strike->length)
+				{
+					$tmpText = sprintf('<strike>%s</strike>', $tmpText);
+				}
+				
+				if ($hyperlinkTarget)
+				{
+					$tmpText = sprintf('<a href="%s" target="_blank">%s</a>', $hyperlinkTarget, $tmpText);
+				}
+				
+				$ret .= $tmpText;
+				
+			}
+			
 		}
 		
-		return sprintf('<ref>%s</ref>', $text);
+		$ret = $ret ? trim($ret) : '&nbsp;';
+		
+        return sprintf('<ref>%s</ref>', $ret);
+		
+		// $text = $this->footnotes[$node->getAttribute('w:id')]['text'];
+		
+		// if (isset($this->footnotes[$node->getAttribute('w:id')]['hyperlinkId']))
+		// {
+			// return sprintf('<ref>[%s %s]</ref>', $this->footnoteRelations[$this->footnotes[$node->getAttribute('w:id')]['hyperlinkId']], $text);
+		// }
+		
+		// return sprintf('<ref>%s</ref>', $text);
     }
 	
     /**
@@ -360,46 +470,47 @@ class Docx2Html
      *
      * @access private
      */
-    private function _loadFootnotes()
-    {
-        if (empty($this->footnotes))
-		{
-            if ($this->_footnote)
-			{
-                $domDocument = new \DomDocument();
-                $domDocument->loadXML($this->_footnote);
-				$footnotes = $domDocument->getElementsByTagName('footnotes');
-				$footnotes = $footnotes->item(0);
+    // private function _loadFootnotes()
+    // {
+        // if (empty($this->footnotes))
+		// {
+            // if ($this->_footnote)
+			// {
+                // $domDocument = new \DomDocument();
+                // $domDocument->loadXML($this->_footnote);
+				// $footnotes = $domDocument->getElementsByTagName('footnotes');
 				
-				$xpath = new \DOMXPath($domDocument);
+				// $xpath = new \DOMXPath($domDocument);
 				
-                foreach ($footnotes->childNodes as $footnote)
-				{
-					if ($footnote->getAttribute('w:id') < 1)
-						continue;
+                // foreach ($footnotes->item(0)->childNodes as $footnote)
+				// {
+					// if ($footnote->getAttribute('w:id') < 1)
+					// {
+						// continue;
+					// }
 						
-					$query = 'w:p/w:r/w:t|w:p/w:hyperlink/w:r/w:t';
-					$texts = $xpath->query($query, $footnote);
-					$text = '';
+					// $query = 'w:p/w:r/w:t|w:p/w:hyperlink/w:r/w:t';
+					// $texts = $xpath->query($query, $footnote);
+					// $text = '';
 					
-					foreach ($texts as $t)
-					{
-						$text .= $t->textContent;
-					}
+					// foreach ($texts as $t)
+					// {
+						// $text .= $t->textContent;
+					// }
 					
-					$this->footnotes[$footnote->getAttribute('w:id')]['text'] = trim($text);
+					// $this->footnotes[$footnote->getAttribute('w:id')]['text'] = trim($text);
 					
-					$query = 'w:p/w:hyperlink';
-					$hyperlink = $xpath->query($query, $footnote);
+					// $query = 'w:p/w:hyperlink';
+					// $hyperlink = $xpath->query($query, $footnote);
 
-					if ($hyperlink->length)
-					{
-						$this->footnotes[$footnote->getAttribute('w:id')]['hyperlinkId'] = $hyperlink->item(0)->getAttribute('r:id');
-					}
-                }
-            }
-        }
-    }
+					// if ($hyperlink->length)
+					// {
+						// $this->footnotes[$footnote->getAttribute('w:id')]['hyperlinkId'] = $hyperlink->item(0)->getAttribute('r:id');
+					// }
+                // }
+            // }
+        // }
+    // }
 	
 	private function _loadFootnoteRelations()
     {
@@ -415,6 +526,24 @@ class Docx2Html
                 foreach ($footnoteRelations->childNodes as $footnoteRelation)
 				{
                     $this->footnoteRelations[$footnoteRelation->getAttribute('Id')] = $footnoteRelation->getAttribute('Target');
+                }
+            }
+        }
+    }
+	
+	private function _loadDocumentRelations()
+    {
+        if (empty($this->documentRelations))
+		{
+            if ($this->_documentRelation)
+			{
+                $domDocument = new \DomDocument();
+                $domDocument->loadXML($this->_documentRelation);
+                $documentRelations = $domDocument->getElementsByTagName('Relationships');
+				
+                foreach ($documentRelations->item(0)->childNodes as $documentRelation)
+				{
+                    $this->documentRelations[$documentRelation->getAttribute('Id')] = $documentRelation->getAttribute('Target');
                 }
             }
         }
