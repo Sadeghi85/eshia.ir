@@ -165,7 +165,7 @@ class Docx2Html
 		
         foreach($paragraphs as $paragraph)
 		{
-			$this->htmlOutput .= sprintf('<p>%s</p>', $this->_render($paragraph));
+			$this->htmlOutput .= sprintf('<p>%s</p>', $this->_renderParagraph($paragraph));
         }
     }
 	
@@ -175,7 +175,7 @@ class Docx2Html
      * @access private
      * @param $node is an object DOMNode
      */
-    private function _render($node) 
+    private function _renderParagraph($node) 
     {
 		$ret = '';
 		
@@ -202,12 +202,20 @@ class Docx2Html
 				continue;
 			}
 			
+			$query = 'w:sym';
+			$symbol = $xpath->query($query, $xmlRun);
+			if ($symbol->length)
+			{
+				$ret .= sprintf('<sup>%s</sup>', $this->_renderSymbol($symbol->item(0)->getAttribute('w:char')));
+				continue;
+			}
+			
 			$query = '..';
 			$hyperlink = $xpath->query($query, $xmlRun);
 			$hyperlinkTarget = '';
 			if ($hyperlink->item(0)->localName == 'hyperlink')
 			{
-				$hyperlinkTarget = $this->documentRelations[$hyperlink->item(0)->getAttribute('r:id')];
+				$hyperlinkTarget = @$this->documentRelations[$hyperlink->item(0)->getAttribute('r:id')];
 			}
 			
 			$query = 'w:t';
@@ -347,7 +355,121 @@ class Docx2Html
      */
 	public function getHtml()
 	{
+		$this->htmlOutput = $this->_cleanHtml($this->htmlOutput);
+		$this->htmlOutput = $this->_insertSurehInFootnote($this->htmlOutput);
+		
+		
+		
 		return $this->htmlOutput;
+	}
+	
+	private function _insertSurehInFootnote($content)
+	{
+		$content = preg_replace('#</ref>#', "</ref>\r\n", $content);
+		
+		$content = preg_replace_callback(
+						sprintf
+						(
+							'#<ref>.*?(%s|%s|%s)\s*([\p{L} \p{M}]+)\s*%s\s*(%s|%s|%s|%s|%s|%s|%s|%s)\s*(\d+)([^<]*)</ref>#iu',
+							# سوره
+							base64_decode('2LPZiNix2Yc='),
+							# سورة
+							base64_decode('2LPZiNix2Kk='),
+							# السورة
+							base64_decode('2KfZhNiz2YjYsdip'),
+							# ،
+							base64_decode('2Iw='),
+							# آیه
+							base64_decode('2KLbjNmH'),
+							# آيه
+							base64_decode('2KLZitmH'),
+							# آية
+							base64_decode('2KLZitip'),
+							# الآية
+							base64_decode('2KfZhNii2YrYqQ=='),
+							# ایه
+							base64_decode('2KfbjNmH'),
+							# ايه
+							base64_decode('2KfZitmH'),
+							# اية
+							base64_decode('2KfZitip'),
+							# الاية
+							base64_decode('2KfZhNin2YrYqQ==')
+						),
+						function ($matches)
+						{
+							$persianizedSurehString = preg_replace
+								(
+									# ال
+									sprintf('#^%s\s*#iu', base64_decode('2KfZhA==')),
+									'',	\Helpers::persianizeString($matches[2])
+								);
+							
+							$surehList   = \Config::get('sureh.list');
+							
+							$surehString = array_key_exists($persianizedSurehString, $surehList) ? $persianizedSurehString : '';
+							
+							if ($surehString)
+							{
+								$sureh = $surehList[$surehString][1];
+								$page = 0;
+								foreach ($sureh as $k => $v)
+								{
+									if ($matches[4] >= $k)
+									{
+										$page = $v;
+									}
+								}
+								$link = sprintf('http://lib.eshia.ir/17001/1/%s/%s', $page, $matches[4]);
+								
+								return
+									sprintf
+									(
+										'<ref><a href="%s" target="_blank">%s %s%s %s %s%s</a></ref>',
+										$link,
+										$matches[1],
+										$matches[2],
+										# ،
+										base64_decode('2Iw='),
+										$matches[3],
+										$matches[4],
+										$matches[5]
+									);
+							}
+							else
+							{
+								return $matches[0];
+							}
+						},
+						
+						$content
+					);
+	
+		return $content;
+	}
+	
+	private function _cleanHtml($content)
+	{
+		$utf8Content = @iconv('UTF-8', 'UTF-8//IGNORE', $content);
+		
+		If ( ! $utf8Content)
+		{
+			Log::error(sprintf('Detected an incomplete multibyte character in string "%s".', base64_encode($content)));
+			
+			throw new Docx2HtmlException('Detected an incomplete multibyte character.');
+		}
+		
+		$content =  preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
+						str_replace(pack('H*', 'c2a0'), ' ',
+							str_replace(pack('H*', 'efbbbf'), '',
+								str_replace(pack('H*', '00'), '',
+									$utf8Content
+								)
+							)
+						)
+					);
+		
+		return $content;
 	}
 
     /**
@@ -366,6 +488,49 @@ class Docx2Html
 		return true;
     }
 
+	private function _renderSymbol($charCode)
+	{
+		$charCode = strtolower($charCode);
+		
+		switch ($charCode)
+		{
+			case 'f028':
+				return '(';
+			case 'f029':
+				return ')';
+			case 'f030':
+				# قدس‌سرهما
+				return base64_decode('2YLYr9iz4oCM2LPYsdmH2YXYpw==');
+			case 'f031':
+				# قدس‌سره
+				return base64_decode('2YLYr9iz4oCM2LPYsdmH');
+			case 'f033':
+				# علیها‌السلام
+				return base64_decode('2LnZhNuM2YfYp+KAjNin2YTYs9mE2KfZhQ==');
+			case 'f035':
+				# قدس‌سرهم
+				return base64_decode('2YLYr9iz4oCM2LPYsdmH2YU=');
+			case 'f037':
+				# علیه‌السلام
+				return base64_decode('2LnZhNuM2YfigIzYp9mE2LPZhNin2YU=');
+			case 'f038':
+				# علیهما‌السلام
+				return base64_decode('2LnZhNuM2YfZhdin4oCM2KfZhNiz2YTYp9mF');
+			case 'f039':
+				# صلی‌الله علیه و آله
+				return base64_decode('2LXZhNuM4oCM2KfZhNmE2Ycg2LnZhNuM2Ycg2Ygg2KLZhNmH');
+			case 'f03a':
+				# علیهم‌السلام
+				return base64_decode('2LnZhNuM2YfZheKAjNin2YTYs9mE2KfZhQ==');
+			case 'f03b':
+				# رحمه‌الله
+				return base64_decode('2LHYrdmF2YfigIzYp9mE2YTZhw==');
+				
+		}
+
+		
+	}
+	
 	private function _renderFootnote($node) 
     {
 		$xpath = new \DOMXPath($this->domFootnote);
@@ -387,6 +552,14 @@ class Docx2Html
 			if ($cr->length)
 			{
 				$ret .= '<br/>';
+				continue;
+			}
+			
+			$query = 'w:sym';
+			$symbol = $xpath->query($query, $xmlRun);
+			if ($symbol->length)
+			{
+				$ret .= sprintf('<sup>%s</sup>', $this->_renderSymbol($symbol->item(0)->getAttribute('w:char')));
 				continue;
 			}
 			
