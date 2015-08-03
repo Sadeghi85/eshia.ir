@@ -21,8 +21,8 @@ Route::pattern('convert', '(?i)convert(?-i)');
 Route::get('/{feqh}/{archive}/word', 'ConvertController@word');
 
 Route::get('/{feqh}/{archive}/{convert}/{teacher}/{course}/{year}', 'ConvertController@index');
-Route::get('/{feqh}/{archive}/{convert}/ar', 'ConvertController@index');
-Route::get('/{feqh}/{archive}/{convert}/fa', 'ConvertController@index');
+Route::get('/{feqh}/{archive}/{convert}/{ar}', 'ConvertController@index');
+Route::get('/{feqh}/{archive}/{convert}/{fa}', 'ConvertController@index');
 Route::post('/{feqh}/{archive}/{convert}/{teacher?}/{course?}/{year?}', array('as' => 'convert', 'uses' => 'ConvertController@convert'));
 
 Route::get('{path}', 'SiteController@index')->where('path', '.*');

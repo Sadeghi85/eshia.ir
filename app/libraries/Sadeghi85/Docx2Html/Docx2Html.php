@@ -357,7 +357,9 @@ class Docx2Html
 	{
 		$this->htmlOutput = $this->_cleanHtml($this->htmlOutput);
 		$this->htmlOutput = $this->_insertSurehInFootnote($this->htmlOutput);
-		
+		$this->htmlOutput = $this->_createFootnotes($this->htmlOutput);
+		# the font shows latin numbers as arabic
+		//$this->htmlOutput = $this->_convertNumbersToArabic($this->htmlOutput);
 		
 		
 		return $this->htmlOutput;
@@ -370,7 +372,7 @@ class Docx2Html
 		$content = preg_replace_callback(
 						sprintf
 						(
-							'#<ref>.*?(%s|%s|%s)\s*([\p{L} \p{M}]+)\s*%s\s*(%s|%s|%s|%s|%s|%s|%s|%s)\s*(\d+)([^<]*)</ref>#iu',
+							'#<ref>.*?(?:%s|%s|%s)\s*([\p{L} \p{M}]+)\s*%s\s*(?:%s|%s|%s|%s|%s|%s|%s|%s)\s*(\d+)([^<]*)</ref>#iu',
 							# سوره
 							base64_decode('2LPZiNix2Yc='),
 							# سورة
@@ -402,7 +404,7 @@ class Docx2Html
 								(
 									# ال
 									sprintf('#^%s\s*#iu', base64_decode('2KfZhA==')),
-									'',	\Helpers::persianizeString($matches[2])
+									'',	\Helpers::persianizeString($matches[1])
 								);
 							
 							$surehList   = \Config::get('sureh.list');
@@ -415,26 +417,53 @@ class Docx2Html
 								$page = 0;
 								foreach ($sureh as $k => $v)
 								{
-									if ($matches[4] >= $k)
+									if ($matches[2] >= $k)
 									{
 										$page = $v;
 									}
 								}
-								$link = sprintf('http://lib.eshia.ir/17001/1/%s/%s', $page, $matches[4]);
+								$link = sprintf('http://lib.eshia.ir/17001/1/%s/%s', $page, $matches[2]);
 								
-								return
-									sprintf
-									(
-										'<ref><a href="%s" target="_blank">%s %s%s %s %s%s</a></ref>',
-										$link,
-										$matches[1],
-										$matches[2],
-										# ،
-										base64_decode('2Iw='),
-										$matches[3],
-										$matches[4],
-										$matches[5]
-									);
+								switch (\App::getLocale())
+								{
+									case 'ar':
+										return
+											sprintf
+											(
+												'<ref><a href="%s" target="_blank">%s/%s %s%s %s %s%s</a></ref>',
+												$link,
+												$matches[1],
+												# السورة
+												base64_decode('2KfZhNiz2YjYsdip'),
+												$surehList[$surehString][0],
+												# ،
+												base64_decode('2Iw='),
+												# الآية
+												base64_decode('2KfZhNii2YrYqQ=='),
+												$matches[2],
+												$matches[3]
+											);
+									break;
+									case 'fa':
+									default:
+										return
+											sprintf
+											(
+												'<ref><a href="%s" target="_blank">%s/%s %s%s %s %s%s</a></ref>',
+												$link,
+												$matches[1],
+												# سوره
+												base64_decode('2LPZiNix2Yc='),
+												$surehList[$surehString][0],
+												# ،
+												base64_decode('2Iw='),
+												# آیه
+												base64_decode('2KLbjNmH'),
+												$matches[2],
+												$matches[3]
+											);
+									
+								}
 							}
 							else
 							{
@@ -445,6 +474,66 @@ class Docx2Html
 						$content
 					);
 	
+		return $content;
+	}
+	
+	private function _createFootnotes($content)
+	{
+		$refMatches = [];
+		$footnotes = '';
+		
+		$content = preg_replace_callback('#<ref>([^\r\n]+?)</ref>#i',
+						function ($matches) use (&$refMatches)
+						{
+							static $c = 0;
+							
+							$refMatches[] = $matches[1];
+							$c++;
+							
+							return '<a href="#_ftn'.$c.'" name="_ftnref'.$c.'" title="'.strip_tags($matches[1]).'">['.$c.']</a>';
+						},
+					$content);
+			
+		if(isset($refMatches[0]))
+		{
+			foreach($refMatches as $k => $v )
+			{
+				$footnotes .= '<div><a href="#_ftnref'.($k+1).'" name="_ftn'.($k+1).'">['.($k+1).']</a> '.$v.'</div>'; 
+			}
+
+		}
+
+		$content = '<div>'.$content.'</div>'.($footnotes ? '<hr>'.$footnotes : '');
+		
+		return $content;
+	}
+	
+	private function _convertNumbersToArabic($content)
+	{
+		$content = preg_replace_callback('#(?:^|>)[^<]*#i',
+			function ($matches)
+			{
+				return str_replace(
+						array('0','1','2','3','4','5','6','7','8','9'),
+						array(pack('H*', 'd9a0'),pack('H*', 'd9a1'),pack('H*', 'd9a2'),pack('H*', 'd9a3'),pack('H*', 'd9a4'),pack('H*', 'd9a5'),pack('H*', 'd9a6'),pack('H*', 'd9a7'),pack('H*', 'd9a8'),pack('H*', 'd9a9')),
+						$matches[0]
+					);
+			},
+		$content);
+		
+		$content = preg_replace_callback('#(<script[^>]*>)([^<]*)(</script>)#i',
+			function ($matches)
+			{
+				return sprintf('%s%s%s', $matches[1], 
+					str_replace(
+						array(pack('H*', 'd9a0'),pack('H*', 'd9a1'),pack('H*', 'd9a2'),pack('H*', 'd9a3'),pack('H*', 'd9a4'),pack('H*', 'd9a5'),pack('H*', 'd9a6'),pack('H*', 'd9a7'),pack('H*', 'd9a8'),pack('H*', 'd9a9')),
+						array('0','1','2','3','4','5','6','7','8','9'),
+						$matches[2]
+					),
+					$matches[3]);
+			},
+		$content);
+		
 		return $content;
 	}
 	

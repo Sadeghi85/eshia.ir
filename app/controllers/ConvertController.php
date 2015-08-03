@@ -75,37 +75,12 @@ class ConvertController extends BaseController {
 			$converter = new Docx2Html($doc->getRealPath());
 		}
 		catch (\Exception $e)
-		{dd($e);
+		{
 			//return Response::json(array('content' => 'Error'));
 			App::abort(404);
 		}
 		
 		$content = $converter->getHtml();
-		
-		$_utf8Content = @iconv('UTF-8', 'UTF-8//IGNORE', $content);
-		If ( ! $_utf8Content)
-		{
-			Log::error(sprintf('Detected an incomplete multibyte character in string "%s".', base64_encode($content)));
-			
-			App::abort('404');
-		}
-		
-		$content =  preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
-						str_replace(pack('H*', 'c2a0'), ' ',
-							str_replace(pack('H*', 'efbbbf'), '',
-								str_replace(pack('H*', '00'), '',
-									$_utf8Content
-								)
-							)
-						)
-					);
-		
-		$content = Helpers::insertSurehInFootnote($content);
-		$content = Helpers::insertSomethingInFootnote($content);
-		
-		
-		
-		
 		
 		foreach (Config::get('eshia') as $color => $class)
 		{

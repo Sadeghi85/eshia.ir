@@ -57,7 +57,26 @@ input.file {
 
 @section('content')
 
-{{ Form::open(array('route' => array('convert', $feqh, $archive, $convert, $teacher, $course, $year), 'class' => 'form-horizontal', 'method' => 'post', 'files' => true, 'id' => 'uploadForm', 'name' => 'uploadForm')) }}
+{{ Form::open(
+		[
+			'route' =>
+						[
+							'convert',
+							$feqh,
+							$archive,
+							$convert,
+							$teacher,
+							$course,
+							$year
+						],
+			'class' => 'form-horizontal',
+			'method' => 'post',
+			'files' => true,
+			'id' => 'uploadForm',
+			'name' => 'uploadForm'
+		]
+	)
+}}
 	<br>
 	<div class="form-group">
 	

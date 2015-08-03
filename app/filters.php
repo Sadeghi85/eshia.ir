@@ -32,17 +32,17 @@ App::before(function($request)
 				case 'ar':
 					App::setLocale('ar');
 					Config::set('app.locale', 'ar');
-					Config::set('app_settings.settings', $settings);
+					//Config::set('app_settings.settings', $settings);
 				break 2;
 				case 'en':
 					App::setLocale('en');
 					Config::set('app.locale', 'en');
-					Config::set('app_settings.settings', $settings);
+					//Config::set('app_settings.settings', $settings);
 				break 2;
 				default:
 					App::setLocale('fa');
 					Config::set('app.locale', 'fa');
-					Config::set('app_settings.settings', $settings);
+					//Config::set('app_settings.settings', $settings);
 			}
 		}
 	}
