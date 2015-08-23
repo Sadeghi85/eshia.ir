@@ -244,7 +244,7 @@ class Docx2Html
 				
 				if ($highlight->length)
 				{
-					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
+					$tmpText = sprintf('<span style="background-color:%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
 				if ($bold->length)
@@ -693,7 +693,7 @@ class Docx2Html
 				
 				if ($highlight->length)
 				{
-					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
+					$tmpText = sprintf('<span style="background-color:%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
 				if ($bold->length)
