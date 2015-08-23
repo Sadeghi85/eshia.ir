@@ -84,7 +84,7 @@ class ConvertController extends BaseController {
 		
 		foreach (Config::get('eshia') as $color => $class)
 		{
-			$content = preg_replace(sprintf('#<span class="%s#i', preg_quote($color)), '<span class="'.$class, $content);
+			$content = preg_replace(sprintf('#<span class="%s#i', preg_quote(strtolower($color))), '<span class="'.$class, $content);
 		}
 		
 		$link = '<link href="/styles/eShia.css" rel="stylesheet"><link href="/styles/Default.css" rel="stylesheet">';

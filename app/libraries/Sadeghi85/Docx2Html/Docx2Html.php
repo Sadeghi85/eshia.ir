@@ -226,6 +226,8 @@ class Docx2Html
 				
 				$query = 'w:rPr/w:color';
 				$color = $xpath->query($query, $xmlRun);
+				$query = 'w:rPr/w:highlight';
+				$highlight = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:b';
 				$bold = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:i';
@@ -237,7 +239,12 @@ class Docx2Html
 				
 				if ($color->length)
 				{
-					$tmpText = sprintf('<span class="%s">%s</span>', $color->item(0)->getAttribute('w:val'), $tmpText);
+					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($color->item(0)->getAttribute('w:val')), $tmpText);
+				}
+				
+				if ($highlight->length)
+				{
+					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
 				if ($bold->length)
@@ -668,6 +675,8 @@ class Docx2Html
 				
 				$query = 'w:rPr/w:color';
 				$color = $xpath->query($query, $xmlRun);
+				$query = 'w:rPr/w:highlight';
+				$highlight = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:b';
 				$bold = $xpath->query($query, $xmlRun);
 				$query = 'w:rPr/w:i';
@@ -679,7 +688,12 @@ class Docx2Html
 				
 				if ($color->length)
 				{
-					$tmpText = sprintf('<span class="%s">%s</span>', $color->item(0)->getAttribute('w:val'), $tmpText);
+					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($color->item(0)->getAttribute('w:val')), $tmpText);
+				}
+				
+				if ($highlight->length)
+				{
+					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
 				if ($bold->length)
