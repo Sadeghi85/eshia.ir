@@ -1,0 +1,347 @@
+<style type="text/css">
+<!--
+        A:link {text-decoration: none ; color:#0000FF}
+        A:visited {text-decoration: none;color:#0000FF} 
+        A:hover {text-decoration: none ;color: ff0000}
+-->
+</style>
+BODY {
+	FONT-SIZE: 11px; MARGIN: 0px; COLOR: #000000; FONT-FAMILY: tahoma,VerdanaArial, Helvetica, sans-serif; BACKGROUND-COLOR: white
+}
+TABLE {
+	FONT-SIZE: 11px; COLOR: black; FONT-FAMILY: tahoma,Verdana, Arial, Helvetica, sans-serif
+}
+A.LeftHeader
+{
+    COLOR: white;
+    FONT-SIZE: 10pt;
+    COLOR: white;
+    FONT-FAMILY: Tahoma;
+    TEXT-DECORATION: none
+}
+
+A.LeftHeader:hover
+{
+    COLOR: green;
+    FONT-SIZE: 10pt;
+    COLOR: white;
+    FONT-FAMILY: Tahoma;
+    TEXT-DECORATION: none
+}
+
+A
+{
+    FONT-SIZE: 10pt;
+    COLOR: mediumblue;
+    FONT-FAMILY: Tahoma;
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    FONT-WEIGHT: lighter;
+    COLOR: darkred
+}
+BODY
+{
+    FONT-SIZE: 10pt;
+    FONT-FAMILY: Tahoma
+}
+A.new_a:hover
+{
+    FONT-SIZE: 9pt;
+    COLOR: #cc9242
+}
+TABLE.report
+{
+    FONT-SIZE: 8pt;
+    COLOR: white
+}
+TABLE.news
+{
+    BORDER-RIGHT: #54abd5 2px solid;
+    BORDER-TOP: #54abd5 2px solid;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: #54abd5 2px solid;
+    COLOR: #003399;
+    LINE-HEIGHT: 15px;
+    BORDER-BOTTOM: #54abd5 2px solid
+}
+A.news:hover
+{
+    FONT-SIZE: 8pt;
+    COLOR: red
+}
+A.news
+{
+    FONT-SIZE: 8pt;
+    COLOR: #993333
+}
+TABLE.new_pages
+{
+    BORDER-RIGHT: #b8dac7 2px solid;
+    BORDER-TOP: #b8dac7 2px solid;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: #b8dac7 2px solid;
+    COLOR: teal;
+    LINE-HEIGHT: 15px;
+    BORDER-BOTTOM: #b8dac7 2px solid
+}
+A.new_pages:hover
+{
+    FONT-SIZE: 8pt;
+    COLOR: red
+}
+A.new_pages
+{
+    FONT-SIZE: 8pt;
+    COLOR: teal
+}
+A.rahbari
+{
+    COLOR: dodgerblue
+}
+A.rahbari:hover
+{
+    COLOR: purple
+}
+TABLE
+{
+    FONT-SIZE: 10pt;
+    FONT-FAMILY: Tahoma
+}
+A.header
+{
+    COLOR: white
+}
+A.new_a
+{
+    FONT-SIZE: 9pt
+}
+.MagazineButton
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BORDER-LEFT: 0px;
+    CURSOR: hand;
+    BORDER-BOTTOM: 0px;
+    BACKGROUND-COLOR: white
+}
+.HeaderCell
+{
+    FONT-SIZE: 10pt;
+    COLOR: maroon;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: #99ccff;
+    TEXT-ALIGN: right;
+	vertical-align : middle;
+}
+.HeaderCellCenter
+{
+    FONT-SIZE: 10pt;
+    COLOR: maroon;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: #99ccff;
+    TEXT-ALIGN: center;
+	vertical-align : middle;
+}
+.Cell
+{
+    FONT-SIZE: 10pt;
+    COLOR: navy;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: lightgoldenrodyellow;
+    TEXT-ALIGN: right;
+	vertical-align : middle;
+}
+.CellCenter
+{
+    FONT-SIZE: 10pt;
+    COLOR: navy;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: antiquewhite;
+    TEXT-ALIGN: center;
+A
+{
+    FONT-SIZE: 10pt;
+    COLOR: mediumblue;
+    FONT-FAMILY: Tahoma;
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    FONT-WEIGHT: lighter;
+    COLOR: darkred
+}
+BODY
+{
+    FONT-SIZE: 10pt;
+    FONT-FAMILY: Tahoma
+}
+A.new_a:hover
+{
+    FONT-SIZE: 9pt;
+    COLOR: #cc9242
+}
+TABLE.report
+{
+    FONT-SIZE: 8pt;
+    COLOR: white
+}
+TABLE.news
+{
+    BORDER-RIGHT: #54abd5 2px solid;
+    BORDER-TOP: #54abd5 2px solid;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: #54abd5 2px solid;
+    COLOR: #003399;
+    LINE-HEIGHT: 15px;
+    BORDER-BOTTOM: #54abd5 2px solid
+}
+A.news:hover
+{
+    FONT-SIZE: 8pt;
+    COLOR: red
+}
+A.news
+{
+    FONT-SIZE: 8pt;
+    COLOR: #993333
+}
+TABLE.new_pages
+{
+    BORDER-RIGHT: #b8dac7 2px solid;
+    BORDER-TOP: #b8dac7 2px solid;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: #b8dac7 2px solid;
+    COLOR: teal;
+    LINE-HEIGHT: 15px;
+    BORDER-BOTTOM: #b8dac7 2px solid
+}
+A.new_pages:hover
+{
+    FONT-SIZE: 8pt;
+    COLOR: red
+}
+A.new_pages
+{
+    FONT-SIZE: 8pt;
+    COLOR: teal
+}
+A.rahbari
+{
+    COLOR: dodgerblue
+}
+A.rahbari:hover
+{
+    COLOR: purple
+}
+TABLE
+{
+    FONT-SIZE: 10pt;
+    FONT-FAMILY: Tahoma
+}
+A.header
+{
+    COLOR: white
+}
+A.new_a
+{
+    FONT-SIZE: 9pt
+}
+.MagazineButton
+{
+    BORDER-RIGHT: 0px;
+    BORDER-TOP: 0px;
+    BORDER-LEFT: 0px;
+    CURSOR: hand;
+    BORDER-BOTTOM: 0px;
+    BACKGROUND-COLOR: white
+}
+.HeaderCell
+{
+    FONT-SIZE: 10pt;
+    COLOR: maroon;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: #99ccff;
+    TEXT-ALIGN: right;
+	vertical-align : middle;
+}
+.HeaderCellCenter
+{
+    FONT-SIZE: 10pt;
+    COLOR: maroon;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: #99ccff;
+    TEXT-ALIGN: center;
+	vertical-align : middle;
+}
+.Cell
+{
+    FONT-SIZE: 10pt;
+    COLOR: navy;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: lightgoldenrodyellow;
+    TEXT-ALIGN: right;
+	vertical-align : middle;
+}
+.CellCenter
+{
+	FONT-SIZE: 10pt;
+	COLOR: navy;
+	FONT-FAMILY: Tahoma;
+	BACKGROUND-COLOR: antiquewhite;
+	TEXT-ALIGN: center;
+	vertical-align : middle;
+}
+.CellLeft
+{
+	FONT-SIZE: 10pt;
+	COLOR: navy;
+	FONT-FAMILY: Tahoma;
+	BACKGROUND-COLOR: antiquewhite;
+	TEXT-ALIGN: left;
+	vertical-align : middle;
+}
+.CellRight
+{
+	FONT-SIZE: 10pt;
+	COLOR: navy;
+	FONT-FAMILY: Tahoma;
+	BACKGROUND-COLOR: antiquewhite;
+	TEXT-ALIGN: right;
+	vertical-align : middle;
+}A.TitleCellCenter
+{
+	FONT-SIZE: 10pt;
+	COLOR: White;
+}
+
+}
+.TitleCellCenter
+{
+	FONT-SIZE: 10pt;
+	COLOR: White;
+	FONT-FAMILY: Tahoma;
+	BACKGROUND-COLOR: #6699FF;
+	TEXT-ALIGN: center;
+	vertical-align : middle;
+	text-decoration : none;
+	line-height : 24px;
+	border-bottom-color : #008000;
+	border-right-color : #008000;
+	border-left-color : White;
+	border-top-color : White;
+}
+.Object2D
+{
+	BORDER-RIGHT: 1px double;
+	BORDER-TOP: 1px double;
+	BORDER-LEFT: 3px double;
+	BORDER-BOTTOM: 3px double;
+	border-bottom-color : #008000;
+	border-right-color : #008000;
+	border-left-color : #008000;
+	border-top-color : #008000;
+	BACKGROUND-COLOR: #FFF8DC;
+	size : 12pt;
+}
