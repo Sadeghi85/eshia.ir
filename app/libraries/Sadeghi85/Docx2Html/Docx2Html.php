@@ -272,6 +272,14 @@ class Docx2Html
 					$tmpText = sprintf('<a href="%s" target="_blank">%s</a>', $hyperlinkTarget, $tmpText);
 				}
 				
+				
+				// $ret = preg_replace_callback('#((?:(?:<span class=[^>]+>[^<]+</span>)){2,})#iu',
+							// function ($matches)
+							// {
+								// print_r($matches);
+							// },
+							// $ret);
+				
 				$ret .= $tmpText;
 				
 			}
@@ -437,7 +445,7 @@ class Docx2Html
 										return
 											sprintf
 											(
-												'<ref><a href="%s" target="_blank">%s/%s %s%s %s %s%s</a></ref>',
+												'<ref><a href="%s" target="_blank">%s/%s%s%s %s%s%s</a></ref>',
 												$link,
 												$matches[1],
 												# السورة
@@ -456,7 +464,7 @@ class Docx2Html
 										return
 											sprintf
 											(
-												'<ref><a href="%s" target="_blank">%s/%s %s%s %s %s%s</a></ref>',
+												'<ref><a href="%s" target="_blank">%s/%s%s%s %s%s%s</a></ref>',
 												$link,
 												$matches[1],
 												# سوره
@@ -505,12 +513,24 @@ class Docx2Html
 		{
 			foreach($refMatches as $k => $v )
 			{
-				$footnotes .= '<div><a href="#_ftnref'.($k+1).'" name="_ftn'.($k+1).'">['.($k+1).']</a> '.$v.'</div>'; 
+				$footnotes .= '<div><a href="#_ftnref'.($k+1).'" name="_ftn'.($k+1).'">['.($k+1).']</a> '.$this->_footnoteEditorialCorrections($v).'</div>'; 
 			}
 
 		}
 
 		$content = '<div>'.$content.'</div>'.($footnotes ? '<hr>'.$footnotes : '');
+		
+		return $content;
+	}
+	
+	private function _footnoteEditorialCorrections($content)
+	{
+		$content = trim($content);
+		
+		$tmpContent = trim(strip_tags($content));
+		if ($tmpContent[(strlen($tmpContent)-1)] != '.') {
+			$content .= '.';
+		}
 		
 		return $content;
 	}
