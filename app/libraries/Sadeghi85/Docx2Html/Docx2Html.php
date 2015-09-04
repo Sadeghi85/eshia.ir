@@ -272,14 +272,6 @@ class Docx2Html
 					$tmpText = sprintf('<a href="%s" target="_blank">%s</a>', $hyperlinkTarget, $tmpText);
 				}
 				
-				
-				// $ret = preg_replace_callback('#((?:(?:<span class=[^>]+>[^<]+</span>)){2,})#iu',
-							// function ($matches)
-							// {
-								// print_r($matches);
-							// },
-							// $ret);
-				
 				$ret .= $tmpText;
 				
 			}
@@ -373,6 +365,7 @@ class Docx2Html
 		$this->htmlOutput = $this->_cleanHtml($this->htmlOutput);
 		$this->htmlOutput = $this->_insertSurehInFootnote($this->htmlOutput);
 		$this->htmlOutput = $this->_createFootnotes($this->htmlOutput);
+		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		# the font shows latin numbers as arabic
 		//$this->htmlOutput = $this->_convertNumbersToArabic($this->htmlOutput);
 		
@@ -492,6 +485,24 @@ class Docx2Html
 		return $content;
 	}
 	
+	private function _mergeExtraTags($content)
+	{
+		$count = 1;
+		while ($count > 0) {
+			$content = preg_replace('#<a href="([^"]+)"([^>]*)>([^<>]+)</a>(\s*)<a href="\1"[^>]*>([^<>]+)</a>#i', '<a href="\1"\2>\3\4\5</a>', $content, -1, $count);
+		}
+		$count = 1;
+		while ($count > 0) {
+			$content = preg_replace('#<span style="([^"]+)"([^>]*)>([^<>]+)</span>(\s*)<span style="\1"[^>]*>([^<>]+)</span>#i', '<span style="\1"\2>\3\4\5</span>', $content, -1, $count);
+		}
+		$count = 1;
+		while ($count > 0) {
+			$content = preg_replace('#<span class="([^"]+)"([^>]*)>([^<>]+)</span>(\s*)<span class="\1"[^>]*>([^<>]+)</span>#i', '<span class="\1"\2>\3\4\5</span>', $content, -1, $count);
+		}
+		
+		return $content;
+	}
+	
 	private function _createFootnotes($content)
 	{
 		$refMatches = [];
@@ -531,6 +542,23 @@ class Docx2Html
 		if ($tmpContent[(strlen($tmpContent)-1)] != '.') {
 			$content .= '.';
 		}
+		
+		# ،
+		$tmpContent = explode(base64_decode('2Iw='), $content);
+		foreach ($tmpContent as $tmpKey => $tmpString) {
+			$tmpContent[$tmpKey] = trim($tmpString);
+			# ج
+			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2Kw=')), '\1\2', $tmpContent[$tmpKey]);
+			# ص
+			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2LU=')), '\1\2', $tmpContent[$tmpKey]);
+			# ح
+			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2K0=')), '\1\2', $tmpContent[$tmpKey]);
+			# ب
+			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2Kg=')), '\1\2', $tmpContent[$tmpKey]);
+		}
+		$content = implode(sprintf('%s ', base64_decode('2Iw=')), $tmpContent);
+		
+		
 		
 		return $content;
 	}

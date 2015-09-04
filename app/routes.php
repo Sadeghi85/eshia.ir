@@ -13,7 +13,6 @@
 
 //Route::get('search/{teacher}/{course}/{year}', 'SearchController@index');
 
-
 Route::pattern('feqh', '(?i)feqh(?-i)');
 Route::pattern('archive', '(?i)archive(?-i)');
 Route::pattern('convert', '(?i)convert(?-i)');

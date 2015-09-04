@@ -73,7 +73,8 @@ input.file {
 			'method' => 'post',
 			'files' => true,
 			'id' => 'uploadForm',
-			'name' => 'uploadForm'
+			'name' => 'uploadForm',
+			'style' => 'padding-right: 5px;',
 		]
 	)
 }}
@@ -88,7 +89,7 @@ input.file {
 
 					<div class="fileinputs">
 						<input type="file" class="file hidden" multiple="" name="doc" id="doc">
-					<div class="fakefile"><span>فایل را انتخاب کنید: </span><input type="text" name="fakeinput" id="fakeinput" /></div></div>
+					<div class="fakefile"><span>@lang('app.choose_file'): </span><input type="text" name="fakeinput" id="fakeinput" /></div></div>
 				
 				
 					<!-- Browse… <input type="file" multiple="" name="doc" id="doc"> -->
@@ -102,8 +103,8 @@ input.file {
 	<br><br>
 <!-- Form Actions -->
 <div class="form-group">
-	<button type="submit" class=" btn-primary" name="upload" id="upload">آپلود</button>
-	<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">دانلود زیپ</button>
+	<button type="submit" class=" btn-primary" name="upload" id="upload">@lang('app.convert_to_html')</button>
+	<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">@lang('app.download_html')</button>
 </div>
 {{ Form::close() }}
 
@@ -225,7 +226,7 @@ input.file {
 		
 		function displayError() {
 			
-			$('span.help-block').text('خطا');
+			$('span.help-block').text('@lang('app.convert_error')');
 			$('#download').css('display','none');
 			
 			var iframe = $('iframe#result').get(0);
