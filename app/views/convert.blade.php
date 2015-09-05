@@ -108,7 +108,7 @@ input.file {
 </div>
 {{ Form::close() }}
 
-
+<br><br>
 
 <div class="iframe-container">
 <iframe name="result" id="result" src="" frameborder="0">

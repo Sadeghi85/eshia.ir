@@ -218,6 +218,14 @@ class Docx2Html
 				$hyperlinkTarget = @$this->documentRelations[$hyperlink->item(0)->getAttribute('r:id')];
 			}
 			
+			$query = 'w:softHyphen';
+			$softHyphen = $xpath->query($query, $xmlRun);
+			if ($softHyphen->length)
+			{
+				$ret .= pack('H*', 'e2808c');
+				continue;
+			}
+			
 			$query = 'w:t';
 			$text = $xpath->query($query, $xmlRun);
 			if ($text->length)
@@ -364,6 +372,7 @@ class Docx2Html
 	{
 		$this->htmlOutput = $this->_cleanHtml($this->htmlOutput);
 		$this->htmlOutput = $this->_insertSurehInFootnote($this->htmlOutput);
+		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		$this->htmlOutput = $this->_createFootnotes($this->htmlOutput);
 		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		# the font shows latin numbers as arabic
@@ -528,7 +537,7 @@ class Docx2Html
 			}
 
 		}
-
+		
 		$content = '<div>'.$content.'</div>'.($footnotes ? '<hr>'.$footnotes : '');
 		
 		return $content;
@@ -538,27 +547,37 @@ class Docx2Html
 	{
 		$content = trim($content);
 		
+		$content = str_replace(',', base64_decode('2Iw='), $content);
+		
 		$tmpContent = trim(strip_tags($content));
+		$count = 0;
 		if ($tmpContent[(strlen($tmpContent)-1)] != '.') {
-			$content .= '.';
+			
+			$content = preg_replace('#^(.+)[[:space:]]*(?=<)(.+)$#iu', '\1.\2', $content, -1, $count);
+			if ($count === 0) {
+				$content .= '.';
+			}
 		}
 		
 		# ،
 		$tmpContent = explode(base64_decode('2Iw='), $content);
 		foreach ($tmpContent as $tmpKey => $tmpString) {
-			$tmpContent[$tmpKey] = trim($tmpString);
+			$tmpString = trim($tmpString);
 			# ج
-			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2Kw=')), '\1\2', $tmpContent[$tmpKey]);
+			$tmpString = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2Kw=')), '\1\2', $tmpString);
 			# ص
-			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2LU=')), '\1\2', $tmpContent[$tmpKey]);
+			$tmpString = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2LU=')), '\1\2', $tmpString);
 			# ح
-			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2K0=')), '\1\2', $tmpContent[$tmpKey]);
+			$tmpString = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2K0=')), '\1\2', $tmpString);
 			# ب
-			$tmpContent[$tmpKey] = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2Kg=')), '\1\2', $tmpContent[$tmpKey]);
+			$tmpString = preg_replace(sprintf('#(%s)[[:space:]]+(\d)#iu', base64_decode('2Kg=')), '\1\2', $tmpString);
+			
+			$tmpContent[$tmpKey] = trim($tmpString);
+			
 		}
 		$content = implode(sprintf('%s ', base64_decode('2Iw=')), $tmpContent);
 		
-		
+		$content = preg_replace(sprintf('#(%s[[:space:]]*)+#iu', base64_decode('2Iw=')), '\1', $content);
 		
 		return $content;
 	}
@@ -713,6 +732,14 @@ class Docx2Html
 			if ($hyperlink->item(0)->localName == 'hyperlink')
 			{
 				$hyperlinkTarget = $this->footnoteRelations[$hyperlink->item(0)->getAttribute('r:id')];
+			}
+			
+			$query = 'w:softHyphen';
+			$softHyphen = $xpath->query($query, $xmlRun);
+			if ($softHyphen->length)
+			{
+				$ret .= pack('H*', 'e2808c');
+				continue;
 			}
 			
 			$query = 'w:t';
