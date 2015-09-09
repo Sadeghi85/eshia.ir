@@ -22,6 +22,8 @@ class Docx2Html
      * @access private
      */
     private $domFootnote;
+	
+	private $domStyles;
     
     /**
      * xml from document.xml
@@ -36,6 +38,8 @@ class Docx2Html
      * @access private
      */
     private $_footnote;
+	
+	private $_styles;
     
     /**
      * xml from numbering.xml
@@ -58,6 +62,8 @@ class Docx2Html
 	private $footnoteRelations;
 	
 	private $documentRelations;
+	
+	private $styles;
 
     /**
      * array of characters to insert like a list
@@ -93,12 +99,14 @@ class Docx2Html
 
 		$this->domDocument = new \DomDocument();
 		$this->domFootnote = new \DomDocument();
+		$this->domStyles = new \DomDocument();
 		
         $this->htmlOutput = '';  
         $this->docx = null;
 		
         $this->numberingList= array();
         $this->footnotes = array();
+		$this->styles = array();
 		
 		$this->docx = new \ZipArchive();
 		
@@ -111,6 +119,8 @@ class Docx2Html
 			
             $this->_footnote = $this->docx->getFromName('word/footnotes.xml');
             $this->_footnoteRelation = $this->docx->getFromName('word/_rels/footnotes.xml.rels');
+			
+			$this->_styles = $this->docx->getFromName('word/styles.xml');
         }
 		else
 		{
@@ -127,23 +137,29 @@ class Docx2Html
 				case \ZipArchive::ER_NOENT:
 				case \ZipArchive::ER_INVAL:
 				default:
-					throw new Docx2HtmlException('Can\'t open the document.');
+					throw new Docx2HtmlException('Can\'t open document.xml');
 			}
 		}
 		
 		if ( ! $this->_document or ! $this->domDocument->loadXML($this->_document))
 		{
-            throw new Docx2HtmlException('Can\'t open the document.');
+            throw new Docx2HtmlException('Can\'t open document.xml');
         }
 		
 		if ($this->_footnote and ! $this->domFootnote->loadXML($this->_footnote))
 		{
-            throw new Docx2HtmlException('Can\'t open the document.');
+            throw new Docx2HtmlException('Can\'t open footnotes.xml');
+        }
+		
+		if ($this->_styles and ! $this->domStyles->loadXML($this->_styles))
+		{
+            throw new Docx2HtmlException('Can\'t open styles.xml');
         }
 
 		#$this->_loadFootnotes();
 		$this->_loadFootnoteRelations();
 		$this->_loadDocumentRelations();
+		$this->_loadStyles();
 		
 		$this->_convert();
     }
@@ -255,22 +271,22 @@ class Docx2Html
 					$tmpText = sprintf('<span style="background-color:%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
-				if ($bold->length)
+				if ($bold->length && $bold->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<b>%s</b>', $tmpText);
 				}
 				
-				if ($italic->length)
+				if ($italic->length && $italic->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<i>%s</i>', $tmpText);
 				}
 				
-				if ($underline->length)
+				if ($underline->length && $underline->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<u>%s</u>', $tmpText);
 				}
 				
-				if ($strike->length)
+				if ($strike->length && $strike->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<strike>%s</strike>', $tmpText);
 				}
@@ -280,10 +296,87 @@ class Docx2Html
 					$tmpText = sprintf('<a href="%s" target="_blank">%s</a>', $hyperlinkTarget, $tmpText);
 				}
 				
+				
+				
+				
+				$query = 'w:rPr/w:rStyle';
+				$xmlStyles = $xpath->query($query, $xmlRun);
+				
+				if ($xmlStyles->length)
+				{
+					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color']))
+					{
+						$tmpText = sprintf('<span class="%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color'], $tmpText);
+					}
+					
+					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight']))
+					{
+						$tmpText = sprintf('<span style="background-color:%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight'], $tmpText);
+					}
+						
+					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['bold']))
+					{
+						$tmpText = sprintf('<b>%s</b>', $tmpText);
+					}
+					
+					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['italic']))
+					{
+						$tmpText = sprintf('<i>%s</i>', $tmpText);
+					}
+					
+					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['underline']))
+					{
+						$tmpText = sprintf('<u>%s</u>', $tmpText);
+					}
+					
+					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['strike']))
+					{
+						$tmpText = sprintf('<strike>%s</strike>', $tmpText);
+					}
+				}
+				
 				$ret .= $tmpText;
 				
 			}
 			
+		}
+		
+		
+		
+		$query = './/w:pPr/w:pStyle';
+		$xmlStyles = $xpath->query($query, $node);
+		
+		if ($xmlStyles->length)
+		{
+			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color']))
+			{
+				$ret = sprintf('<span class="%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color'], $ret);
+			}
+			
+			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight']))
+			{
+				$ret = sprintf('<span style="background-color:%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight'], $ret);
+			}
+				
+			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['bold']))
+			{
+				$ret = sprintf('<b>%s</b>', $ret);
+			}
+			
+			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['italic']))
+			{
+				$ret = sprintf('<i>%s</i>', $ret);
+			}
+			
+			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['underline']))
+			{
+				$ret = sprintf('<u>%s</u>', $ret);
+			}
+			
+			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['strike']))
+			{
+				$ret = sprintf('<strike>%s</strike>', $ret);
+			}
 		}
 		
         // if ($this->list2html)
@@ -374,7 +467,7 @@ class Docx2Html
 		$this->htmlOutput = $this->_insertSurehInFootnote($this->htmlOutput);
 		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		$this->htmlOutput = $this->_createFootnotes($this->htmlOutput);
-		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
+		//$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		# the font shows latin numbers as arabic
 		//$this->htmlOutput = $this->_convertNumbersToArabic($this->htmlOutput);
 		
@@ -389,7 +482,7 @@ class Docx2Html
 		$content = preg_replace_callback(
 						sprintf
 						(
-							'#<ref>.*?(?:%s|%s|%s)\s*([\p{L} \p{M}]+)\s*%s\s*(?:%s|%s|%s|%s|%s|%s|%s|%s)\s*(\d+)([^<]*)</ref>#iu',
+							'#<ref>.*?(?:%s|%s|%s)\s*([\p{L} \p{M}\p{Cf}]+)\s*%s\s*(?:%s|%s|%s|%s|%s|%s|%s|%s)\s*(\d+)([^<]*)</ref>#iu',
 							# سوره
 							base64_decode('2LPZiNix2Yc='),
 							# سورة
@@ -449,7 +542,7 @@ class Docx2Html
 											(
 												'<ref><a href="%s" target="_blank">%s/%s%s%s %s%s%s</a></ref>',
 												$link,
-												$matches[1],
+												isset($surehList[$surehString][2]['ar']) ? $surehList[$surehString][2]['ar'] : $matches[1],
 												# السورة
 												base64_decode('2KfZhNiz2YjYsdip'),
 												$surehList[$surehString][0],
@@ -468,7 +561,7 @@ class Docx2Html
 											(
 												'<ref><a href="%s" target="_blank">%s/%s%s%s %s%s%s</a></ref>',
 												$link,
-												$matches[1],
+												isset($surehList[$surehString][2]['fa']) ? $surehList[$surehString][2]['fa'] : $matches[1],
 												# سوره
 												base64_decode('2LPZiNix2Yc='),
 												$surehList[$surehString][0],
@@ -498,7 +591,7 @@ class Docx2Html
 	{
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<a href="([^"]+)"([^>]*)>([^<>]+)</a>(\s*)<a href="\1"[^>]*>([^<>]+)</a>#i', '<a href="\1"\2>\3\4\5</a>', $content, -1, $count);
+			$content = preg_replace('#<a href="([^"]+)"([^>]*)>(.+?)</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#i', '<a href="\1"\2>\3\4\5</a>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {
@@ -507,6 +600,22 @@ class Docx2Html
 		$count = 1;
 		while ($count > 0) {
 			$content = preg_replace('#<span class="([^"]+)"([^>]*)>([^<>]+)</span>(\s*)<span class="\1"[^>]*>([^<>]+)</span>#i', '<span class="\1"\2>\3\4\5</span>', $content, -1, $count);
+		}
+		$count = 1;
+		while ($count > 0) {
+			$content = preg_replace('#<b>(.+?)</b>(\s*)<b>(.+?)</b>#i', '<b>\1\2\3</b>', $content, -1, $count);
+		}
+		$count = 1;
+		while ($count > 0) {
+			$content = preg_replace('#<i>(.+?)</i>(\s*)<i>(.+?)</i>#i', '<i>\1\2\3</i>', $content, -1, $count);
+		}
+		$count = 1;
+		while ($count > 0) {
+			$content = preg_replace('#<u>(.+?)</u>(\s*)<u>(.+?)</u>#i', '<u>\1\2\3</u>', $content, -1, $count);
+		}
+		$count = 1;
+		while ($count > 0) {
+			$content = preg_replace('#<strike>(.+?)</strike>(\s*)<strike>(.+?)</strike>#i', '<strike>\1\2\3</strike>', $content, -1, $count);
 		}
 		
 		return $content;
@@ -698,7 +807,7 @@ class Docx2Html
     {
 		$xpath = new \DOMXPath($this->domFootnote);
 		
-        $footnotesNode = $this->domDocument->getElementsByTagNameNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 'footnotes');
+        $footnotesNode = $this->domFootnote->getElementsByTagNameNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 'footnotes');
 		
 		$query = sprintf('%s[@%s=%s]', 'w:footnote', 'w:id', $node->getAttribute('w:id'));
 		$footnoteNode = $xpath->query($query, $footnotesNode->item(0));
@@ -771,22 +880,22 @@ class Docx2Html
 					$tmpText = sprintf('<span style="background-color:%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
-				if ($bold->length)
+				if ($bold->length && $bold->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<b>%s</b>', $tmpText);
 				}
 				
-				if ($italic->length)
+				if ($italic->length && $italic->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<i>%s</i>', $tmpText);
 				}
 				
-				if ($underline->length)
+				if ($underline->length && $underline->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<u>%s</u>', $tmpText);
 				}
 				
-				if ($strike->length)
+				if ($strike->length && $strike->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<strike>%s</strike>', $tmpText);
 				}
@@ -878,6 +987,70 @@ class Docx2Html
 				{
                     $this->footnoteRelations[$footnoteRelation->getAttribute('Id')] = $footnoteRelation->getAttribute('Target');
                 }
+            }
+        }
+    }
+	
+	private function _loadStyles()
+    {
+        if (empty($this->styles))
+		{
+
+			$xpath = new \DOMXPath($this->domStyles);
+		
+			$stylesNode = $this->domStyles->getElementsByTagNameNS('http://schemas.openxmlformats.org/wordprocessingml/2006/main', 'styles');
+			
+			$query = 'w:style';
+			$stylesNode = $xpath->query($query, $stylesNode->item(0));
+			
+			
+			
+			foreach ($stylesNode as $key => $styleNode)
+			{
+				$query = 'w:rPr/w:color';
+				$color = $xpath->query($query, $styleNode);
+				$query = 'w:rPr/w:highlight';
+				$highlight = $xpath->query($query, $styleNode);
+				$query = 'w:rPr/w:b';
+				$bold = $xpath->query($query, $styleNode);
+				$query = 'w:rPr/w:i';
+				$italic = $xpath->query($query, $styleNode);
+				$query = 'w:rPr/w:u';
+				$underline = $xpath->query($query, $styleNode);
+				$query = 'w:rPr/w:strike';
+				$strike = $xpath->query($query, $styleNode);
+				
+				if ($color->length)
+				{
+					$this->styles[$styleNode->getAttribute('w:styleId')]['color'] = strtolower($color->item(0)->getAttribute('w:val'));
+				}
+				
+				if ($highlight->length)
+				{
+					$this->styles[$styleNode->getAttribute('w:styleId')]['highlight'] = strtolower($highlight->item(0)->getAttribute('w:val'));
+				}
+				
+				if ($bold->length && $bold->item(0)->getAttribute('w:val') != 'none')
+				{
+					$this->styles[$styleNode->getAttribute('w:styleId')]['bold'] = true;
+				}
+				
+				if ($italic->length && $italic->item(0)->getAttribute('w:val') != 'none')
+				{
+					$this->styles[$styleNode->getAttribute('w:styleId')]['italic'] = true;
+				}
+				
+				if ($underline->length && $underline->item(0)->getAttribute('w:val') != 'none')
+				{
+					$this->styles[$styleNode->getAttribute('w:styleId')]['underline'] = true;
+				}
+				
+				if ($strike->length && $strike->item(0)->getAttribute('w:val') != 'none')
+				{
+					$this->styles[$styleNode->getAttribute('w:styleId')]['strike'] = true;
+				}
+                
+               
             }
         }
     }

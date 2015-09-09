@@ -7,7 +7,8 @@ return array(
 	'choose_file' => 'انتخب الفايل',
 	'convert_to_html' => 'رؤية html',
 	'convert_error' => 'خطأ',
-	'download_html' => 'تحمیل html',
+	'download_html' => 'تحميل html',
+	'download_style' => 'تحميل مع style',
 	
 	#Query--------------------------------------------------------------------------------------------------------------------
 	'query_search_result' => 'تم العثور على نتيجة',

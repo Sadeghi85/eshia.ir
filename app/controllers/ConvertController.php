@@ -76,7 +76,7 @@ class ConvertController extends BaseController {
 		}
 		catch (\Exception $e)
 		{
-			//return Response::json(array('content' => 'Error'));
+			//return Response::json(array('content' => $e->getMessage()));
 			App::abort(404);
 		}
 		
@@ -119,7 +119,7 @@ class ConvertController extends BaseController {
 </body></html>
 EOT;
 		
-		if ( ! is_null(Input::get('download')))
+		if ( ! is_null(Input::get('download_style')))
 		{
 			$html = str_ireplace('<link href="/', '<link href="', $html);
 			
@@ -140,6 +140,39 @@ EOT;
 			$zip->addFromString($filename.'/Styles/Default.css', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Default.css'));
 			$zip->addFromString($filename.'/Styles/Fonts/eshiatrad.eot', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.eot'));
 			$zip->addFromString($filename.'/Styles/Fonts/eshiatrad.ttf', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.ttf'));
+			$zip->addFromString($filename.'/Default.htm', $html);
+			$zip->close();
+			
+			
+			App::finish(function($request, $response) use ($filepath)
+			{
+				unlink($filepath);
+			});
+			
+			return Response::download($filepath);
+			
+		}
+		else if ( ! is_null(Input::get('download_html')))
+		{
+			//$html = str_ireplace('<link href="/', '<link href="', $html);
+			
+			$filename = trim(preg_replace('/[^\x20-\x7e]*/', '', str_replace('.'.$doc->getClientOriginalExtension(), '', $doc->getClientOriginalName())));
+			$filename = $filename ? $filename : md5(microtime(true));
+			
+			$filepath = storage_path().'/cache/'.$filename.'.zip';
+			$zip = new \ZipArchive();
+			$res = $zip->open($filepath, ZipArchive::CREATE);
+			
+			if (version_compare(PHP_VERSION, '5.4.0') < 0)
+			{
+				$zip->addEmptyDir($filename);
+				// $zip->addEmptyDir($filename.'/Styles');
+				// $zip->addEmptyDir($filename.'/Styles/Fonts');
+			}
+			// $zip->addFromString($filename.'/Styles/eShia.css', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\eShia.css'));
+			// $zip->addFromString($filename.'/Styles/Default.css', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Default.css'));
+			// $zip->addFromString($filename.'/Styles/Fonts/eshiatrad.eot', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.eot'));
+			// $zip->addFromString($filename.'/Styles/Fonts/eshiatrad.ttf', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.ttf'));
 			$zip->addFromString($filename.'/Default.htm', $html);
 			$zip->close();
 			

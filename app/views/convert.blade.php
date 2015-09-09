@@ -52,10 +52,28 @@ input.file {
     width: 95%;
     height: 100%;
 }
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	width: 12em;
+}
 	</style>
 @stop
 
 @section('content')
+
+<div class="center">
+استاد: {{ $teacher }}
+<br>
+درس: {{ $course }}
+<br>
+سال: {{ $year }}
+<br>
+
+
+</div>
+
 
 {{ Form::open(
 		[
@@ -104,7 +122,8 @@ input.file {
 <!-- Form Actions -->
 <div class="form-group">
 	<button type="submit" class=" btn-primary" name="upload" id="upload">@lang('app.convert_to_html')</button>
-	<button type="submit" class=" btn-primary" name="download" id="download" style="display:none;">@lang('app.download_html')</button>
+	<button type="submit" class=" btn-primary" name="download_html" id="download_html" style="display:none;">@lang('app.download_html')</button>
+	<button type="submit" class=" btn-primary" name="download_style" id="download_style" style="display:none;">@lang('app.download_style')</button>
 </div>
 {{ Form::close() }}
 
@@ -126,7 +145,8 @@ input.file {
 	<script>
 		$(document)
 			.on('change', '.btn-file :file', function() {
-				$('#download').css('display','none');
+				$('#download_html').css('display','none');
+				$('#download_style').css('display','none');
 				$('span.help-block').text('');
 				
 				
@@ -149,12 +169,9 @@ input.file {
 			 } else {
 				//just in case of browsers that don't support the above 3 properties.
 				//fortunately we don't come across such case so far.
-				alert('Cannot inject dynamic contents into iframe.');
+				//alert('Cannot inject dynamic contents into iframe.');
 			 }
-				
-				
 
-			
 				var input = $(this),
 				numFiles = input.get(0).files ? input.get(0).files.length : 1,
 				label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -170,7 +187,7 @@ input.file {
 				if( input.length ) {
 					input.val(log);
 				} else {
-					if( log ) alert(log);
+					//if( log ) alert(log);
 				}
 				
 			});
@@ -208,6 +225,8 @@ input.file {
 				
 				if(button == 'upload')
 				{
+					$('#upload').prop("disabled",true);
+					
 					// inside event callbacks 'this' is the DOM element so we first 
 					// wrap it in a jQuery object and then invoke ajaxSubmit 
 					$(this).ajaxSubmit(options); 
@@ -227,7 +246,9 @@ input.file {
 		function displayError() {
 			
 			$('span.help-block').text('@lang('app.convert_error')');
-			$('#download').css('display','none');
+			$('#upload').prop("disabled",false);
+			$('#download_html').css('display','none');
+			$('#download_style').css('display','none');
 			
 			var iframe = $('iframe#result').get(0);
 			
@@ -248,12 +269,15 @@ input.file {
 			 } else {
 				//just in case of browsers that don't support the above 3 properties.
 				//fortunately we don't come across such case so far.
-				alert('Cannot inject dynamic contents into iframe.');
+				//alert('Cannot inject dynamic contents into iframe.');
 			 }
 			
 		};
 		
 		function processJson(data) {
+			
+			$('#upload').prop("disabled",false);
+			
 			// 'data' is the json object returned from the server
 			
 			// var iframeDoc = $('#result').contentWindow.document;
@@ -281,10 +305,11 @@ input.file {
 			 } else {
 				//just in case of browsers that don't support the above 3 properties.
 				//fortunately we don't come across such case so far.
-				alert('Cannot inject dynamic contents into iframe.');
+				//alert('Cannot inject dynamic contents into iframe.');
 			 }
 			 
-			 $('#download').css('display','inline');
+			 $('#download_html').css('display','inline');
+			 $('#download_style').css('display','inline');
 		};
     </script>
 @stop
