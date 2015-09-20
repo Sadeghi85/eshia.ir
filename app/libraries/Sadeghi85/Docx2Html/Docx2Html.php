@@ -261,7 +261,7 @@ class Docx2Html
 				$query = 'w:rPr/w:strike';
 				$strike = $xpath->query($query, $xmlRun);
 				
-				if ($color->length)
+				if ($color->length and ! $hyperlinkTarget)
 				{
 					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($color->item(0)->getAttribute('w:val')), $tmpText);
 				}
@@ -870,7 +870,7 @@ class Docx2Html
 				$query = 'w:rPr/w:strike';
 				$strike = $xpath->query($query, $xmlRun);
 				
-				if ($color->length)
+				if ($color->length and ! $hyperlinkTarget)
 				{
 					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($color->item(0)->getAttribute('w:val')), $tmpText);
 				}

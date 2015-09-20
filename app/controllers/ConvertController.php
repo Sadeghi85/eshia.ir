@@ -13,8 +13,12 @@ class ConvertController extends BaseController {
 	
 	public function index($feqh, $archive, $convert, $teacher = '', $course = '', $year = '')
 	{
-		
-		$this->layout->content = View::make('convert', compact('feqh', 'archive', 'convert', 'teacher', 'course', 'year'));
+		$date = $year;
+		// if (strlen($year) == 6) {
+			// $date = sprintf('%s/%s/%s', $year[0].$year[1], $year[2].$year[3], $year[4].$year[5]);
+		// }
+
+		$this->layout->content = View::make('convert', compact('feqh', 'archive', 'convert', 'teacher', 'course', 'year', 'date'));
 
 	}
 	
@@ -118,6 +122,24 @@ class ConvertController extends BaseController {
 </div>
 </body></html>
 EOT;
+
+		$html_no_style = <<<EOT
+<div class="text-page">
+<div class="course-header">
+{$header}
+</div>
+<div class="course-content">
+{$content}
+</div>
+</div>
+EOT;
+
+		$html_subject = '';
+		$html_subject_pattern = sprintf('#^.+?<span +class *= *["\']? *Titr *["\']?>%s</span>([^<]+).+$#isu', base64_decode('2YXZiNi22YjYuQ=='));
+		if (preg_match($html_subject_pattern, $html_no_style)) {
+			$html_subject = preg_replace($html_subject_pattern, '$1', $html_no_style);
+			$html_subject = trim(trim($html_subject, ':'));
+		}
 		
 		if ( ! is_null(Input::get('download_style')))
 		{
@@ -143,7 +165,6 @@ EOT;
 			$zip->addFromString($filename.'/Default.htm', $html);
 			$zip->close();
 			
-			
 			App::finish(function($request, $response) use ($filepath)
 			{
 				unlink($filepath);
@@ -154,8 +175,6 @@ EOT;
 		}
 		else if ( ! is_null(Input::get('download_html')))
 		{
-			//$html = str_ireplace('<link href="/', '<link href="', $html);
-			
 			$filename = trim(preg_replace('/[^\x20-\x7e]*/', '', str_replace('.'.$doc->getClientOriginalExtension(), '', $doc->getClientOriginalName())));
 			$filename = $filename ? $filename : md5(microtime(true));
 			
@@ -166,16 +185,11 @@ EOT;
 			if (version_compare(PHP_VERSION, '5.4.0') < 0)
 			{
 				$zip->addEmptyDir($filename);
-				// $zip->addEmptyDir($filename.'/Styles');
-				// $zip->addEmptyDir($filename.'/Styles/Fonts');
 			}
-			// $zip->addFromString($filename.'/Styles/eShia.css', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\eShia.css'));
-			// $zip->addFromString($filename.'/Styles/Default.css', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Default.css'));
-			// $zip->addFromString($filename.'/Styles/Fonts/eshiatrad.eot', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.eot'));
-			// $zip->addFromString($filename.'/Styles/Fonts/eshiatrad.ttf', file_get_contents(Config::get('app_settings.data_path').'\\Styles\\Fonts\\eshiatrad.ttf'));
-			$zip->addFromString($filename.'/Default.htm', $html);
-			$zip->close();
 			
+			$zip->addFromString($filename.'/Subject.txt', $html_subject);
+			$zip->addFromString($filename.'/Default.htm', $html_no_style);
+			$zip->close();
 			
 			App::finish(function($request, $response) use ($filepath)
 			{

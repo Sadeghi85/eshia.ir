@@ -68,7 +68,7 @@ input.file {
 <br>
 درس: {{ $course }}
 <br>
-سال: {{ $year }}
+سال: {{ $date }}
 <br>
 
 
