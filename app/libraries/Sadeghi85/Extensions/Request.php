@@ -9,7 +9,11 @@ class Request extends \Illuminate\Http\Request {
 	 */
     public function path()
 	{
-		$pattern = str_replace('_', ' ', trim($this->getPathInfo(), '/'));
+		$pattern = trim($this->getPathInfo(), '/');
+		
+		if (false === strpos($pattern, '.')) {
+			$pattern = str_replace('_', ' ', $pattern);
+		}
 		
 		return $pattern == '' ? '/' : $pattern;
 	}
