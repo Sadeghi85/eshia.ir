@@ -261,76 +261,97 @@ class Docx2Html
 				$query = 'w:rPr/w:strike';
 				$strike = $xpath->query($query, $xmlRun);
 				
-				if ($color->length and ! $hyperlinkTarget)
-				{
+				if ($color->length and ! $hyperlinkTarget) {
 					$tmpText = sprintf('<span class="%s">%s</span>', strtolower($color->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
-				if ($highlight->length)
-				{
+				if ($highlight->length) {
 					$tmpText = sprintf('<span style="background-color:%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
-				if ($bold->length && $bold->item(0)->getAttribute('w:val') != 'none')
-				{
+				if ($bold->length and $bold->item(0)->getAttribute('w:val') != 'none') {
 					$tmpText = sprintf('<b>%s</b>', $tmpText);
 				}
 				
-				if ($italic->length && $italic->item(0)->getAttribute('w:val') != 'none')
-				{
+				if ($italic->length and $italic->item(0)->getAttribute('w:val') != 'none') {
 					$tmpText = sprintf('<i>%s</i>', $tmpText);
 				}
 				
-				if ($underline->length && $underline->item(0)->getAttribute('w:val') != 'none')
-				{
+				if ($underline->length and $underline->item(0)->getAttribute('w:val') != 'none') {
 					$tmpText = sprintf('<u>%s</u>', $tmpText);
 				}
 				
-				if ($strike->length && $strike->item(0)->getAttribute('w:val') != 'none')
-				{
+				if ($strike->length and $strike->item(0)->getAttribute('w:val') != 'none') {
 					$tmpText = sprintf('<strike>%s</strike>', $tmpText);
 				}
 				
-				if ($hyperlinkTarget)
-				{
+				if ($hyperlinkTarget) {
 					$tmpText = sprintf('<a href="%s" target="_blank">%s</a>', $hyperlinkTarget, $tmpText);
 				}
-				
-				
-				
 				
 				$query = 'w:rPr/w:rStyle';
 				$xmlStyles = $xpath->query($query, $xmlRun);
 				
 				if ($xmlStyles->length)
 				{
-					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color']))
-					{
-						$tmpText = sprintf('<span class="%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color'], $tmpText);
+					$_color = $_highlight = $_bold = $_italic = $_underline = $_strike = '';
+					$_basedOn = true;
+					$_currentStyle = $xmlStyles->item(0)->getAttribute('w:val');
+					
+					while ($_basedOn) {
+						if ( ! $_color and isset($this->styles[$_currentStyle]['color'])) {
+							$_color = $this->styles[$_currentStyle]['color'];
+						}
+						
+						if ( ! $_highlight and isset($this->styles[$_currentStyle]['highlight'])) {
+							$_highlight = $this->styles[$_currentStyle]['highlight'];
+						}
+						
+						if ( ! $_bold and isset($this->styles[$_currentStyle]['bold'])) {
+							$_bold = $this->styles[$_currentStyle]['bold'];
+						}
+						
+						if ( ! $_italic and isset($this->styles[$_currentStyle]['italic'])) {
+							$_italic = $this->styles[$_currentStyle]['italic'];
+						}
+						
+						if ( ! $_underline and isset($this->styles[$_currentStyle]['underline'])) {
+							$_underline = $this->styles[$_currentStyle]['underline'];
+						}
+						
+						if ( ! $_strike and isset($this->styles[$_currentStyle]['strike'])) {
+							$_strike = $this->styles[$_currentStyle]['strike'];
+						}
+							
+						if (isset($this->styles[$_currentStyle]['basedOn'])) {
+							$_currentStyle = $this->styles[$_currentStyle]['basedOn'];
+							
+						} else {
+							$_basedOn = false;
+						}
 					}
 					
-					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight']))
-					{
-						$tmpText = sprintf('<span style="background-color:%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight'], $tmpText);
+					if ($_color) {
+						$tmpText = sprintf('<span class="%s">%s</span>', $_color, $tmpText);
+					}
+					
+					if ($_highlight) {
+						$tmpText = sprintf('<span style="background-color:%s">%s</span>', $_highlight, $tmpText);
 					}
 						
-					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['bold']))
-					{
+					if ($_bold) {
 						$tmpText = sprintf('<b>%s</b>', $tmpText);
 					}
 					
-					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['italic']))
-					{
+					if ($_italic) {
 						$tmpText = sprintf('<i>%s</i>', $tmpText);
 					}
 					
-					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['underline']))
-					{
+					if ($_underline) {
 						$tmpText = sprintf('<u>%s</u>', $tmpText);
 					}
 					
-					if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['strike']))
-					{
+					if ($_strike) {
 						$tmpText = sprintf('<strike>%s</strike>', $tmpText);
 					}
 				}
@@ -341,40 +362,68 @@ class Docx2Html
 			
 		}
 		
-		
-		
 		$query = './/w:pPr/w:pStyle';
 		$xmlStyles = $xpath->query($query, $node);
 		
-		if ($xmlStyles->length)
-		{
-			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color']))
-			{
-				$ret = sprintf('<span class="%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['color'], $ret);
+		if ($xmlStyles->length)	{
+			$_color = $_highlight = $_bold = $_italic = $_underline = $_strike = '';
+			$_basedOn = true;
+			$_currentStyle = $xmlStyles->item(0)->getAttribute('w:val');
+			
+			while ($_basedOn) {
+				if ( ! $_color and isset($this->styles[$_currentStyle]['color'])) {
+					$_color = $this->styles[$_currentStyle]['color'];
+				}
+				
+				if ( ! $_highlight and isset($this->styles[$_currentStyle]['highlight'])) {
+					$_highlight = $this->styles[$_currentStyle]['highlight'];
+				}
+				
+				if ( ! $_bold and isset($this->styles[$_currentStyle]['bold'])) {
+					$_bold = $this->styles[$_currentStyle]['bold'];
+				}
+				
+				if ( ! $_italic and isset($this->styles[$_currentStyle]['italic'])) {
+					$_italic = $this->styles[$_currentStyle]['italic'];
+				}
+				
+				if ( ! $_underline and isset($this->styles[$_currentStyle]['underline'])) {
+					$_underline = $this->styles[$_currentStyle]['underline'];
+				}
+				
+				if ( ! $_strike and isset($this->styles[$_currentStyle]['strike'])) {
+					$_strike = $this->styles[$_currentStyle]['strike'];
+				}
+					
+				if (isset($this->styles[$_currentStyle]['basedOn'])) {
+					$_currentStyle = $this->styles[$_currentStyle]['basedOn'];
+					
+				} else {
+					$_basedOn = false;
+				}
 			}
 			
-			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight']))
-			{
-				$ret = sprintf('<span style="background-color:%s">%s</span>', $this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['highlight'], $ret);
+			if ($_color) {
+				$ret = sprintf('<span class="%s">%s</span>', $_color, $ret);
+			}
+			
+			if ($_highlight) {
+				$ret = sprintf('<span style="background-color:%s">%s</span>', $_highlight, $ret);
 			}
 				
-			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['bold']))
-			{
+			if ($_bold) {
 				$ret = sprintf('<b>%s</b>', $ret);
 			}
 			
-			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['italic']))
-			{
+			if ($_italic) {
 				$ret = sprintf('<i>%s</i>', $ret);
 			}
 			
-			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['underline']))
-			{
+			if ($_underline) {
 				$ret = sprintf('<u>%s</u>', $ret);
 			}
 			
-			if (isset($this->styles[$xmlStyles->item(0)->getAttribute('w:val')]['strike']))
-			{
+			if ($_strike) {
 				$ret = sprintf('<strike>%s</strike>', $ret);
 			}
 		}
@@ -391,7 +440,7 @@ class Docx2Html
             // $xmlLists = $xpath->query($query, $node);
             // $xmlLists = $xmlLists->item(0);
 
-            // if (isset($xmlLists) && $xmlLists->tagName == 'w:numPr')
+            // if (isset($xmlLists) and $xmlLists->tagName == 'w:numPr')
 			// {
                 // if ($xmlLists->hasChildNodes())
 				// {
@@ -409,7 +458,7 @@ class Docx2Html
                 // }
             // }
 			
-            // if (($ilvl != -1) && ($numId != -1))
+            // if (($ilvl != -1) and ($numId != -1))
 			// {
                 // #if is founded the style index of the list in the document and the kind of list
                 // $ret = '';
@@ -447,7 +496,7 @@ class Docx2Html
             // }
         // }
 		
-        //if((($ilvl != -1) && ($numId != -1)) || (1)) {
+        //if((($ilvl != -1) and ($numId != -1)) || (1)) {
 		  //$ret .= $this->separator();
         //}
 		
@@ -880,22 +929,22 @@ class Docx2Html
 					$tmpText = sprintf('<span style="background-color:%s">%s</span>', strtolower($highlight->item(0)->getAttribute('w:val')), $tmpText);
 				}
 				
-				if ($bold->length && $bold->item(0)->getAttribute('w:val') != 'none')
+				if ($bold->length and $bold->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<b>%s</b>', $tmpText);
 				}
 				
-				if ($italic->length && $italic->item(0)->getAttribute('w:val') != 'none')
+				if ($italic->length and $italic->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<i>%s</i>', $tmpText);
 				}
 				
-				if ($underline->length && $underline->item(0)->getAttribute('w:val') != 'none')
+				if ($underline->length and $underline->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<u>%s</u>', $tmpText);
 				}
 				
-				if ($strike->length && $strike->item(0)->getAttribute('w:val') != 'none')
+				if ($strike->length and $strike->item(0)->getAttribute('w:val') != 'none')
 				{
 					$tmpText = sprintf('<strike>%s</strike>', $tmpText);
 				}
@@ -1007,6 +1056,9 @@ class Docx2Html
 			
 			foreach ($stylesNode as $key => $styleNode)
 			{
+				$query = 'w:basedOn';
+				$basedOn = $xpath->query($query, $styleNode);
+				
 				$query = 'w:rPr/w:color';
 				$color = $xpath->query($query, $styleNode);
 				$query = 'w:rPr/w:highlight';
@@ -1020,6 +1072,11 @@ class Docx2Html
 				$query = 'w:rPr/w:strike';
 				$strike = $xpath->query($query, $styleNode);
 				
+				if ($basedOn->length)
+				{
+					$this->styles[$styleNode->getAttribute('w:styleId')]['basedOn'] = $basedOn->item(0)->getAttribute('w:val');
+				}
+				
 				if ($color->length)
 				{
 					$this->styles[$styleNode->getAttribute('w:styleId')]['color'] = strtolower($color->item(0)->getAttribute('w:val'));
@@ -1030,22 +1087,22 @@ class Docx2Html
 					$this->styles[$styleNode->getAttribute('w:styleId')]['highlight'] = strtolower($highlight->item(0)->getAttribute('w:val'));
 				}
 				
-				if ($bold->length && $bold->item(0)->getAttribute('w:val') != 'none')
+				if ($bold->length and $bold->item(0)->getAttribute('w:val') != 'none')
 				{
 					$this->styles[$styleNode->getAttribute('w:styleId')]['bold'] = true;
 				}
 				
-				if ($italic->length && $italic->item(0)->getAttribute('w:val') != 'none')
+				if ($italic->length and $italic->item(0)->getAttribute('w:val') != 'none')
 				{
 					$this->styles[$styleNode->getAttribute('w:styleId')]['italic'] = true;
 				}
 				
-				if ($underline->length && $underline->item(0)->getAttribute('w:val') != 'none')
+				if ($underline->length and $underline->item(0)->getAttribute('w:val') != 'none')
 				{
 					$this->styles[$styleNode->getAttribute('w:styleId')]['underline'] = true;
 				}
 				
-				if ($strike->length && $strike->item(0)->getAttribute('w:val') != 'none')
+				if ($strike->length and $strike->item(0)->getAttribute('w:val') != 'none')
 				{
 					$this->styles[$styleNode->getAttribute('w:styleId')]['strike'] = true;
 				}
@@ -1093,14 +1150,14 @@ class Docx2Html
             foreach ($numberings->childNodes as $child) {
                 $flag = true;//boolean variable to know if the node is the first style of the list
                 foreach ($child->childNodes as $son) {
-                    if ($child->tagName == 'w:abstractNum' && $son->tagName == 'w:lvl') {
+                    if ($child->tagName == 'w:abstractNum' and $son->tagName == 'w:lvl') {
                         foreach ($son->childNodes as $daughter) {
-                            if ($daughter->tagName == 'w:numFmt' && $flag) {
+                            if ($daughter->tagName == 'w:numFmt' and $flag) {
                                 $nums[$child->getAttribute('w:abstractNumId')] = $daughter->getAttribute('w:val');//set the key with internal index for the listand the value it is the type of bullet
                                 $flag = false;
                             }
                         }
-                    } elseif ($child->tagName == 'w:num' && $son->tagName == 'w:abstractNumId') {
+                    } elseif ($child->tagName == 'w:num' and $son->tagName == 'w:abstractNumId') {
                         $ids[$son->getAttribute('w:val')] = $child->getAttribute('w:numId');//$ids is the index of the list
                     }
                 }
