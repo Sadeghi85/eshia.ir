@@ -14,9 +14,7 @@ class ConvertController extends BaseController {
 	public function index($feqh, $archive, $convert, $teacher = '', $course = '', $year = '')
 	{
 		$date = $year;
-		// if (strlen($year) == 6) {
-			// $date = sprintf('%s/%s/%s', $year[0].$year[1], $year[2].$year[3], $year[4].$year[5]);
-		// }
+		
 
 		$this->layout->content = View::make('convert', compact('feqh', 'archive', 'convert', 'teacher', 'course', 'year', 'date'));
 

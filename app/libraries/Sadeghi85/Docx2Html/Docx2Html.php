@@ -516,7 +516,7 @@ class Docx2Html
 		$this->htmlOutput = $this->_insertSurehInFootnote($this->htmlOutput);
 		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		$this->htmlOutput = $this->_createFootnotes($this->htmlOutput);
-		//$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
+		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		# the font shows latin numbers as arabic
 		//$this->htmlOutput = $this->_convertNumbersToArabic($this->htmlOutput);
 		
