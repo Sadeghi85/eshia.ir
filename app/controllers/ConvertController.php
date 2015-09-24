@@ -133,7 +133,7 @@ EOT;
 EOT;
 
 		$html_subject = '';
-		$html_subject_pattern = sprintf('#^.+?<span +class *= *["\']? *Titr *["\']?>%s</span>([^<]+).+$#isu', base64_decode('2YXZiNi22YjYuQ=='));
+		$html_subject_pattern = sprintf('#^.+?<span +class *= *["\']? *Titr *["\']?>[[:space:]:]*%s[[:space:]:]*</span>([^<]+).+$#isu', base64_decode('2YXZiNi22YjYuQ=='));
 		if (preg_match($html_subject_pattern, $html_no_style)) {
 			$html_subject = preg_replace($html_subject_pattern, '$1', $html_no_style);
 			$html_subject = trim(trim($html_subject, ':'));
