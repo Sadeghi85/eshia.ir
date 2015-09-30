@@ -20,8 +20,10 @@ div.fakefile {
 }
 
 #fakeinput {
-text-align: left;
-direction: ltr;
+	text-align: left;
+	direction: ltr;
+	width: 250px;
+	height: 30px;
 }
 
 input.file {
@@ -32,6 +34,7 @@ input.file {
 	opacity: 0;
 	z-index: 2;
 	width: 500px;
+	height: 50px;
 }
 
 .iframe-container {

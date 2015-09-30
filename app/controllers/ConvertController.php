@@ -133,9 +133,11 @@ EOT;
 EOT;
 
 		$html_subject = '';
-		$html_subject_pattern = sprintf('#^.+?<span +class *= *["\']? *Titr *["\']?>[[:space:]:]*%s[[:space:]:]*</span>([^<]+).+$#isu', base64_decode('2YXZiNi22YjYuQ=='));
+		//$html_subject_pattern = sprintf('#^.+?<span +class *= *["\']? *Titr *["\']?\>[[:space:]:]*%s[[:space:]:]*</span>([^<]+).+$#isu', base64_decode('2YXZiNi22YjYuQ=='));
+		$html_subject_pattern = sprintf('#^.+?<span +class *= *["\']? *Titr *["\']?>[[:space:]:]*%s[[:space:]:]*(.+?)(?=<p>|<br/?>).+$#isu', base64_decode('2YXZiNi22YjYuQ=='));
 		if (preg_match($html_subject_pattern, $html_no_style)) {
 			$html_subject = preg_replace($html_subject_pattern, '$1', $html_no_style);
+			$html_subject = strip_tags($html_subject);
 			$html_subject = trim(trim($html_subject, ':'));
 		}
 		
@@ -185,7 +187,7 @@ EOT;
 				$zip->addEmptyDir($filename);
 			}
 			
-			$zip->addFromString($filename.'/Subject.txt', $html_subject);
+			$zip->addFromString($filename.'/'.$filename.'.txt', $html_subject);
 			$zip->addFromString($filename.'/Default.htm', $html_no_style);
 			$zip->close();
 			
