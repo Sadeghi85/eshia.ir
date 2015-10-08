@@ -640,31 +640,41 @@ class Docx2Html
 	{
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<a href="([^"]+)"([^>]*)>(.+?)</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#i', '<a href="\1"\2>\3\4\5</a>', $content, -1, $count);
+			$content = preg_replace_callback('#<a href="([^"]+)"([^>]*)>([^\0])</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#iu',
+				function ($matches)
+				{
+					if (false === stripos($matches[3], '<div>')) {
+						return sprintf('<a href="%s"%s>%s%s%s</a>', $matches[1], $matches[2], $matches[3], $matches[4], $matches[5]);
+					} else {
+						return sprintf('<a href="%s"%s>%s</a>%s%s<a href="%s">%s</a>', $matches[1], $matches[2], $matches[3], "\0", $matches[4], $matches[3], $matches[5]);
+					}
+				},
+				$content, -1, $count);
+			//$content = preg_replace('#<a href="([^"]+)"([^>]*)>(.+?)</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#iu', '<a href="\1"\2>\3\4\5</a>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<span style="([^"]+)"([^>]*)>([^<>]+)</span>(\s*)<span style="\1"[^>]*>([^<>]+)</span>#i', '<span style="\1"\2>\3\4\5</span>', $content, -1, $count);
+			$content = preg_replace('#<span style="([^"]+)"([^>]*)>([^<>]+)</span>(\s*)<span style="\1"[^>]*>([^<>]+)</span>#iu', '<span style="\1"\2>\3\4\5</span>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<span class="([^"]+)"([^>]*)>([^<>]+)</span>(\s*)<span class="\1"[^>]*>([^<>]+)</span>#i', '<span class="\1"\2>\3\4\5</span>', $content, -1, $count);
+			$content = preg_replace('#<span class="([^"]+)"([^>]*)>([^<>]+)</span>(\s*)<span class="\1"[^>]*>([^<>]+)</span>#iu', '<span class="\1"\2>\3\4\5</span>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<b>(.+?)</b>(\s*)<b>(.+?)</b>#i', '<b>\1\2\3</b>', $content, -1, $count);
+			$content = preg_replace('#<b>(.+?)</b>(\s*)<b>(.+?)</b>#iu', '<b>\1\2\3</b>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<i>(.+?)</i>(\s*)<i>(.+?)</i>#i', '<i>\1\2\3</i>', $content, -1, $count);
+			$content = preg_replace('#<i>(.+?)</i>(\s*)<i>(.+?)</i>#iu', '<i>\1\2\3</i>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<u>(.+?)</u>(\s*)<u>(.+?)</u>#i', '<u>\1\2\3</u>', $content, -1, $count);
+			$content = preg_replace('#<u>(.+?)</u>(\s*)<u>(.+?)</u>#iu', '<u>\1\2\3</u>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace('#<strike>(.+?)</strike>(\s*)<strike>(.+?)</strike>#i', '<strike>\1\2\3</strike>', $content, -1, $count);
+			$content = preg_replace('#<strike>(.+?)</strike>(\s*)<strike>(.+?)</strike>#iu', '<strike>\1\2\3</strike>', $content, -1, $count);
 		}
 		
 		return $content;

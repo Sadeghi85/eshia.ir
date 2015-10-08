@@ -139,6 +139,7 @@ EOT;
 			$html_subject = preg_replace($html_subject_pattern, '$1', $html_no_style);
 			$html_subject = strip_tags($html_subject);
 			$html_subject = trim(trim($html_subject, ':'));
+			$html_subject = @iconv('UTF-8', 'CP1256', $html_subject);
 		}
 		
 		if ( ! is_null(Input::get('download_style')))
