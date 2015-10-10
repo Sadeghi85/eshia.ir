@@ -1,7 +1,7 @@
-<a class="vmenu-title" href="/Ar/feqh/">مدرسة الفقاهة</a>
+﻿<a class="vmenu-title" href="/Ar/feqh/">مدرسة الفقاهة</a>
 <a class="linknolink" style="color:#006699;font-weight:bold !important;text-indent:1.5em !important;" >بالعربية</a>
 <a href="/Ar/Feqh/Archive/" style="font-size:0.7em; text-indent:1.5em !important;">النجف الأشرف </a>
-<a href="/Ar/Feqh/Archive/qaravieh/" style="font-size:0.7em; text-indent:1.5em !important;">النجف الأشرف(المدرسة‌الغرویة)</a>
+<a href="/Ar/Feqh/Archive/qaravieh/" style="font-size:0.7em; text-indent:1.5em !important;">النجف الأشرف(العتبة العلوية)</a>
 <a href="/Ar/Feqh/Archive/almasajed/" style="font-size:0.7em; text-indent:1.5em !important;">النجف الأشرف(المساجد)</a>
 <div class="khat"></div>
 <a href="/Ar/Feqh/Archive/Qom/" style="font-size:0.7em; text-indent:1.5em !important;">قم المقدسة</a>
