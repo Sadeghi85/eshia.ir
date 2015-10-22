@@ -56,17 +56,9 @@ App::fatal(function($exception)
 	if ( ! Config::get('app.debug'))
 	{
 		$message = Helpers::getExceptionErrorMessage();
-		
-		return (Request::ajax() ? Response::make('', 500) : Response::view('error.error', compact('message'), 500));
+		//return Response::view('error.error', compact('message'), 500);
+		return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
 	}
-});
-
-App::error(function(\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException $exception)
-{
-	Log::error(Route::current());
-    Log::error($exception);
-
-    Response::make('', 405);
 });
 
 App::error(function(Exception $exception, $code)
@@ -80,29 +72,43 @@ App::error(function(Exception $exception, $code)
 		switch ($code)
 		{
 			case 403:
-				return (Request::ajax() ? Response::make('', 403) : Response::view('error.error', compact('message'), 403));
+				//return Response::view('error.error', compact('message'), 403);
 				
 			case 405:
-				return (Request::ajax() ? Response::make('', 405) : Response::view('error.error', compact('message'), 405));
+				//return Response::view('error.error', compact('message'), 405);
 
 			case 500:
-				return (Request::ajax() ? Response::make('', 500) : Response::view('error.error', compact('message'), 500));
+				//return Response::view('error.error', compact('message'), 500);
 				
 			case 503:
-				return (Request::ajax() ? Response::make('', 503) : Response::view('error.error', compact('message'), 503));
+				//return Response::view('error.error', compact('message'), 503);
 
 			default:
-				
-				return (Request::ajax() ? Response::make('', 404) : Response::view('error.error', compact('message'), 404));
+				//return Response::view('error.error', compact('message'), 404);
+				return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
 		}
 	}
+});
+
+// App::error(function(Exception $exception, $code)
+// {
+	// Log::error($exception);
+// });
+
+App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $exception, $code)
+{
+	Log::error($exception);
+	
+	$message = Helpers::getExceptionErrorMessage();
+    //return Response::view('error.error', compact('message'), 404);
+	return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
 });
 
 App::missing(function($exception)
 {
     $message = Helpers::getExceptionErrorMessage();
-    
-	return (Request::ajax() ? Response::make('', 404) : Response::view('error.error', compact('message'), 404));
+    //return Response::view('error.error', compact('message'), 404);
+	return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
 });
 
 /*
@@ -121,8 +127,8 @@ App::down(function()
 	//return Response::make("Be right back!", 503);
 	
 	$message = Helpers::getExceptionErrorMessage();
-    
-	return (Request::ajax() ? Response::make('', 503) : Response::view('error.error', compact('message'), 503));
+    //return Response::view('error.error', compact('message'), 503);
+	return (Request::ajax() ? Response::make('', 200) : Response::view('error.error', compact('message'), 200));
 });
 
 /*
@@ -137,6 +143,9 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// Paginator page must be positive
+Input::merge(array(Paginator::getPageName() => abs(Input::get(Paginator::getPageName(), 1))));
 
 /*
 |--------------------------------------------------------------------------
@@ -158,9 +167,6 @@ Blade::extend(function($value)
               $value
 			);
 });
-
-// Paginator page must be positive
-Input::merge(array(Paginator::getPageName() => abs(Input::get(Paginator::getPageName(), 1))));
 
 /*
 |--------------------------

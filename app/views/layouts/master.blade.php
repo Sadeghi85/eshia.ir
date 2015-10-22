@@ -7,6 +7,7 @@
 	
 	<link href="/Styles/Default.css" rel="stylesheet" type="text/css"/>
 	<link href="/Styles/eshia.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/css/search.css" rel="stylesheet" type="text/css"/>
 	
 	<link rel="shortcut icon" href="/Images/favicon.ico"/>
 	
@@ -39,9 +40,21 @@
 				<div class="header-area">
 					<table class="header-links">
 						<tr>
-						<td>
-							@include($header)
-						</td>
+							<div class="mainsearchbox">
+								<td style="width:250px;" >
+									<form action="#" id="mainSearchPanel" class="searchform" onsubmit="do_search(document.getElementById('search_input').value);return false;" style="">
+										<div>
+											<label for="search_input" ></label>
+											<input name="key" id="search_input" value="@lang('app.default_search')" class="SearchInput ui-autocomplete-input empty-search-item" autocomplete="off" onfocus="if (this.value == '@lang('app.default_search')') {this.value = ''; this.className='SearchInput ui-autocomplete-input'}" onblur="if (this.value == '') {this.value = '@lang('app.default_search')'; this.className='SearchInput ui-autocomplete-input empty-search-item'}" />
+											<input type="submit" id="searchButton" value="" class="SearchKey">
+										</div>
+									</form>
+								</td>
+							</div>
+							
+							<td style="width:80%;">
+								@include($header)
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -56,7 +69,13 @@
 						@endif
 					</td>
 					<td> </td>
-					<td><div dir="rtl">@yield('search-form')</div></td>
+					<td>
+					{{ $searchContentForm or '' }}
+					
+					
+					
+					
+					</td>
 					</tr>
 					</table>
 					
@@ -107,7 +126,46 @@
 	
 	
 @section('javascript')
-
+<script type="text/javascript">
+	function fixedEncodeURIComponent (str)
+	{
+		return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
+	}
+	
+	function do_search(query, teacher, course, year)
+	{
+		query = query.replace(/^\s+|\s+$/g, '');
+		
+		if (query && query != "@lang('app.default_search')")
+		{
+			//query = query.replace(/ +/g, '_').replace(/['\0\\]+/g, '');
+			query = query.replace(/['\0\\]+/g, '');
+			
+			
+			if (teacher && course && year)
+			{
+			
+				@if ($locale === 'ar')
+					window.location.assign('/Ar/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
+				@else
+					window.location.assign('/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
+				@endif
+			}
+			else
+			{
+				@if ($locale === 'ar')
+					window.location.assign('/Ar/search/' + fixedEncodeURIComponent(query));
+				@else
+					window.location.assign('/search/' + fixedEncodeURIComponent(query));
+				@endif
+				
+			}
+			
+		}
+		
+		return false;
+	}
+</script>
 @show
 </body>
 </html>

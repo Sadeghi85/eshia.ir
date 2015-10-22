@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
+Application::requestClass('Sadeghi85\Extensions\Request');
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -26,7 +29,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(function()
 {
-	$serverName = isset($_SERVER['SERVER_NAME']) ? explode('.', $_SERVER['SERVER_NAME']) : array('local');
+	$serverName = isset($_SERVER['SERVER_NAME']) ? explode('.', $_SERVER['SERVER_NAME']) : array('production');
     return array_pop($serverName);
 });
 

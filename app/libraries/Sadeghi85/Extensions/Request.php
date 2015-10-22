@@ -7,16 +7,16 @@ class Request extends \Illuminate\Http\Request {
 	 *
 	 * @return string
 	 */
-    public function path()
-	{
-		$pattern = trim($this->getPathInfo(), '/');
+    // public function path()
+	// {
+		// $pattern = trim($this->getPathInfo(), '/');
 		
-		if (false === strpos($pattern, '.')) {
-			$pattern = str_replace('_', ' ', $pattern);
-		}
+		// if (false === strpos($pattern, '.')) {
+			// $pattern = str_replace('_', ' ', $pattern);
+		// }
 		
-		return $pattern == '' ? '/' : $pattern;
-	}
+		// return $pattern == '' ? '/' : $pattern;
+	// }
 	
 	/**
 	 * Retrieve an input item from the request.
@@ -25,12 +25,12 @@ class Request extends \Illuminate\Http\Request {
 	 * @param  mixed   $default
 	 * @return string
 	 */
-	public function input($key = null, $default = null)
-	{
-		$input = $this->getInputSource()->all() + $this->query->all();
+	// public function input($key = null, $default = null)
+	// {
+		// $input = $this->getInputSource()->all() + $this->query->all();
 
-		return array_get(str_replace('_', ' ', $input), $key, $default);
-	}
+		// return array_get(str_replace('_', ' ', $input), $key, $default);
+	// }
 	
 	/**
 	 * Get a segment from the URI (1 based index).
@@ -39,27 +39,27 @@ class Request extends \Illuminate\Http\Request {
 	 * @param  mixed   $default
 	 * @return string
 	 */
-	public function segment($index, $default = null)
-	{
-		return array_get($this->segments(), $index, $default);
-	}
+	// public function segment($index, $default = null)
+	// {
+		// return array_get($this->segments(), $index, $default);
+	// }
 
 	/**
 	 * Get all of the segments for the request path.
 	 *
 	 * @return array
 	 */
-	public function segments()
-	{
-		$segments = explode('/', str_replace('_', ' ', urldecode($this->path())));
+	// public function segments()
+	// {
+		// $segments = explode('/', str_replace('_', ' ', urldecode($this->path())));
 		
-		$segments = array_values(array_filter($segments, function($v) { return $v != ''; }));
+		// $segments = array_values(array_filter($segments, function($v) { return $v != ''; }));
 		
-		array_unshift($segments, '');
-		unset($segments[0]);
+		// array_unshift($segments, '');
+		// unset($segments[0]);
 		
-		return $segments;
-	}
+		// return $segments;
+	// }
 	
 	/**
 	 * Get the URL (no query string) for the request.

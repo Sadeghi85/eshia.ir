@@ -10,6 +10,8 @@ return array(
 	'download_html' => 'دانلود بصورت html',
 	'download_style' => 'دانلود با style',
 	
+	'page_display_error' => 'با عرض پوزش، مشکلی در نمایش این صفحه بوجود آمده است',
+	
 	
 	#Query--------------------------------------------------------------------------------------------------------------------
 	'query_search_result' => 'نتيجه يافت شد',
@@ -28,5 +30,6 @@ return array(
 	'search_search' => 'جستجو',
 	'search_seconds' => 'ثانیه',
 	'search_info' => '%s نام استاد :%s %s %s، درس : %s %s %s، تاریخ : %s %s',
+	'default_search' => 'جستجو...',
 	
 );

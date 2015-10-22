@@ -10,6 +10,10 @@ return array(
 	'download_html' => 'تحميل html',
 	'download_style' => 'تحميل مع style',
 	
+	
+	'page_display_error' => 'نعتذر، ليس هناك مشكلة في عرض هذه الصفحة',
+	
+	
 	#Query--------------------------------------------------------------------------------------------------------------------
 	'query_search_result' => 'تم العثور على نتيجة',
 	'query_search_result_not_found' => 'لم يتم العثور على أي شيء :query',
@@ -26,4 +30,8 @@ return array(
 	'search_one_group' => 'بحث في مجموعة واحدة',
 	'search_search' => 'البحث',
 	'search_seconds' => 'ثانیه',
+	'search_info' => '%s نام استاد :%s %s %s، درس : %s %s %s، تاریخ : %s %s',
+	'default_search' => 'بحث...',
+	
+	
 );

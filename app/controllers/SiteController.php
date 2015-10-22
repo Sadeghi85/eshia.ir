@@ -62,8 +62,8 @@ class SiteController extends BaseController {
 			}
 			
 			$rawContent =  	preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
-								str_replace(pack('H*', 'c2a0'), ' ',
-									str_replace(pack('H*', 'efbbbf'), '',
+								str_replace([pack('H*', 'c2a0'), '&#160;'], ' ',
+									str_replace([pack('H*', 'efbbbf'), '&#65279;'], ' ',
 										str_replace(pack('H*', '00'), '',
 											$_utf8Content
 										)
@@ -100,8 +100,13 @@ class SiteController extends BaseController {
 		}
 	}
 	
-	public function index($requestPath)
+	public function index($requestPath, $archive = '', $text = '', $teacher = '', $course = '', $year = '', $date = '', $hilight = '')
 	{
+		if (strtolower($requestPath) == 'feqh') {
+			$feqh = $requestPath;
+			$requestPath = sprintf('/%s/%s/%s/%s/%s/%s/%s', $feqh, $archive, $text, $teacher, $course, $year, $date);
+		}
+		
 		$dataPath = preg_replace('#\\\\+$#', '', str_replace('/', '\\', Config::get('app_settings.data_path')));
 		$localPath = trim(str_replace('/', '\\', $requestPath), '\\');
 		
@@ -111,20 +116,38 @@ class SiteController extends BaseController {
 		
 		# We've found a default page
 		if ($docObject->defaultDocument) {
-			$searchForm = $teacher = $course = $year = '';
+			$content = $this->_getContent($docObject->completePath);
 			
-			// preg_match('#(?:ar/)?feqh/archive/(?:text/)?([^/]+)/([^/]+)/([^/]+)#i', Request::path(), $matches);
+			if ($hilight) {
+				if ( ! (preg_match('#\/search\/(.+\/)?[^\/]+#', Request::server('HTTP_REFERER')) or preg_match('#[\=\!\"\*\/\(\)\[\]\~\<\>\^\$\:\|\@\-]#', $hilight))) {
+					$hilight = preg_replace('#([\p{N}\p{L}][\p{N}\p{L}\p{M}]*)#iu', '=$1', $hilight);
+				}
+				
+				$_content =  with(new \Sphinx\SphinxClient)->buildExcerpts(compact('content'), Config::get('app_settings.search_index_main_name', 'www_eshia_ir_main'), $hilight,
+								array
+								(
+									'query_mode' => true,
+									'limit' => 0,
+									'chunk_separator' => '',
+									'exact_phrase' => true,
+									'html_strip_mode' => 'retain',
+									'load_files' => false,
+									'allow_empty' => false,
+									'before_match' => '<span class="hilight">',
+									'after_match' => '</span>'
+								)
+							);
+				
+				$content =  is_array($_content) ? (($_content = array_values($_content)[0]) != '' ? $_content : $content) : $content;
+			}
 			
-			// if (count($matches) == 4) {
-				// $teacher = $matches[1];
-				// $course = $matches[2];
-				// $year = explode('_', $matches[3]);
-				// $year = array_shift($year);
+			if ($teacher and $course and $year) {
+				$this->layout->searchContentForm = View::make('search-content', compact('teacher', 'course', 'year'));
+			}
 			
-				// $searchForm = View::make('search-form', ['teacher' => $teacher, 'course' => $course, 'year' => $year]);
-			// }
-			
-			$this->layout->content = View::make('page', ['content' => $this->_getContent($docObject->completePath), 'searchForm' => $searchForm]);
+			$this->layout->content = View::make('page', compact('content'));
+				
+			return;
 		}
 		# Either static file or 404
 		else {

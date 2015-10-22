@@ -1,0 +1,323 @@
+/*-------------------------------- search ---*/
+
+.mainsearchbox {
+	width: 250px;
+}
+
+.counter {
+	width: 280px;
+	height:24px;
+	background: #e4f0fa;
+	border: 1px solid #b3d0e8;
+	text-align:center;
+	padding: 0 5px 5px 5px;
+}
+
+.pagenave {
+	float:left;
+}
+
+.result {
+	padding: 5px;
+	margin: 5px 0 0 0;
+	background: #e4f0fa;
+	border: 1px solid #b3d0e8;
+	padding: 0 5px 5px 5px;
+	min-height: 90px;
+}
+
+.resultadad {
+	padding: 0 ;
+	margin: 0 0 50px 5px;
+	float: right;
+	font-family: tahoma;
+	border: 1px #668dc4 solid;
+}
+
+.boxeadad {
+	float: right;
+	margin: 0 0 50px 5px;
+	font-family: tahoma;
+}
+.adadjadid {
+	height: 15px;
+	margin: 10px 0;
+	background: #668dc4;
+	padding: 0 5px 3px 5px;
+	color: #fff;
+}
+
+.searchlink a {
+	font-size:1.2em !important;
+	font-family: eshiatrad_ttf, eshiatrad;
+}
+
+.searchlink a:hover {
+	color: #ff6c13;
+}
+
+.searchcounter {
+	height:31px;
+	margin-top: 5px;
+
+}
+
+.searchcounter a:link, .searchcounter a:visited {
+	color: #fff;
+}
+
+.searchcounter a:hover {
+	background: #668dc4;
+	color: #fff;
+}
+
+.page-numbers {
+	margin: 10px 0;
+	background: #81b3d9;
+	padding: 0 5px 3px 5px;
+	color: #668dc4;
+	border: 1px #668dc4 solid;
+}
+
+.current {
+	background: #bacde2;
+	color: #000;
+
+}
+
+/*-------------------------------- search ---*/
+
+.searchcontent {
+	width: 97%;
+	margin: 0 auto;
+}
+
+
+.pagenave a {
+	margin: 10px 1px;
+	background: #81b3d9;
+	padding: 0 5px 3px 5px;
+	color: #668dc4;
+	border: 1px #668dc4 solid;
+}
+
+.current-page  {
+	height: 15px;
+	margin: 10px 0;
+	background: #668dc4;
+	padding: 0 5px 3px 5px;
+	color: #fff;
+}
+
+.unavailable {
+	float: right;
+	margin: 0;
+	font-family: tahoma;
+}
+
+
+
+.resulttext {
+	font-size:1.2em !important;
+	font-family: eshiatrad_ttf, eshiatrad;
+}
+	
+
+
+
+
+
+/*search------------------------------------------------------------------------------------------------------------------------------------*/
+#mainSearchPanel {
+	background: #e4f0fa;
+	border:0px solid #a6c4dc;
+	margin:0;
+	padding: 0em;
+	position: relative;
+	width:220px;
+	height:25px;
+	direction:rtl;
+	font-size: 7pt;
+}
+#searchDomain {
+	display: none;
+	list-style: none;
+	border:0em;
+}
+.searchPanel {
+	font-size:0.6em;
+	height:25px;
+}
+.SearchInput {
+	width:195px !important;
+	height:100% !important;
+	margin:0px !important;
+	padding:0px !important;
+	font-size:1.8em !important;
+	text-indent:.3em;
+	position:absolute;
+	top:0em;
+	right:0em;
+	border:0 !important;
+	outline-offset:0px;
+	background: #e4f0fa;
+	line-height:1.8em;
+	font-style:normal;
+	font-family: eshiatrad_ttf, eshiatrad;
+}
+.SearchKey {
+	border:0;
+	font-size:0.6em;
+	margin:0em;
+	padding:0em;
+	width:23px;
+	height:25px;
+	outline:none;
+	position:absolute;
+	top:0em;
+	left:0px;
+}
+
+#searchButton {
+	background: url(../Images/search.png) 0 0;
+	border: 0 !important;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;	
+}
+
+
+#searchButton:hover {
+	background: url(../Images/search.png) 0 25px;
+	border: 0 !important;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;	
+}
+
+.SearchKey:focus, .SearchKey:active {
+	width:23px;
+	height:22px;
+
+}
+
+.SearchKey:hover {
+	width:23px;
+	height:25px;
+}
+
+.Pressed { background-color: #EEEEEE }
+.search_bar {
+	height:2em;
+	width:100%;
+}
+
+
+/*-------------------------------- search ---*/
+.searchform {
+	float: left;
+	position: absolute;
+	margin: 2px 5px;
+	baclground: #000;
+}
+
+#searchsubmit {
+	padding: 2px 2px 5px 2px;
+}
+
+
+/*------------------------------------------ mainsearchinsider ---------*/
+
+.mainsearchinsider {
+	width: 285px;
+	height: 25px;
+	padding: 0 5px 0 0 !important;
+	margin: 10px 0 0 0;
+	background: #e4f0fa;
+	border: 1px solid #b3d0e8;
+}
+
+#searchforminsider {
+	padding: 0 !important;
+	width: 80px;
+	width: 270px;
+	border: 0 !insider;
+}
+
+
+#searchinputinsider {
+	padding: 0 !important;
+	height: 25px;
+	width: 200px;
+	background: transparent;
+	border:0;
+}
+
+#searchButtoninsider {
+	float: left;
+	width: 80px;
+	height: 22px;
+	background:url(../Images/searchinsider.png) 0 0;
+	border: 0 !important;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;	
+	margin: 0;
+}
+
+#searchButtoninsider:hover {
+	background:url(../Images/searchinsider.png) 0 22px;
+	border: 0 !important;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;	
+}
+
+
+#search-query-form {
+	float: right;
+}
+
+
+/*-------------------------------- search DARS---*/
+.searchdarsform {
+	float: rightt;
+	position: absolute;
+	margin: 2px 5px;
+	background: #000;
+}
+
+#searchsubmit {
+	padding: 2px 2px 5px 2px;
+}
+
+
+#mainSearchDarsPanel {
+	background: #e4f0fa;
+	border:0px solid #a6c4dc;
+	margin:0;
+	padding: 0em;
+	position: relative;
+	width:170px;
+	height:25px;
+	direction:rtl;
+	font-size: 7pt;
+}
+
+#searchContentInput {
+	width:160px !important;
+	height:100% !important;
+	margin:0px !important;
+	padding:0px !important;
+	font-size:1.9em !important;
+	text-indent:.3em;
+	position:absolute;
+	top:0em;
+	right:0em;
+	border:0 !important;
+	outline-offset:0px;
+	background: #e4f0fa;
+	line-height:1.8em;
+	font-style:normal;
+font-family: eshiatrad_ttf, eshiatrad;
+}
