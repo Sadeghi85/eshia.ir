@@ -640,17 +640,17 @@ class Docx2Html
 	{
 		$count = 1;
 		while ($count > 0) {
-			$content = preg_replace_callback('#<a href="([^"]+)"([^>]*)>([^\0])</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#iu',
-				function ($matches)
-				{
-					if (false === stripos($matches[3], '<div>')) {
-						return sprintf('<a href="%s"%s>%s%s%s</a>', $matches[1], $matches[2], $matches[3], $matches[4], $matches[5]);
-					} else {
-						return sprintf('<a href="%s"%s>%s</a>%s%s<a href="%s">%s</a>', $matches[1], $matches[2], $matches[3], "\0", $matches[4], $matches[3], $matches[5]);
-					}
-				},
-				$content, -1, $count);
-			//$content = preg_replace('#<a href="([^"]+)"([^>]*)>(.+?)</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#iu', '<a href="\1"\2>\3\4\5</a>', $content, -1, $count);
+			// $content = preg_replace_callback('#<a href="([^"]+)"([^>]*)>([^\0])</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#iu',
+				// function ($matches)
+				// {
+					// if (false === stripos($matches[3], '<div>')) {
+						// return sprintf('<a href="%s"%s>%s%s%s</a>', $matches[1], $matches[2], $matches[3], $matches[4], $matches[5]);
+					// } else {
+						// return sprintf('<a href="%s"%s>%s</a>%s%s<a href="%s">%s</a>', $matches[1], $matches[2], $matches[3], "\0", $matches[4], $matches[3], $matches[5]);
+					// }
+				// },
+				// $content, -1, $count);
+			$content = preg_replace('#<a href="([^"]+)"([^>]*)>(.+?)</a>(\s*)<a href="\1"[^>]*>(.+?)</a>#iu', '<a href="\1"\2>\3\4\5</a>', $content, -1, $count);
 		}
 		$count = 1;
 		while ($count > 0) {

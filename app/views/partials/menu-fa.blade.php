@@ -7,7 +7,8 @@
 <a href="/Feqh/Archive/qom/khan/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه قم - مدرسه خان</a>
 <div class="khat"></div>
 <a href="/Ar/Feqh/Archive/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه نجف</a>
-<a href="/Ar/Feqh/Archive/qaravieh/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه نجف-حرم امیرالمؤمنین(ع)</a>
+<a href="/Ar/Feqh/Archive/qaravieh/" style="font-size:0.7em; text-indent:1.5em !important;white-space: nowrap;">حوزه علمیه نجف-حرم امیرالمؤمنین(ع)</a>
+
 <a href="/Ar/Feqh/Archive/almasajed/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه نجف-مساجد</a>
 <div class="khat"></div>
 <a href="/Feqh/Archive/Mashhad/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه مشهد</a>
