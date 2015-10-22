@@ -20,10 +20,21 @@ Route::pattern('convert', '(?i)convert(?-i)');
 Route::pattern('text', '(?i)text(?-i)');
 
 
+// # Search
+	// Route::get('/search', function () { return Helpers::redirect('/help'); });
+	// Route::get('/search/{id}/{query}', array('uses' => 'SearchController@showPage'))
+	// ->where(array('id' => '\d+', 'query' => '.+'));
+	// Route::get('/search/{query}', array('uses' => 'SearchController@showPage'))
+	// ->where('query', '.+');
+	// # Advanced Search
+	// Route::get('/advanced-search', array('uses' => 'SearchController@showAdvancedPage'));
+	// Route::post('/advanced-search', array('uses' => 'SearchController@processAdvancedPage'));
+	
+
 Route::get('/{ar}/search/{teacher}/{course}/{year}/{query}', array('uses' => 'SearchController@showPage'))
-->where('year', '\d{2}')->where('date', '\d{6}')->where('query', '.+');
+->where('year', '\d{2}')->where('date', '\d{3}|\d{6}')->where('query', '.+');
 Route::get('/search/{teacher}/{course}/{year}/{query}', array('uses' => 'SearchController@showPage'))
-->where('year', '\d{2}')->where('date', '\d{6}')->where('query', '.+');
+->where('year', '\d{2}')->where('date', '\d{3}|\d{6}')->where('query', '.+');
 
 Route::get('/{ar}/search/{query}', array('uses' => 'SearchController@showPage'))
 ->where('query', '.+');
@@ -38,5 +49,5 @@ Route::get('/{feqh}/{archive}/{convert}/{fa}', 'ConvertController@index');
 Route::post('/{feqh}/{archive}/{convert}/{teacher?}/{course?}/{year?}', array('as' => 'convert', 'uses' => 'ConvertController@convert'));
 
 Route::get('/{feqh}/{archive}/{text}/{teacher}/{course}/{year}/{date}/{hilight?}', 'SiteController@index')
-->where('year', '\d{2}')->where('date', '\d{6}')->where('hilight', '.*');
+->where('year', '\d{2}')->where('date', '\d{3}|\d{6}')->where('hilight', '.*');
 Route::get('{path}', 'SiteController@index')->where('path', '.*');

@@ -116,7 +116,13 @@ class SearchController extends BaseController {
 				$thisPage[$i]['attrs']['represented_teacher'] = str_replace(['teachers.', '.name'], '', trans(sprintf('teachers.%s.name', $thisPage[$i]['attrs']['teacher'])));
 				$thisPage[$i]['attrs']['represented_course']  = preg_replace('#^(?:[^\.]+\.)+(.+)$#', '$1', trans(sprintf('courses.%s', $thisPage[$i]['attrs']['course'])));
 				$date = $thisPage[$i]['attrs']['date'];
-				$date = sprintf('%s/%s/%s', $date[0].$date[1], $date[2].$date[3], $date[4].$date[5]);
+				
+				if (strlen($date) == 6) {
+					$date = sprintf('%s%s/%s%s/%s%s', $date[0], $date[1], $date[2], $date[3], $date[4], $date[5]);
+				} else {
+					$date = sprintf('%s', (int) $date);
+				}
+				
 				$thisPage[$i]['attrs']['represented_date'] = $date;
 			}
 

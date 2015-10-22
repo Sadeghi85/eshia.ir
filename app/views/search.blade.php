@@ -24,7 +24,14 @@
 <span class="adadjadid">{{ $perPage * ($page - 1) + $key +1 }}</span>
 </div>
 <div class="searchlink">
-<a href="{{ Helpers::to(sprintf('/Feqh/Archive/text/%s/%s/%s/%s/%s', $result['attrs']['teacher'], $result['attrs']['course'], $result['attrs']['year'], $result['attrs']['date'], $query)) }}" title="">{{ sprintf(trans('app.search_info'), '<font color="#ff6c13">', '</font>', $result['attrs']['represented_teacher'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_course'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_date']) }}</a>
+<a href="{{ Helpers::to(sprintf('/Feqh/Archive/text/%s/%s/%s/%s/%s', $result['attrs']['teacher'], $result['attrs']['course'], $result['attrs']['year'], $result['attrs']['date'], $query)) }}" title="">
+
+@if (strlen($result['attrs']['date']) == 6)
+	{{ sprintf(trans('app.search_info_date'), '<font color="#ff6c13">', '</font>', $result['attrs']['represented_teacher'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_course'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_date']) }}
+@else
+	{{ sprintf(trans('app.search_info_session'), '<font color="#ff6c13">', '</font>', $result['attrs']['represented_teacher'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_course'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_date']) }}
+@endif
+</a>
 </div>
 <div class="resulttext">
 {{ $result['attrs']['excerpt'] }}
