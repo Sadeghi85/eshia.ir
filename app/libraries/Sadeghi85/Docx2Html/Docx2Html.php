@@ -792,7 +792,7 @@ class Docx2Html
 		
 		$content =  preg_replace('#\p{Cf}+#u', pack('H*', 'e2808c'),
 						str_replace(pack('H*', 'c2a0'), ' ',
-							str_replace(pack('H*', 'efbbbf'), '',
+							str_replace(pack('H*', 'efbbbf'), pack('H*', 'e2808c'),
 								str_replace(pack('H*', '00'), '',
 									$utf8Content
 								)
