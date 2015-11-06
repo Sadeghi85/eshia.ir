@@ -109,11 +109,11 @@ input.file {
 					
 
 					<div class="fileinputs">
-						<input type="file" class="file hidden" multiple="" name="doc" id="doc">
+						<input type="file" class="file hidden" multiple="" name="file" id="file">
 					<div class="fakefile"><span>@lang('app.choose_file'): </span><input type="text" name="fakeinput" id="fakeinput" /></div></div>
 				
 				
-					<!-- Browse… <input type="file" multiple="" name="doc" id="doc"> -->
+					<!-- Browse… <input type="file" multiple="" name="file" id="file"> -->
 				</span>
 			</span>
 			<!-- <input class="form-control" readonly="" type="text"> -->
