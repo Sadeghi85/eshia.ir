@@ -19,6 +19,9 @@ Route::pattern('archive', '(?i)archive(?-i)');
 Route::pattern('convert', '(?i)convert(?-i)');
 Route::pattern('text', '(?i)text(?-i)');
 
+# Monitoring
+Route::get('/{ar}/{feqh}/monitoring', array('uses' => 'SiteController@showMonitoring'));
+Route::get('/{feqh}/monitoring', array('uses' => 'SiteController@showMonitoring'));
 
 // # Search
 	// Route::get('/search', function () { return Helpers::redirect('/help'); });
@@ -47,6 +50,7 @@ Route::get('/{feqh}/{archive}/{convert}/{teacher}/{course}/{year}', 'ConvertCont
 Route::get('/{feqh}/{archive}/{convert}/{ar}', 'ConvertController@index');
 Route::get('/{feqh}/{archive}/{convert}/{fa}', 'ConvertController@index');
 Route::post('/{feqh}/{archive}/{convert}/{teacher?}/{course?}/{year?}', array('as' => 'convert', 'uses' => 'ConvertController@convert'));
+Route::post('/feqh/archive/convert2zip/{teacher?}/{course?}/{year?}', array('uses' => 'ConvertController@convert2zip'));
 
 Route::get('/{feqh}/{archive}/{text}/{teacher}/{course}/{year}/{date}/{hilight?}', 'SiteController@index')
 ->where('year', '\d{2}')->where('date', '\d{3}|\d{6}')->where('hilight', '.*');

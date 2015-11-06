@@ -1,5 +1,7 @@
 <?php
 
+use Sadeghi85\JDateTime\JDateTime;
+
 class SiteController extends BaseController {
 
 	protected $layout;
@@ -146,7 +148,7 @@ class SiteController extends BaseController {
 			}
 			
 			$this->layout->content = View::make('page', compact('content'));
-				
+			
 			return;
 		}
 		# Either static file or 404
@@ -160,5 +162,62 @@ class SiteController extends BaseController {
 				App::abort(404);
 			}
 		}
+	}
+	
+	public function showMonitoring()
+	{
+		
+		$jDateTime = new JDateTime(false, true, 'Asia/Tehran');
+		$today = $jDateTime->date("Ymd", time());
+		
+		
+		//$records = DB::connection('sqlsrv')->select('select top 10 * from [FileInputEvents] where date > ? order by date desc, time desc', array(13940806));
+		$records = 
+			FileInputEvent::distinct()
+			->select(['date','time','operator','folder','path','FileName','FileExtension','FileSize','operation'])
+			->where('date', '=', $today)
+				->whereIn('operation', [3])
+				->where(function($query)
+				{
+					$query->where('FileExtension', '=', 'wma')
+					->orWhere('FileExtension', '=', 'htm');
+				})
+				->orderBy('date', 'desc')
+				->orderBy('time', 'desc')
+				//->take(100)
+				->get();
+		
+		$results = [];
+		
+		foreach ($records as $key => $record) {
+			$tmpString = $record->folder;
+			
+			if ( ! preg_match(sprintf('#^([\p{L}\p{M}\p{N}\p{Cf}[:space:]]+)-([\p{L}\p{M}\p{N}\p{Cf}[:space:]]+)-([\p{L}\p{M}\p{N}\p{Cf}]+)-([\p{N}]+)$#iu'), $tmpString, $matches)) {
+				continue;
+			}
+			
+			$results[$key]['teacher'] = $matches[1];
+			$results[$key]['course'] = $matches[2];
+			$results[$key]['type'] = $matches[3];
+			$results[$key]['year'] = $matches[4];
+			
+			$tmpString = $record->date;
+			$results[$key]['date'] = sprintf('%s/%s/%s', substr($tmpString, 0, 4), substr($tmpString, 4, 2), substr($tmpString, 6, 2));
+			$tmpString = $record->time;
+			$results[$key]['time'] = sprintf('%s:%s:%s', substr($tmpString, 0, 2), substr($tmpString, 2, 2), substr($tmpString, 4, 2));
+			
+			
+			$results[$key]['file_size'] = number_format($record->FileSize);
+			
+			$results[$key]['file_name'] = '';
+			if ($record->FileExtension == 'htm') {
+				$results[$key]['file_name'] = sprintf('%s', $record->path);
+			} elseif ($record->FileExtension == 'wma') {
+				$results[$key]['file_name'] = sprintf('%s', $record->FileName);
+			}
+		}
+		
+		$this->layout->content = View::make('monitoring', compact('results'));
+		return;
 	}
 }
