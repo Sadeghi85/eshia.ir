@@ -166,26 +166,37 @@ class SiteController extends BaseController {
 	
 	public function showMonitoring()
 	{
-		
 		$jDateTime = new JDateTime(false, true, 'Asia/Tehran');
 		$today = $jDateTime->date("Ymd", time());
 		
+		$dbh = DB::connection('sqlsrv')->getPdo();
+		$sql = "SELECT distinct [date],SUBSTRING(RIGHT('0'+CONVERT(varchar(9),[time]),9),1,6) as new_time,[operator],[folder],[path],[FileName],[FileExtension],[FileSize],[operation],[NewFileName] FROM [BaharSoundUtils].[dbo].[FileInputEvents]  where [date] = :date and [operation] in (:operation) and ([FileExtension] = 'wma' or [FileExtension] ='htm') order by date desc,new_time desc";
+		$sth = $dbh->prepare($sql, [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+		$sth->execute([':date' => $today, ':operation' => '3']);
+		$records = $sth->fetchAll(PDO::FETCH_OBJ);
 		
-		//$records = DB::connection('sqlsrv')->select('select top 10 * from [FileInputEvents] where date > ? order by date desc, time desc', array(13940806));
-		$records = 
-			FileInputEvent::distinct()
-			->select(['date','time','operator','folder','path','FileName','FileExtension','FileSize','operation'])
-			->where('date', '=', $today)
-				->whereIn('operation', [3])
-				->where(function($query)
-				{
-					$query->where('FileExtension', '=', 'wma')
-					->orWhere('FileExtension', '=', 'htm');
-				})
-				->orderBy('date', 'desc')
-				->orderBy('time', 'desc')
-				//->take(100)
-				->get();
+		##$records = DB::connection('sqlsrv')->select('select top 10 * from [FileInputEvents] where date > ? order by date desc, time desc', array(13940806));
+		//$records = 
+			//FileInputEvent::distinct()
+			##->select(['date','time','operator','folder','path','FileName','FileExtension','FileSize','operation'])
+			//->select(DB::raw('date,SUBSTRING(RIGHT(\'0\'+CONVERT(varchar(9),time),9),1,6) as new_time,operator,folder,path,FileName,FileExtension,FileSize,operation'))
+			
+			# event #1: directory being created
+			# event #2: file being created (also triggers #3)
+			# event #3: file being changed
+			# event #4: file or directory being deleted
+			# event #5: 
+			# event #6: file or directory being renamed
+			// ->whereIn('operation', [3])
+			// ->where(function($query)
+			// {
+				// $query->where('FileExtension', '=', 'wma')
+				// ->orWhere('FileExtension', '=', 'htm');
+			// })
+			// ->orderBy('date', 'desc')
+			// ->orderBy('new_time', 'desc')
+			##->take(100)
+			//->get();
 		
 		$results = [];
 		
@@ -203,7 +214,7 @@ class SiteController extends BaseController {
 			
 			$tmpString = $record->date;
 			$results[$key]['date'] = sprintf('%s/%s/%s', substr($tmpString, 0, 4), substr($tmpString, 4, 2), substr($tmpString, 6, 2));
-			$tmpString = $record->time;
+			$tmpString = $record->new_time;
 			$results[$key]['time'] = sprintf('%s:%s:%s', substr($tmpString, 0, 2), substr($tmpString, 2, 2), substr($tmpString, 4, 2));
 			
 			
