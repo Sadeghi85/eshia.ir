@@ -269,7 +269,7 @@ EOT;
 			$zip->addEmptyDir($filename);
 		}
 		
-		$zip->addFromString($filename.'/'.$filename.'.txt', $html_subject);
+		$zip->addFromString($filename.'.txt', $html_subject);
 		$zip->addFromString($filename.'/Default.htm', $html_no_style);
 		$zip->close();
 		

@@ -520,8 +520,18 @@ class Docx2Html
 		# the font shows latin numbers as arabic
 		//$this->htmlOutput = $this->_convertNumbersToArabic($this->htmlOutput);
 		
+		$this->htmlOutput = $this->_RemoveBr($this->htmlOutput);
+		
 		
 		return $this->htmlOutput;
+	}
+	
+	private function _RemoveBr($content)
+	{
+		$content = preg_replace('#(?:(<p> *&nbsp; *</p>)[[:space:]]*)+#iu', '$1', $content);
+		$content = preg_replace('#(?:(<br[^>]*>)[[:space:]]*)+#iu', '$1', $content);
+		
+		return $content;
 	}
 	
 	private function _insertSurehInFootnote($content)
