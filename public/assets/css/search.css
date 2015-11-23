@@ -134,7 +134,7 @@
 	margin:0;
 	padding: 0em;
 	position: relative;
-	width:220px;
+	width:218px;
 	height:25px;
 	direction:rtl;
 	font-size: 7pt;
@@ -161,7 +161,7 @@
 	border:0 !important;
 	outline-offset:0px;
 	background: #e4f0fa;
-	line-height:1.8em;
+	/*line-height:1.8em;*/
 	font-style:normal;
 	font-family: eshiatrad_ttf, eshiatrad;
 }
@@ -298,14 +298,14 @@
 	margin:0;
 	padding: 0em;
 	position: relative;
-	width:170px;
+	width:218px;
 	height:25px;
 	direction:rtl;
 	font-size: 7pt;
 }
 
 #searchContentInput {
-	width:160px !important;
+	width:195px !important;
 	height:100% !important;
 	margin:0px !important;
 	padding:0px !important;
@@ -317,7 +317,7 @@
 	border:0 !important;
 	outline-offset:0px;
 	background: #e4f0fa;
-	line-height:1.8em;
+	/*line-height:1.8em;*/
 	font-style:normal;
 font-family: eshiatrad_ttf, eshiatrad;
 }

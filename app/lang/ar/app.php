@@ -32,7 +32,8 @@ return array(
 	'search_seconds' => 'ثانیه',
 	'search_info_date' => '%s الاستاذ :%s %s %s، الدرس : %s %s %s، التاريخ : %s %s',
 	'search_info_session' => '%s الاستاذ :%s %s %s، الدرس : %s %s %s، الجلسة : %s %s',
-	'default_search' => 'بحث...',
+	'default_search' => 'البحث في کل الدروس...',
+	'content_search' => 'البحث في هذا الدرس...',
 	
 	
 );

@@ -31,6 +31,7 @@ return array(
 	'search_seconds' => 'ثانیه',
 	'search_info_date' => '%s استاد :%s %s %s، درس : %s %s %s، تاریخ : %s %s',
 	'search_info_session' => '%s استاد :%s %s %s، درس : %s %s %s، جلسه : %s %s',
-	'default_search' => 'جستجو...',
+	'default_search' => 'جستجو در همه دروس...',
+	'content_search' => 'جستجو در این درس...',
 	
 );

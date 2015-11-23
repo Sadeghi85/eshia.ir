@@ -60,29 +60,24 @@
 				</div>
 				<div class="messenger-area" id="messenger">
 					<table class="messengerlink">
-					<tr>
-					<td class="messengerlink-td1">
-						@if ($locale === 'ar')
-							<a href="/Ar/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/Messenger_ar.gif" /></a>
-						@else
-							<a href="/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/live.gif" /></a>
-						@endif
-					</td>
-					<td> </td>
-					<td>
-					{{ $searchContentForm or '' }}
-					
-					
-					
-					
-					</td>
-					</tr>
+						<tr>
+							<td class="messengerlink-td1">
+								@if ($locale === 'ar')
+									<a href="/Ar/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/Messenger_ar.gif" /></a>
+								@else
+									<a href="/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/live.gif" /></a>
+								@endif
+							</td>
+							<td> </td>
+							<td>
+								{{ $searchContentForm or '' }}
+							</td>
+						</tr>
 					</table>
-					
-					
 				</div>
 				
 				<div id="content">@yield('content')</div>
+				
 			</td>
 			<td class="rightSection">
 				<div id="logo">
@@ -101,7 +96,6 @@
 					</div>
 			</td>
 		</tr>
-		
 		<tr colspan="2" id="contentfooter" style="background:url(/Images/Content_Back---down.jpg) repeat-x bottom; height:365px;" valign="bottom" align="center">
 			<td>
 				<p>
@@ -113,7 +107,7 @@
 					<a href="http://lib.eshia.ir">lib.eshia.ir</a>
 				</p>
 			</td>
-			<td></td>
+			<td> </td>
 		</tr>
 	</table>
 	<map name="Map" id="Map">
@@ -124,48 +118,46 @@
 		@endif
 	</map>
 	
-	
 @section('javascript')
-<script type="text/javascript">
-	function fixedEncodeURIComponent (str)
-	{
-		return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
-	}
-	
-	function do_search(query, teacher, course, year)
-	{
-		query = query.replace(/^\s+|\s+$/g, '');
-		
-		if (query && query != "@lang('app.default_search')")
+	<script type="text/javascript">
+		function fixedEncodeURIComponent (str)
 		{
-			//query = query.replace(/ +/g, '_').replace(/['\0\\]+/g, '');
-			query = query.replace(/['\0\\]+/g, '');
+			return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
+		}
+		
+		function do_search(query, teacher, course, year)
+		{
+			query = query.replace(/^\s+|\s+$/g, '');
 			
-			
-			if (teacher && course && year)
+			if (query && query != "@lang('app.default_search')" && query != "@lang('app.content_search')")
 			{
-			
-				@if ($locale === 'ar')
-					window.location.assign('/Ar/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
-				@else
-					window.location.assign('/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
-				@endif
-			}
-			else
-			{
-				@if ($locale === 'ar')
-					window.location.assign('/Ar/search/' + fixedEncodeURIComponent(query));
-				@else
-					window.location.assign('/search/' + fixedEncodeURIComponent(query));
-				@endif
+				//query = query.replace(/ +/g, '_').replace(/['\0\\]+/g, '');
+				query = query.replace(/['\0\\]+/g, '');
+				
+				if (teacher && course && year)
+				{
+				
+					@if ($locale === 'ar')
+						window.location.assign('/Ar/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
+					@else
+						window.location.assign('/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
+					@endif
+				}
+				else
+				{
+					@if ($locale === 'ar')
+						window.location.assign('/Ar/search/' + fixedEncodeURIComponent(query));
+					@else
+						window.location.assign('/search/' + fixedEncodeURIComponent(query));
+					@endif
+					
+				}
 				
 			}
 			
+			return false;
 		}
-		
-		return false;
-	}
-</script>
+	</script>
 @show
 </body>
 </html>
