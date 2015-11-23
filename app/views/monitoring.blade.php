@@ -26,14 +26,14 @@
 			
 		@foreach ($results as $key => $result)
 			<tr>
-				<td class="download-td-normal" align="center" valign="middle">{{ $result['file_name'] }}</td>
-				<td class="download-td-normal" align="center" valign="middle">{{ $result['date'] }}</td>
-				<td class="download-td-normal" align="center" valign="middle">{{ $result['time'] }}</td>
-				<td class="download-td-normal" align="center" valign="middle">{{ $result['teacher'] }}</td>
-				<td class="download-td-normal" align="center" valign="middle">{{ $result['course'] }}</td>
-				<td class="download-td-normal <?php echo $result['type'] == 'صوت' ? 'type-voice' : 'type-text' ?>" align="center" valign="middle">{{ $result['type'] }}</td>
-				<td class="download-td-normal <?php echo $result['year'] < 50 ? 'year-arabic' : 'year-persian' ?>" align="center" valign="middle">{{ $result['year'] }}</td>
-				<td class="download-td-normal" align="center" valign="middle">{{ $result['file_size'] }}</td>
+				<td class="<?php echo $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' ?>" align="center" valign="middle">{{ $result['file_name'] }}</td>
+				<td class="<?php echo $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' ?>" align="center" valign="middle">{{ $result['date'] }}</td>
+				<td class="<?php echo $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' ?>" align="center" valign="middle">{{ $result['time'] }}</td>
+				<td class="<?php echo $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' ?>" align="center" valign="middle">{{ $result['teacher'] }}</td>
+				<td class="<?php echo $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' ?>" align="center" valign="middle">{{ $result['course'] }}</td>
+				<td class="<?php echo $result['type'] == 'صوت' ? 'download-td-voice' : 'download-td-text' ?>" align="center" valign="middle">{{ $result['type'] }}</td>
+				<td class="<?php echo $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' ?>" align="center" valign="middle">{{ $result['year'] }}</td>
+				<td class="<?php echo $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' ?>" align="center" valign="middle">{{ $result['file_size'] }}</td>
 			</tr>
 			
         @endforeach
