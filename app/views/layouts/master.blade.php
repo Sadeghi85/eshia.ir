@@ -77,7 +77,7 @@
 
 						<div class="course">
 											
-							<a href="/monitoring">
+							<a href="/Feqh/monitoring">
 							@if ($locale === 'ar')
 								<img src="/images/coursear.png" />
 							@else
