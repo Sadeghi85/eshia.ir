@@ -3,9 +3,7 @@
 
 <div class="wrap">
 
-@foreach ($results as $key => $result)
-دروس به‌روز شده امروز {{ $result['date'] }}
-@endforeach
+دروس به‌روز شده {{ $result['date'] }}
 
 <table id="table2" width="100%" border="0"  cellpadding="0" cellspacing="0">
 
