@@ -29,4 +29,5 @@ return array(
 	'vahabiat' => 'وهابیت',
 	'mahdaviat' => 'مهدویت',
 	'emamat' => 'امامت در بینش اسلامی',
+	'kashf' => 'کشف المراد'
 );
