@@ -58,22 +58,34 @@
 						</tr>
 					</table>
 				</div>
+
+				
 				<div class="messenger-area" id="messenger">
-					<table class="messengerlink">
-						<tr>
-							<td class="messengerlink-td1">
-								@if ($locale === 'ar')
-									<a href="/Ar/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/Messenger_ar.gif" /></a>
-								@else
-									<a href="/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/live.gif" /></a>
+					<div class="messengerlink">
+
+						@if ($locale === 'ar')
+							<div class="live">
+								<a href="/Ar/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/Messenger_ar.gif" />
+							</div>
+								</a>
+								@else							
+							<div class="live">
+								<a href="/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/live.gif" /></a>
+							</div>
 								@endif
-							</td>
-							<td> </td>
-							<td>
-								{{ $searchContentForm or '' }}
-							</td>
-						</tr>
-					</table>
+								
+
+						<div class="course">
+											
+							<a href="/monitoring">
+							@if ($locale === 'ar')
+								<img src="/images/coursear.png" />
+							@else
+								<img src="/images/course.png" />
+							@endif
+							</a>
+						</div>
+					</div>
 				</div>
 				
 				<div id="content">@yield('content')</div>
