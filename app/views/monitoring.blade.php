@@ -4,7 +4,7 @@
 <div class="wrap">
 
 
-
+دروس به روز شده در تاریخ
 
 <table id="table2" width="100%" border="0"  cellpadding="0" cellspacing="0">
 
@@ -26,12 +26,12 @@
 			
 		@foreach ($results as $key => $result)
 			<tr>
-				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle"><a href="{{ $result['fileUrl'] }}" target=_blank>{{ $result['file_name'] }}</a></td>
-				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['date'] }}</td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['time'] }}</td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['teacher'] }}</td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['course'] }}</td>
 				<td class="{{ $result['extension'] == 'wma' ? 'download-td-voice' : 'download-td-text' }}" align="center" valign="middle">{{ $result['type'] }}</td>
+				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle"><a href="{{ $result['fileUrl'] }}" target=_blank>{{ $result['file_name'] }}</a></td>
+				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['date'] }}</td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle"><a href="{{ $result['indexUrl'] }}" target=_blank>{{ $result['year'] }}</a></td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['file_size'] }}</td>
 			</tr>
