@@ -203,7 +203,7 @@ class SiteController extends BaseController {
 		foreach ($records as $key => $record) {
 			$tmpString = $record->folder;
 			
-			if ( ! preg_match(sprintf('#^([\p{L}\p{M}\p{N}\p{Cf}[:space:]]+)-([\p{L}\p{M}\p{N}\p{Cf}[:space:]]+)-([\p{L}\p{M}\p{N}\p{Cf}]+)-([\p{N}]+)$#iu'), $tmpString, $matches)) {
+			if ( ! preg_match(sprintf('#^([\p{L}\p{M}\p{N}\p{Cf}[:space:]]+)-([\p{L}\p{M}\p{N}\p{Cf}[:space:]]+)-?((?:[\p{L}\p{M}\p{N}\p{Cf}]+)?)-?((?:[\p{N}]+)?)$#iu'), $tmpString, $matches)) {
 				continue;
 			}
 			
@@ -211,6 +211,14 @@ class SiteController extends BaseController {
 			$results[$key]['course'] = $matches[2];
 			$results[$key]['type'] = $matches[3];
 			$results[$key]['year'] = $matches[4];
+			
+			$results[$key]['extension'] = $record->FileExtension;
+			if ($results[$key]['extension'] == 'wma') {
+				$results[$key]['type'] = \Lang::get('app.voice');
+			}
+			elseif ($results[$key]['extension'] == 'htm') {
+				$results[$key]['type'] = \Lang::get('app.text');
+			}
 			
 			$tmpString = $record->date;
 			$results[$key]['date'] = sprintf('%s/%s/%s', substr($tmpString, 0, 4), substr($tmpString, 4, 2), substr($tmpString, 6, 2));
@@ -221,10 +229,51 @@ class SiteController extends BaseController {
 			$results[$key]['file_size'] = number_format($record->FileSize);
 			
 			$results[$key]['file_name'] = '';
-			if ($record->FileExtension == 'htm') {
+			if ($results[$key]['extension'] == 'htm') {
 				$results[$key]['file_name'] = sprintf('%s', $record->path);
-			} elseif ($record->FileExtension == 'wma') {
+			} elseif ($results[$key]['extension'] == 'wma') {
 				$results[$key]['file_name'] = sprintf('%s', $record->FileName);
+			}
+			
+			
+			$teacher = array_search($results[$key]['teacher'], \Lang::get('teachers'));
+			if (false === $teacher) {
+				foreach (\Lang::get('teachers') as $_key => $value) {
+					if (false !== mb_strpos(\Helpers::persianizeString($value['name']), \Helpers::persianizeString($results[$key]['teacher']))) {
+						$teacher = $_key;
+						break;
+					}
+				}
+			}
+			
+			$course = array_search($results[$key]['course'], \Lang::get('courses'));
+			if (false === $course) {
+				foreach (\Lang::get('courses') as $_key => $value) {
+					if (false !== mb_strpos(\Helpers::persianizeString($value), \Helpers::persianizeString($results[$key]['course']))) {
+						$course = $_key;
+						break;
+					}
+				}
+			}
+			$year = $results[$key]['year'];
+			$filename = $results[$key]['file_name'];
+			
+			$results[$key]['indexUrl'] = '';
+			$results[$key]['fileUrl'] = '';
+			if ($teacher and $course and $year) {
+				if (@\Lang::get('teachers.'.$teacher)['ar'] == 'true') {
+					$results[$key]['indexUrl'] = sprintf('http://eshia.ir/Ar/Feqh/Archive/%s/%s/%s_%s', $teacher, $course, $year, $year+1);
+				}
+				else {
+					$results[$key]['indexUrl'] = sprintf('http://eshia.ir/Feqh/Archive/%s/%s/%s', $teacher, $course, $year);
+				}
+				
+				if ($results[$key]['extension'] == 'wma') {
+					$results[$key]['fileUrl'] = sprintf('http://eshia.ir/feqh/archive/voice/%s/%s/%s/%s.wma', $teacher, $course, $year, $filename);
+				}
+				else {
+					$results[$key]['fileUrl'] = sprintf('http://eshia.ir/Feqh/Archive/text/%s/%s/%s/%s', $teacher, $course, $year, $filename);
+				}
 			}
 		}
 		
