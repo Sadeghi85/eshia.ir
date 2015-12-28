@@ -75,7 +75,7 @@
 								@endif
 								
 
-						<div class="course">
+						<div class="course-monitoring">
 											
 							<a href="/Feqh/monitoring">
 							@if ($locale === 'ar')
