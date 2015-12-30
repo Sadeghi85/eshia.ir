@@ -74,7 +74,8 @@
 							</div>
 								@endif
 								
-
+						{{ $searchContentForm or '' }}
+								
 						<div class="course-monitoring">
 											
 							<a href="/Feqh/monitoring">
@@ -85,6 +86,8 @@
 							@endif
 							</a>
 						</div>
+						
+						
 					</div>
 				</div>
 				
