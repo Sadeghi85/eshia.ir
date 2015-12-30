@@ -1,5 +1,5 @@
 ﻿<div class="insidesearchbox">
-	<td style="width:230px;" >
+	
 		<form action="#" id="mainSearchDarsPanel" class="searchdarsform" onsubmit="do_search(document.getElementById('searchContentInput').value, '{{ $teacher }}', '{{ $course }}', '{{ $year }}');return false;">
 		<div>
 			<label for="search_input" ></label>
@@ -7,5 +7,5 @@
 			<input type="submit" value="" id="searchButton" class="SearchKey">
 		</div>
 		</form>
-	</td>
+	
 </div>

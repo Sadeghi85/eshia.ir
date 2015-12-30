@@ -115,16 +115,17 @@
 	font-family: tahoma;
 }
 
+.insidesearchbox {
+width: 230px;
+float: right;
+margin-top: 5px;
 
+}
 
 .resulttext {
 	font-size:1.2em !important;
 	font-family: eshiatrad_ttf, eshiatrad;
 }
-	
-
-
-
 
 
 /*search------------------------------------------------------------------------------------------------------------------------------------*/

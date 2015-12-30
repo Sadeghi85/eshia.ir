@@ -64,29 +64,34 @@
 					<div class="messengerlink">
 
 						@if ($locale === 'ar')
-							<div class="live">
-								<a href="/Ar/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/Messenger_ar.gif" />
-							</div>
-								</a>
+							<a href="/Ar/Feqh/Timing/">
+								<div class="livear">
+								</div>
+							</a>
 								@else							
-							<div class="live">
-								<a href="/Feqh/Timing/"><img style="border:0px;outline:0px" src="/Images/live.gif" /></a>
-							</div>
+							<a href="/Feqh/Timing/">
+								<div class="live">
+								</div>
+							</a>
 								@endif
-								
+
+
+							@if ($locale === 'ar')
+							<a href="/Feqh/monitoring/">
+								<div class="course-monitoringar">
+								</div>
+							</a>							
+							@else							
+							<a href="/Feqh/monitoring/">
+								<div class="course-monitoring">
+								</div>
+							</a>
+							
+							@endif
+						
 						{{ $searchContentForm or '' }}
 								
-						<div class="course-monitoring">
-											
-							<a href="/Feqh/monitoring">
-							@if ($locale === 'ar')
-								<img src="/images/coursear.png" />
-							@else
-								<img src="/images/course.png" />
-							@endif
-							</a>
-						</div>
-						
+						</div>						
 						
 					</div>
 				</div>
