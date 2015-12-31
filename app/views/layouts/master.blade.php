@@ -63,19 +63,7 @@
 				<div class="messenger-area" id="messenger">
 					<div class="messengerlink">
 
-						@if ($locale === 'ar')
-							<a href="/Ar/Feqh/Timing/">
-								<div class="livear">
-								</div>
-							</a>
-								@else							
-							<a href="/Feqh/Timing/">
-								<div class="live">
-								</div>
-							</a>
-								@endif
-
-
+						<div class="button">
 							@if ($locale === 'ar')
 							<a href="/Feqh/monitoring/">
 								<div class="course-monitoringar">
@@ -86,8 +74,22 @@
 								<div class="course-monitoring">
 								</div>
 							</a>
-							
 							@endif
+							
+						@if ($locale === 'ar')
+							<a href="/Ar/Feqh/Timing/">
+								<div class="livear">
+								</div>
+							</a>
+								@else							
+							<a href="/Feqh/Timing/">
+								<div class="live">
+								</div>
+							</a>
+							@endif
+							
+							<div class="frequance">
+							</div>
 						
 						{{ $searchContentForm or '' }}
 								
