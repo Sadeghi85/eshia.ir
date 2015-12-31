@@ -29,7 +29,7 @@
 <a href="/Feqh/Archive/Rejal/" style="font-size:0.7em; text-indent:1.5em !important;">علم الرجال</a>
 <a href="/Ar/Feqh/Archive/Translate/" style="font-size:0.7em; text-indent:1.5em !important;">تقرير الدروس باللغة العربية</a>
 <div class="khat"></div>
-<a href="/Feqh/Archive/sayeredoroos/" style="font-size:0.7em; text-indent:1.5em !important;">باقي الدروس</a>
+<a href="/Feqh/Archive/teb/" style="font-size:0.7em; text-indent:1.5em !important;">باقي الدروس</a>
 <hr class="Separator"/>
 <a href="/Ar/Feqh/Timing" style="font-size:0.7em; text-indent:3em !important;">جدول الدروس</a>
 <hr class="Separator"/>
