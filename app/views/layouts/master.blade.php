@@ -90,10 +90,10 @@
 							
 							<div class="frequance">
 							</div>
-						
-						{{ $searchContentForm or '' }}
 								
 						</div>						
+
+						{{ $searchContentForm or '' }}
 						
 					</div>
 				</div>
