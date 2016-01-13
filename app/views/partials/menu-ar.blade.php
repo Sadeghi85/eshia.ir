@@ -37,7 +37,9 @@
 <a href="/Ar/Help/taqrir/" style="font-size:0.7em; text-indent:1.5em !important;">دلیل کتابة التقریر</a>
 <hr class="Separator"/>
 <a href="http://ar.lib.eshia.ir" style="font-size:0.7em; text-indent:1.5em !important;">مکتبة مدرسةالفقاهة</a>
+<a href="http://lib.efatwa.ir" style="font-size:0.7em; text-indent:1.5em !important;white-space: nowrap;">مکتبة مدرسةالفقاهة (کتب أهل السنة)</a>
 <a href="/Ar/Help/Lib/" style="font-size:0.7em; text-indent:1.5em !important;">دلیل مکتبة مدرسةالفقاهة</a>
+<hr class="Separator"/>
 <a href="http://ar.wikifeqh.ir" style="font-size:0.7em; text-indent:1.5em !important;">ويکي الفقه</a>
 <a href="http://ar.wikiporsesh.ir" style="font-size:0.7em; text-indent:1.5em !important;">ويکي السؤال</a>
 <a href="/Ar/android/" class="vmenu-title">تطبيق اندرويد</a>

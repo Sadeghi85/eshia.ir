@@ -38,6 +38,7 @@
 <a href="/Help/taqrir/" style="font-size:0.7em; text-indent:1.5em !important;">راهنمای تقریر نویسی</a>
 <hr class="Separator"/>
 <a href="http://lib.eshia.ir" style="font-size:0.7em; text-indent:1.5em !important;">کتابخانه مدرسه فقاهت</a>
+<a href="http://lib.efatwa.ir" style="font-size:0.7em; text-indent:1.5em !important;white-space: nowrap;">کتابخانه مدرسه‌فقاهت (کتب اهل‌سنت)</a>
 <a href="/help/lib/" style="font-size:0.7em; text-indent:1.5em !important;"> راهنمای کتابخانه مدرسه فقاهت</a>
 <hr class="Separator"/>
 <a href="http://www.wikifeqh.ir" style="font-size:0.7em; text-indent:1.5em !important;">ویکی فقه</a>
