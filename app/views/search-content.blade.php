@@ -22,6 +22,6 @@ element.form.submit();
 }
 </script>
 
-<a href="#" onclick="showlesson();" >رجوع به درس</a>
+<a href="#" onclick="showlesson();" ></a>
 </div>
 
