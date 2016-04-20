@@ -8,6 +8,7 @@
 		</div>
 		</form>
 </div>
+
 <div class="refrence">
 <form action="http://dir.eshia.ir/ShowLesson.php" method="post">
 <input type="hidden" name="URL" id="URL">
@@ -21,7 +22,6 @@ element.value = window.location.href;
 element.form.submit();
 }
 </script>
-
-<a href="#" onclick="showlesson();" ></a>
+<a onclick="showlesson();" >رجوع به لیست درس</a>
 </div>
 
