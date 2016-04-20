@@ -7,5 +7,21 @@
 			<input type="submit" value="" id="searchButton" class="SearchKey">
 		</div>
 		</form>
-	
 </div>
+<div class="refrence">
+<form action="http://dir.eshia.ir/ShowLesson.php" method="post">
+<input type="hidden" name="URL" id="URL">
+</form>
+
+<script type="text/javascript">
+function showlesson()
+{
+var element = document.getElementById("URL");
+element.value = window.location.href;
+element.form.submit();
+}
+</script>
+
+<a href="#" onclick="showlesson();" >رجوع به درس</a>
+</div>
+
