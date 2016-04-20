@@ -16,7 +16,14 @@
 	   
 	   </style>
 	@show
-	
+		<script type="text/javascript">
+		function getID()
+		{
+		var Lid=window.location.href;
+		Lid=Lid.substr(Lid.indexOf('#')+1);
+		document.getElementById(Lid).className="Selected-Course";
+		}
+		</script>	
 </head>
 
 @php
@@ -25,7 +32,7 @@
 	$header = sprintf('partials.header-%s', $locale);
 @endphp
 
-<body>
+<body onload="getID();">
 	<table id="mainpage" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td class="leftSection">
