@@ -138,7 +138,8 @@ EOT;
 			$html_subject = preg_replace($html_subject_pattern, '$1', $html_no_style);
 			$html_subject = preg_replace('#<[^>]+>#iu', '', $html_subject);
 			$html_subject = trim(str_replace(':', '', $html_subject));
-			$html_subject = @iconv('UTF-8', 'CP1256//IGNORE', $html_subject);
+			$html_subject = iconv('UTF-8', 'CP1256//IGNORE', $html_subject);
+			// commented out by mahmoudi to prevent deleting the persian yeh 1395-02-08
 		}
 		
 		if ( ! is_null(Input::get('download_style')))
@@ -255,7 +256,8 @@ EOT;
 			$html_subject = preg_replace($html_subject_pattern, '$1', $html_no_style);
 			$html_subject = preg_replace('#<[^>]+>#iu', '', $html_subject);
 			$html_subject = trim(str_replace(':', '', $html_subject));
-			$html_subject = @iconv('UTF-8', 'CP1256//IGNORE', $html_subject);
+			$html_subject = iconv('UTF-8', 'CP1256//IGNORE', $html_subject);
+			// commented out by mahmoudi to prevent deleting the persian yeh 1395-02-08
 		}
 		
 		$filename = trim(preg_replace('/[^\x20-\x7e]*/', '', str_replace('.'.$doc->getClientOriginalExtension(), '', $doc->getClientOriginalName())));
