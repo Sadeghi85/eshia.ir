@@ -552,6 +552,8 @@ class Docx2Html
 							base64_decode('2Iw='),
 							# آیه
 							base64_decode('2KLbjNmH'),
+							# آیات
+							base64_decode('2KLbjNin2Ko='),
 							# آيه
 							base64_decode('2KLZitmH'),
 							# آية
