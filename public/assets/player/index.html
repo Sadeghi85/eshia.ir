@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    
+	<link rel="stylesheet" href="skin/functional.css">
+	<!-- optional: the quality selector stylesheet -->
+	<!-- <link rel="stylesheet" href="plugins/quality-selector/flowplayer.quality-selector.css"> -->
+	<!-- Flowplayer library -->
+	<script src="flowplayer.min.js"></script>
+	
+	<!-- Flowplayer thumbnails plugin -->
+	<script src="plugins/thumbnails/flowplayer.thumbnails.min.js"></script>
+	
+	<!-- load the Flowplayer hlsjs engine, including hls.js -->
+	<script src="plugins/hlsjs/flowplayer.hlsjs.min.js"></script>
+	 
+	<!-- optional: the quality selector plugin for quality selection when hlsjs is not supported -->
+	<!-- <script src="plugins/quality-selector/flowplayer.quality-selector.min.js"></script> -->
+
+
+	<style>
+		
+		.flowplayer .fp-subtitle {
+		    color: white !important;
+			font-family: "traditional arabic" !important;
+			font-size: 20px !important;
+			font-weight: bold !important;
+			width: 225px !important;
+			direction: rtl !important;
+			top: 25px !important;
+			left: 25px !important;
+			z-index: 10 !important;
+			position: absolute !important;
+			text-align: justify !important;
+			opacity: 1 !important;
+		}
+		
+		.flowplayer.is-mouseout .fp-subtitle {
+			opacity: 0 !important;
+		}
+		
+		.flowplayer.is-paused {
+			background-color: #333 !important;
+		}
+		
+		#content {
+		
+			margin: 50px auto;
+			max-width: 960px;
+		}
+		
+		#hlsjsvod {
+			background-image: url("/hls_demo/video/HighresFile_13941206_111114.jpg");
+		}
+		
+	</style>
+</head>
+<body>
+<div id="content">
+
+	 
+	<div id="hlsjsvod" class=""></div>
+	 
+
+	<script>
+		window.onload = function () {
+		
+			var timer,
+			player = flowplayer("#hlsjsvod", {
+					
+					splash: true,
+					ratio: 9/16,
+					
+					embed: false,
+					//embed: {
+						// embed including quality selector
+					//	iframe: "//flowplayer.org/standalone/multires/drive-iframe.html",
+					//	width: 480,
+					//	height: 363 // 360 + 3 ! player height + room for slim timeline
+					//}
+					
+					//fullscreen: true,
+					// fullscreen from iframe on tablets
+					//native_fullscreen: true,
+					
+					clip: {
+					
+						//title: "",
+						
+						// quality selector plugin configuration
+						//hlsQualities: true,
+						//hlsQualities: [0,1,2],
+						//qualities: ["144p", "240p", "360p"],
+						//defaultQuality: "144p",
+					
+						hlsjs: {
+							startLevel: -1,
+							smoothSwitching: true,
+							maxBufferLength: 30,
+							maxMaxBufferLength: 60,
+							capLevelToPlayerSize: true
+							//maxBufferHole: 0.5,
+							//maxSeekHole: 4
+							
+						},
+						
+						flashls: {
+							//lowbufferlength: 4,
+							maxbackbufferlength: 30,
+							maxbufferlength: 60,
+							seekfromlevel: -1,
+							startfromlevel: -1,
+							seekmode: "KEYFRAME",
+							capleveltostage: true,
+							maxlevelcappingmode: "upscale"
+						
+						},
+						
+						// configure thumbnails for this clip
+						thumbnails: {
+							template: "/hls_demo/video/HighresFile_13941206_111114-thumbs/{time}.jpg",
+							height: 72,
+							interval: 2
+						},
+						
+						sources: [
+							{
+								engine: "hlsjs",
+								type: "application/x-mpegurl",
+								src:  "/hls_demo/video/HighresFile_13941206_111114.m3u8"
+							}
+							,
+							{
+								engine: "html5",
+								type: "application/x-mpegurl",
+								src:  "/hls_demo/video/HighresFile_13941206_111114.m3u8"
+							}
+							,
+							{
+								engine: "flash",
+								type: "application/x-mpegurl",
+								src:  "/hls_demo/video/HighresFile_13941206_111114.m3u8"
+							}
+							//,
+							//{
+							//	type: "video/mp4",
+							//	src:  "/hls_demo/video/HighresFile_13941206_111114.mp4"
+							//}
+							
+						]
+					}
+					
+				}).on("load", function (e, api) {
+					
+					
+				}).on("ready", function (e, api, video) {
+					[].forEach.call(document.querySelectorAll('.flowplayer .fp-subtitle'), function(el) {
+							el.innerHTML = "test caption";
+					});
+					
+				}).on("progress", function (e, api) {
+					//var engineName = api.engine.engineName;
+				
+					//if (engineName == "flash") {
+					//	[].forEach.call(document.querySelectorAll('.flowplayer.is-mouseover .fp-quality-selector'), function(el) {
+					//		el.setAttribute("style", "width:0px !important");
+					//	});
+					//}
+				
+				}).on("unload", function (e, api) {
+					
+				}).on("error", function (e, api, err) {
+					clearInterval(timer);
+					var delay = 1;
+					
+					api.error = api.loading = false;
+					[].forEach.call(document.querySelectorAll('.is-error'), function(el) {
+						el.className = el.className.replace(/ *is-error */, "");
+					});
+					api.load(api.conf.clip);
+					
+					timer = setInterval(function () {
+						delay -= 1;
+						
+						if (!delay) {
+							clearInterval(timer);
+							api.unload();
+						}
+
+					}, 1000);
+
+				});
+		};
+	</script>
+</div>
+</body>
+</html>

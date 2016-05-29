@@ -19,6 +19,11 @@ Route::pattern('archive', '(?i)archive(?-i)');
 Route::pattern('convert', '(?i)convert(?-i)');
 Route::pattern('text', '(?i)text(?-i)');
 
+# Player
+Route::get('/player/{req}', array('uses' => 'PlayerController@showPage'))
+->where('req', '.+');
+
+
 # Monitoring
 Route::get('/{ar}/{feqh}/monitoring', array('uses' => 'SiteController@showMonitoring'));
 Route::get('/{feqh}/monitoring', array('uses' => 'SiteController@showMonitoring'));
