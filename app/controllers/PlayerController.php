@@ -15,16 +15,32 @@ class PlayerController extends BaseController {
 		$baseDir = Config::get('app_settings.data_path') . '\\';
 		$baseURL = Config::get('app_settings.data_url') . '/';
 		$url = '';
-		$path = realpath($baseDir . str_replace('/', '\\', $req) . '.mp4');
+		$mp4NotFound = false;
+		$hlsNotFound = false;
+		$hlsurl = '';
+		$mp4Path = realpath($baseDir . str_replace('/', '\\', $req) . '.mp4');
+		$hlsPath = realpath($baseDir . str_replace('/', '\\', $req) . '.m3u8');
 		
-		if(strpos($path, $baseDir)) {
+		if(strpos($mp4Path, $baseDir) or strpos($hlsPath, $baseDir)) {
 			die('Invalid path');
-		} else if (file_exists($path)) {
+		}
+
+		if (file_exists($mp4Path)) {
 			$url = $baseURL . $req . '.mp4';
 		} else {
+			$mp4NotFound = true;
+		}
+		
+		if (file_exists($hlsPath)) {
+			$hlsurl = $baseURL . $req . '.m3u8';
+		} else {
+			$hlsNotFound = true;
+		}
+		
+		if ($mp4NotFound and $hlsNotFound) {
 			die('Audio not found');
 		}
 		
-		return View::make('player', array('url' => $url));
+		return View::make('player', array('url' => $url, 'hlsurl' => $hlsurl));
 	}
 }

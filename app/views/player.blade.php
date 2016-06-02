@@ -3,12 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> </title>
+    <title> - </title>
 	<link rel="stylesheet" href="/assets/player/skin/functional.css">
 	
 	<!--<script src="/assets/player/jquery-1.11.2.min.js"></script> -->
 	<!-- Flowplayer library -->
 	<script src="/assets/player/flowplayer.min.js"></script>
+	
+	<!-- load the Flowplayer hlsjs engine, including hls.js -->
+	<script src="/assets/player/plugins/hlsjs/flowplayer.hlsjs.min.js"></script>
 	
 	<style>
 		body {
@@ -19,7 +22,8 @@
 		
 		.flowplayer {
 			max-width: 1366px !important;
-			background-color: #67e321 !important;
+			margin-bottom: 30px;
+			background-color: #000000 !important;
 		}
 		
 		.flowplayer.is-splash .fp-controls, .flowplayer.is-poster .fp-controls, .flowplayer.is-splash .fp-time, .flowplayer.is-poster .fp-time {
@@ -52,13 +56,12 @@
 		.flowplayer .fp-waiting {
 			display: none !important;
 		}
-
 		
 	</style>
 </head>
 <body>
 
-<div id="content" class="flowplayer fixed-controls no-toggle play-button no-mute no-volume">
+<div id="content" class="flowplayer fixed-controls no-toggle play-button no-mute no-volume"></div>
 
 	<script>
 		window.onload = function () {
@@ -73,6 +76,24 @@
 					clip: {
 
 						sources: [
+							{
+								engine: "hlsjs",
+								type: "application/x-mpegurl",
+								src:  "{{ $hlsurl }}"
+							}
+							,
+							{
+								engine: "html5",
+								type: "application/x-mpegurl",
+								src:  "{{ $hlsurl }}"
+							}
+							,
+							//{
+							//	engine: "flash",
+							//	type: "application/x-mpegurl",
+							//	src:  "{{ $hlsurl }}"
+							//}
+							//,
 							{
 								engine: "html5",
 								type: "video/mp4",
@@ -89,13 +110,15 @@
 					
 				}).on("load", function (e, api) {
 					
-					
 				}).on("ready", function (e, api, video) {
 					
 				}).on("progress", function (e, api) {
 				
 				}).on("unload", function (e, api) {
 					
+				}).on("finish", function (e, api) {
+					// all players go to splash state on finish
+					api.unload();
 				}).on("error", function (e, api, err) {
 					clearInterval(timer);
 					var delay = 1;
@@ -120,7 +143,7 @@
 		};
 	</script>
 
-</div>
+
 
 
 </body>
