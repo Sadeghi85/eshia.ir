@@ -153,6 +153,10 @@ return array(
 		'name'  => 'سید منذر حکیم',
 		'fa'    => 'true'
 	),
+	'hakim_monem' => array(
+		'name'  => 'السید عبدالمنعم الحکیم',
+		'fa'    => 'true'
+	),
 	'arafi' => array(
 		'name'  => 'علیرضا اعرافی',
 		'fa'    => 'true'
