@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> - </title>
+    <title> &zwnj; </title>
 	<link rel="stylesheet" href="/assets/player/skin/functional.css">
 	
 	<!--<script src="/assets/player/jquery-1.11.2.min.js"></script> -->
@@ -40,6 +40,10 @@
 		
 		.flowplayer .fp-play {
 			height: 45px !important;
+			display: block !important;
+			opacity: 1 !important;
+			margin-left: 7px !important;
+			left: 10px !important;
 		}
 		
 		.flowplayer .fp-timeline {
@@ -55,6 +59,22 @@
 		
 		.flowplayer .fp-waiting {
 			display: none !important;
+		}
+		
+		.flowplayer.fixed-controls .fp-elapsed, .flowplayer.fixed-controls.is-mouseover .fp-elapsed {
+			left: 50px !important;
+		}
+		
+		.flowplayer.is-loading .fp-controls, .flowplayer.is-loading .fp-time {
+			display: block !important;
+		}
+		
+		.no-mute.no-volume.no-brand.flowplayer .fp-timeline {
+			margin-right: 55px !important;
+		}
+
+		.flowplayer.fixed-controls .fp-controls .fp-timeline, .flowplayer.fixed-controls.is-mouseover .fp-controls .fp-timeline {
+			margin-left: 95px !important;
 		}
 		
 	</style>
@@ -74,7 +94,25 @@
 					embed: false,
 					
 					clip: {
-
+						
+						hlsjs: {
+							startLevel: -1,
+							smoothSwitching: true,
+							maxBufferLength: 30,
+							maxMaxBufferLength: 60,
+							capLevelToPlayerSize: true
+						},
+						
+						flashls: {
+							maxbackbufferlength: 30,
+							maxbufferlength: 60,
+							seekfromlevel: -1,
+							startfromlevel: -1,
+							seekmode: "KEYFRAME",
+							capleveltostage: true,
+							maxlevelcappingmode: "upscale"
+						},
+				
 						sources: [
 							{
 								engine: "hlsjs",
@@ -88,6 +126,7 @@
 								src:  "{{ $hlsurl }}"
 							}
 							,
+							// Flash doesn't support Range requests
 							//{
 							//	engine: "flash",
 							//	type: "application/x-mpegurl",
@@ -127,17 +166,20 @@
 					[].forEach.call(document.querySelectorAll('.is-error'), function(el) {
 						el.className = el.className.replace(/ *is-error */, "");
 					});
-					api.load(api.conf.clip);
+					
+					api.unload();
 					
 					timer = setInterval(function () {
 						delay -= 1;
 						
 						if (!delay) {
 							clearInterval(timer);
-							api.unload();
+							api.load(api.conf.clip);
 						}
 
 					}, 1000);
+					
+					
 
 				});
 		};
