@@ -47,6 +47,7 @@ class Docx2Html
      * @access private
      */
     private $_numbering;
+	private $_currentNumber;
     
 	private $_footnoteRelation;
 	
@@ -357,9 +358,12 @@ class Docx2Html
 				}
 				
 				$ret .= $tmpText;
-				
 			}
-			
+		}
+		
+		// poetry
+		if (preg_match('#\*{4,}#', $ret)) {
+			$ret = sprintf('<span style="width: 100%%;text-align: center;display: block;">%s</span>', preg_replace('#\*{4,}#','&nbsp;&nbsp;&nbsp;&nbsp;', $ret));
 		}
 		
 		$query = './/w:pPr/w:pStyle';
@@ -428,56 +432,66 @@ class Docx2Html
 			}
 		}
 		
-        // if ($this->list2html)
-		// {
-			// #transform the list in ooxml to formatted list with tabs and bullets
+        //if ($this->list2html)
+		//{
+			#transform the list in ooxml to formatted list with tabs and bullets
 			
-			// $ilvl = $numId = -1;
+			$ilvl = $numId = -1;
 			
-            // $this->listNumbering();
-            
-            // $query = 'w:pPr/w:numPr';
-            // $xmlLists = $xpath->query($query, $node);
-            // $xmlLists = $xmlLists->item(0);
-
-            // if (isset($xmlLists) and $xmlLists->tagName == 'w:numPr')
-			// {
-                // if ($xmlLists->hasChildNodes())
-				// {
-                    // foreach ($xmlLists->childNodes as $child)
-					// {
-                        // if ($child->tagName == 'w:ilvl')
-						// {
-                            // $ilvl = $child->getAttribute('w:val'); 
-                        // }
-						// elseif ($child->tagName == 'w:numId')
-						// {
-                            // $numId = $child->getAttribute('w:val');
-                        // }
-                    // }
-                // }
-            // }
+			$this->listNumbering();
 			
-            // if (($ilvl != -1) and ($numId != -1))
-			// {
-                // #if is founded the style index of the list in the document and the kind of list
-                // $ret = '';
-                // for($i=-1; $i < $ilvl; $i++)
-				// {
-					// $ret .= "\t";
-                // }
-                // $ret .= array_shift($this->numberingList[$numId][$ilvl]) . ' ' . $this->toText($node);  //print the bullet
-            // }
-			// else
-			// {
-                // $ret = $this->toText($node);
-            // }
-        // }
-		// else
-		// {
-            //if dont want to formatted lists, we strip from html tags
-            //$ret = $this->toText($node);
+			$query = 'w:pPr/w:numPr';
+			$xmlLists = $xpath->query($query, $node);
+			$xmlLists = $xmlLists->item(0);
+			
+			if (isset($xmlLists) and $xmlLists->tagName == 'w:numPr')
+			{
+				if ($xmlLists->hasChildNodes())
+				{
+					foreach ($xmlLists->childNodes as $child)
+					{
+						if ($child->tagName == 'w:ilvl')
+						{
+							$ilvl = $child->getAttribute('w:val'); 
+						}
+						elseif ($child->tagName == 'w:numId')
+						{
+							$numId = $child->getAttribute('w:val');
+						}
+					}
+				}
+			}
+			
+			if (($ilvl != -1) and ($numId != -1))
+			{
+				$ret = '';
+				for($i=-1; $i < $ilvl; $i++)
+				{
+					$ret .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+				}
+				
+				if ( ! isset($this->_currentNumber[$numId])) {
+					$this->_currentNumber[$numId] = 1;
+				} else {
+					$this->_currentNumber[$numId] += 1;
+				}
+				
+				if (is_numeric($this->numberingList[$numId][$ilvl])) {
+					$ret .=  '<font size=5pt color="#06F">'.$this->_currentNumber[$numId].'.</font>  ' . $this->toText($node);  //print the bullet
+				} else {
+					$ret .=  '<font size=5pt color="#06F">'.$this->numberingList[$numId][$ilvl].'</font>  ' . $this->toText($node);  //print the bullet
+				}
+			}
+			//else
+			//{
+				// $ret = $this->toText($node);
+			//}
         //}
+		/* else
+		{
+			//if dont want to formatted lists, we strip from html tags
+			$ret = $this->toText($node);
+        }  */
 
         //extract the expecific footnote to insert with the text content
         
@@ -1179,16 +1193,24 @@ class Docx2Html
             foreach ($ids as $ind => $id) {
                 if ($nums[$ind] == 'decimal') {
                     //if the type is decimal it means that the bullet will be numbers
-                    $this->numberingList[$id][0] = range(1, 10);
-                    $this->numberingList[$id][1] = range(1, 10);
-                    $this->numberingList[$id][2] = range(1, 10);
-                    $this->numberingList[$id][3] = range(1, 10);
+                    // $this->numberingList[$id][0] = range(1, 10);
+                    // $this->numberingList[$id][1] = range(1, 10);
+                    // $this->numberingList[$id][2] = range(1, 10);
+                    // $this->numberingList[$id][3] = range(1, 10);
+					$this->numberingList[$id][0] = 1;
+                    $this->numberingList[$id][1] = 1;
+                    $this->numberingList[$id][2] = 1;
+                    $this->numberingList[$id][3] = 1;
                 } else {
                     //otherwise is *, and other characters
-                    $this->numberingList[$id][0] = array('*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*');
-                    $this->numberingList[$id][1] = array(chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175));
-                    $this->numberingList[$id][2] = array(chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237));
-                    $this->numberingList[$id][3] = array(chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248));
+                    // $this->numberingList[$id][0] = array('*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*');
+                    // $this->numberingList[$id][1] = array(chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175),chr(175));
+                    // $this->numberingList[$id][2] = array(chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237),chr(237));
+                    // $this->numberingList[$id][3] = array(chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248),chr(248));
+					$this->numberingList[$id][0] = '&#8226;';
+                    $this->numberingList[$id][1] = '&#9702;';
+                    $this->numberingList[$id][2] = '&#8259;';
+                    $this->numberingList[$id][3] = '&#8227;';
                 }
             }
         }
@@ -1234,15 +1256,15 @@ class Docx2Html
      */
     private function toText($node) 
     {
-        // $xml = $node->ownerDocument->saveXML($node);
-        // return trim(strip_tags ($xml));
+        $xml = $node->ownerDocument->saveXML($node);
 		
-		$ret = '';
+        return trim(strip_tags($xml));
+		
+		//$ret = '';
 		
 		//use the xpath to get expecific children from a node
 		//$xpath = new \DOMXPath($this->domDocument);
 		
-		//var_dump($ret);
-		return $ret;
+		//return $ret;
     }
 }
