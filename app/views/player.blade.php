@@ -182,6 +182,21 @@
 					
 
 				});
+				
+				
+			//clearInterval(timer);
+			//var delay = 1;
+			
+			//timer = setInterval(function () {
+			//	delay -= 1;
+				
+			//	if (!delay) {
+			//		clearInterval(timer);
+			//		player.load();
+			//	}
+
+			//}, 2000);
+			
 		};
 	</script>
 
