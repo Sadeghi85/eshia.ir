@@ -33,8 +33,6 @@
 @endphp
 
 <body onload="getID();">
-<div class="katibe" style="width: 100%; height: 57px; background:url(/images/katibeh.jpg);">
-</div>
 	<table id="mainpage" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td class="leftSection">
