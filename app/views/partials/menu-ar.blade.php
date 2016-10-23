@@ -6,7 +6,7 @@
 <div class="khat"></div>
 <a href="/Ar/Feqh/Archive/Qom/" style="font-size:0.7em; text-indent:1.5em !important;">قم المقدسة</a>
 <a href="/Ar/Feqh/Archive/Karbala/" style="font-size:0.7em; text-indent:1.5em !important;">کربلاء المقدسة</a>
-<a href="/Ar/Feqh/Archive/lebanon/" style="font-size:0.7em; text-indent:1.5em !important;">لبنان</a>
+<a href="/Ar/Feqh/Archive/lebanon/" style="font-size:0.7em; text-indent:1.5em !important;">بیروت</a>
 <a href="/Ar/Feqh/Archive/Damascus/" style="font-size:0.7em; text-indent:1.5em !important;">دمشق</a>
 <a href="/Ar/Feqh/Archive/qatif/" style="font-size:0.7em; text-indent:1.5em !important;">القطیف و الأحساء</a>
 <hr class="Separator"/>

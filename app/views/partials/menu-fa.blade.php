@@ -14,7 +14,7 @@
 <a href="/Feqh/Archive/Mashhad/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه مشهد</a>
 <div class="khat"></div>
 <a href="/Ar/Feqh/Archive/Karbala/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه کربلا</a>
-<a href="/Ar/Feqh/Archive/lebanon/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه لبنان</a>
+<a href="/Ar/Feqh/Archive/lebanon/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه بیروت</a>
 <a href="/Ar/Feqh/Archive/Damascus/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه دمشق</a>
 <a href="/Ar/Feqh/Archive/qatif/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه قطیف و احساء </a>
 <a href="/Feqh/Archive/Afghanestan/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه افغانستان</a>
