@@ -45,7 +45,7 @@
 <a href="http://www.wikiporsesh.ir" style="font-size:0.7em; text-indent:1.5em !important;">ویکی پرسش</a>
 
 <!--                                <a href="/feqh/archive/exam/92/2/" style="font-size:0.7em; text-indent:1.5em !important;">امتحانات حوزوی</a>-->
-<a href="/android/" class="vmenu-title">نسخه اندروید 95-94</a>
+<a href="/android/" class="vmenu-title">نسخه اندروید 96-95</a>
 <a href="/android/" style="font-size:0.7em; text-indent:3em !important;">درباره نسخه اندروید</a>
 <a href="/help/Android/" style="font-size:0.7em; text-indent:3em !important;">راهنمای نسخه اندروید</a>
 <a href="/eshia/" class="vmenu-title">پرسشگری دینی</a>
