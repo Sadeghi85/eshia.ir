@@ -11,12 +11,12 @@ class ConvertController extends BaseController {
 		$this->layout = 'layouts.master';
     }
 	
-	public function index($feqh, $archive, $convert, $teacher = '', $course = '', $year = '')
+	public function index($feqh, $archive, $convert, $teacher = '', $lesson = '', $year = '')
 	{
 		$date = $year;
 		
 
-		$this->layout->content = View::make('convert', compact('feqh', 'archive', 'convert', 'teacher', 'course', 'year', 'date'));
+		$this->layout->content = View::make('convert', compact('feqh', 'archive', 'convert', 'teacher', 'lesson', 'year', 'date'));
 
 	}
 	
@@ -53,7 +53,7 @@ class ConvertController extends BaseController {
 		
 	}
 	
-	public function convert($feqh, $archive, $convert, $teacher = '', $course = '', $year = '')
+	public function convert($feqh, $archive, $convert, $teacher = '', $lesson = '', $year = '')
 	{
 		$validator = Validator::make(Input::all(), ['file' => 'required']);
 	
@@ -84,7 +84,7 @@ class ConvertController extends BaseController {
 		
 		$content = $converter->getHtml();
 		
-		foreach (Config::get('eshia') as $color => $class)
+		foreach (Config::get('eshia.color') as $color => $class)
 		{
 			$content = preg_replace(sprintf('#<span class="%s#iu', preg_quote(strtolower($color))), '<span class="'.$class, $content);
 		}
@@ -97,9 +97,9 @@ class ConvertController extends BaseController {
 		$_month = $_date[1];
 		$_day   = $_date[2];
 		## $year differs from $_year
-		if (View::exists(sprintf('convert/%s/%s/%s/header', $teacher, $course, $year)))
+		if (View::exists(sprintf('convert/%s/%s/%s/header', $teacher, $lesson, $year)))
 		{
-			$header = View::make(sprintf('convert/%s/%s/%s/header', $teacher, $course, $year), ['year' => $_year, 'month' => $_month, 'day' => $_day]);
+			$header = View::make(sprintf('convert/%s/%s/%s/header', $teacher, $lesson, $year), ['year' => $_year, 'month' => $_month, 'day' => $_day]);
 		}
 		
 		$html = <<<EOT
@@ -209,7 +209,7 @@ EOT;
 	}
 	
 	
-	public function convert2zip($teacher = '', $course = '', $year = '')
+	public function convert2zip($teacher = '', $lesson = '', $year = '')
 	{
 		$validator = Validator::make(Input::all(), ['file' => 'required']);
 		
@@ -228,7 +228,7 @@ EOT;
 		
 		$content = $converter->getHtml();
 		
-		foreach (Config::get('eshia') as $color => $class) {
+		foreach (Config::get('eshia.color') as $color => $class) {
 			$content = preg_replace(sprintf('#<span class="%s#i', preg_quote(strtolower($color))), '<span class="'.$class, $content);
 		}
 		
@@ -238,8 +238,8 @@ EOT;
 		$_month = $_date[1];
 		$_day   = $_date[2];
 		## $year differs from $_year
-		if (View::exists(sprintf('convert/%s/%s/%s/header', $teacher, $course, $year))) {
-			$header = View::make(sprintf('convert/%s/%s/%s/header', $teacher, $course, $year), ['year' => $_year, 'month' => $_month, 'day' => $_day]);
+		if (View::exists(sprintf('convert/%s/%s/%s/header', $teacher, $lesson, $year))) {
+			$header = View::make(sprintf('convert/%s/%s/%s/header', $teacher, $lesson, $year), ['year' => $_year, 'month' => $_month, 'day' => $_day]);
 		}
 		
 		$html_no_style = <<<EOT

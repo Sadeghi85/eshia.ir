@@ -154,7 +154,7 @@
 			return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
 		}
 		
-		function do_search(query, teacher, course, year)
+		function do_search(query, teacher, lesson, year)
 		{
 			query = query.replace(/^\s+|\s+$/g, '');
 			
@@ -163,13 +163,13 @@
 				//query = query.replace(/ +/g, '_').replace(/['\0\\]+/g, '');
 				query = query.replace(/['\0\\]+/g, '');
 				
-				if (teacher && course && year)
+				if (teacher && lesson && year)
 				{
 				
 					@if ($locale === 'ar')
-						window.location.assign('/Ar/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
+						window.location.assign('/Ar/search/' + teacher + '/' + lesson + '/' + year + '/' + fixedEncodeURIComponent(query));
 					@else
-						window.location.assign('/search/' + teacher + '/' + course + '/' + year + '/' + fixedEncodeURIComponent(query));
+						window.location.assign('/search/' + teacher + '/' + lesson + '/' + year + '/' + fixedEncodeURIComponent(query));
 					@endif
 				}
 				else

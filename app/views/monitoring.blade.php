@@ -28,7 +28,7 @@
 			<tr>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['time'] }}</td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['teacher'] }}</td>
-				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['course'] }}</td>
+				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle">{{ $result['lesson'] }}</td>
 				<td class="{{ $result['extension'] == 'wma' ? 'download-td-voice' : 'download-td-text' }}" align="center" valign="middle">{{ $result['type'] }}</td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle"><a href="{{ $result['fileUrl'] }}" target=_blank>{{ $result['file_name'] }}</a></td>
 				<td class="{{ $result['year'] < 50 ? 'download-td-arabic' : 'download-td-persian' }}" align="center" valign="middle"><a href="{{ $result['indexUrl'] }}" target=_blank>{{ $result['year'] }}</a></td>

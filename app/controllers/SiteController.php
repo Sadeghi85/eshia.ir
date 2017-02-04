@@ -102,11 +102,11 @@ class SiteController extends BaseController {
 		}
 	}
 	
-	public function index($requestPath, $archive = '', $text = '', $teacher = '', $course = '', $year = '', $date = '', $hilight = '')
+	public function index($requestPath, $archive = '', $text = '', $teacher = '', $lesson = '', $year = '', $date = '', $hilight = '')
 	{
 		if (strtolower($requestPath) == 'feqh') {
 			$feqh = $requestPath;
-			$requestPath = sprintf('/%s/%s/%s/%s/%s/%s/%s', $feqh, $archive, $text, $teacher, $course, $year, $date);
+			$requestPath = sprintf('/%s/%s/%s/%s/%s/%s/%s', $feqh, $archive, $text, $teacher, $lesson, $year, $date);
 		}
 		
 		$dataPath = preg_replace('#\\\\+$#', '', str_replace('/', '\\', Config::get('app_settings.data_path')));
@@ -143,8 +143,8 @@ class SiteController extends BaseController {
 				$content =  is_array($_content) ? (($_content = array_values($_content)[0]) != '' ? $_content : $content) : $content;
 			}
 			
-			if ($teacher and $course and $year) {
-				$this->layout->searchContentForm = View::make('search-content', compact('teacher', 'course', 'year'));
+			if ($teacher and $lesson and $year) {
+				$this->layout->searchContentForm = View::make('search-content', compact('teacher', 'lesson', 'year'));
 			}
 			
 			$this->layout->content = View::make('page', compact('content'));
@@ -208,7 +208,7 @@ class SiteController extends BaseController {
 			}
 			
 			$results[$key]['teacher'] = $matches[1];
-			$results[$key]['course'] = $matches[2];
+			$results[$key]['lesson'] = $matches[2];
 			$results[$key]['type'] = $matches[3];
 			$results[$key]['year'] = $matches[4];
 			
@@ -246,11 +246,11 @@ class SiteController extends BaseController {
 				}
 			}
 			
-			$course = array_search($results[$key]['course'], \Lang::get('courses'));
-			if (false === $course) {
-				foreach (\Lang::get('courses') as $_key => $value) {
-					if (false !== mb_strpos(\Helpers::persianizeString($value), \Helpers::persianizeString($results[$key]['course']))) {
-						$course = $_key;
+			$lesson = array_search($results[$key]['lesson'], \Lang::get('lessons'));
+			if (false === $lesson) {
+				foreach (\Lang::get('lessons') as $_key => $value) {
+					if (false !== mb_strpos(\Helpers::persianizeString($value), \Helpers::persianizeString($results[$key]['lesson']))) {
+						$lesson = $_key;
 						break;
 					}
 				}
@@ -260,19 +260,19 @@ class SiteController extends BaseController {
 			
 			$results[$key]['indexUrl'] = '';
 			$results[$key]['fileUrl'] = '';
-			if ($teacher and $course and $year) {
+			if ($teacher and $lesson and $year) {
 				if (@\Lang::get('teachers.'.$teacher)['ar'] == 'true') {
-					$results[$key]['indexUrl'] = sprintf('http://eshia.ir/Ar/Feqh/Archive/%s/%s/%s_%s', $teacher, $course, $year, $year+1);
+					$results[$key]['indexUrl'] = sprintf('http://eshia.ir/Ar/Feqh/Archive/%s/%s/%s_%s', $teacher, $lesson, $year, $year+1);
 				}
 				else {
-					$results[$key]['indexUrl'] = sprintf('http://eshia.ir/Feqh/Archive/%s/%s/%s', $teacher, $course, $year);
+					$results[$key]['indexUrl'] = sprintf('http://eshia.ir/Feqh/Archive/%s/%s/%s', $teacher, $lesson, $year);
 				}
 				
 				if ($results[$key]['extension'] == 'wma') {
-					$results[$key]['fileUrl'] = sprintf('http://eshia.ir/feqh/archive/voice/%s/%s/%s/%s.wma', $teacher, $course, $year, $filename);
+					$results[$key]['fileUrl'] = sprintf('http://eshia.ir/feqh/archive/voice/%s/%s/%s/%s.wma', $teacher, $lesson, $year, $filename);
 				}
 				else {
-					$results[$key]['fileUrl'] = sprintf('http://eshia.ir/Feqh/Archive/text/%s/%s/%s/%s', $teacher, $course, $year, $filename);
+					$results[$key]['fileUrl'] = sprintf('http://eshia.ir/Feqh/Archive/text/%s/%s/%s/%s', $teacher, $lesson, $year, $filename);
 				}
 			}
 		}

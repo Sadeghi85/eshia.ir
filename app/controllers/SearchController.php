@@ -9,13 +9,13 @@ class SearchController extends BaseController {
 		$this->layout = 'layouts.master';
     }
 	
-	public function showPage($ar, $query = '', $teacher = '', $course = '', $year = '')
+	public function showPage($ar, $query = '', $teacher = '', $lesson = '', $year = '')
 	{
 		if (strtolower($ar) != 'ar') {
-			if ($course) {
-				$temp = $course;
+			if ($lesson) {
+				$temp = $lesson;
 				$year = $teacher;
-				$course = $query;
+				$lesson = $query;
 				$teacher = $ar;
 				$query = $temp;
 			}
@@ -26,8 +26,8 @@ class SearchController extends BaseController {
 		else {
 			if ($year) {
 				$temp = $year;
-				$year = $course;
-				$course = $teacher;
+				$year = $lesson;
+				$lesson = $teacher;
 				$teacher = $query;
 				$query = $temp;
 			}
@@ -56,9 +56,9 @@ class SearchController extends BaseController {
 			);
 		}
 		
-		if ($teacher and $course and $year) {
+		if ($teacher and $lesson and $year) {
 			$sphinx->setFilter('teacher_hash', [Helpers::getStringToUintHash($teacher)]);
-			$sphinx->setFilter('course_hash', [Helpers::getStringToUintHash($course)]);
+			$sphinx->setFilter('lesson_hash', [Helpers::getStringToUintHash($lesson)]);
 			$sphinx->setFilter('year_hash', [Helpers::getStringToUintHash($year)]);
 		}
 		
@@ -114,7 +114,7 @@ class SearchController extends BaseController {
 				$thisPage[$i]['attrs']['excerpt'] = $excerpts[$i];
 				
 				$thisPage[$i]['attrs']['represented_teacher'] = str_replace(['teachers.', '.name'], '', trans(sprintf('teachers.%s.name', $thisPage[$i]['attrs']['teacher'])));
-				$thisPage[$i]['attrs']['represented_course']  = preg_replace('#^(?:[^\.]+\.)+(.+)$#', '$1', trans(sprintf('courses.%s', $thisPage[$i]['attrs']['course'])));
+				$thisPage[$i]['attrs']['represented_lesson']  = preg_replace('#^(?:[^\.]+\.)+(.+)$#', '$1', trans(sprintf('lessons.%s', $thisPage[$i]['attrs']['lesson'])));
 				$date = $thisPage[$i]['attrs']['date'];
 				
 				if (strlen($date) == 6) {
@@ -150,6 +150,125 @@ class SearchController extends BaseController {
 		App::abort('404');
 	}
 	
+	public function showAdvancedPage()
+	{
+		$name = App::getLocale() == 'fa' ? 'name' : 'arname';
+		
+		$xmlContent = file_get_contents(base_path() . '\\App_Data\\Lessons.xml');
+		
+		$xml = new DomDocument;
+		
+		try	{
+			$xml->loadXML($xmlContent, LIBXML_NOBLANKS);
+		}
+		catch (\Exception $e) {
+			Log::error('Error loading Lessons.xml. ( '. __FILE__ .' on line '. __LINE__ .' )');
+			self::setExceptionErrorMessage(Lang::get('app.page_display_error'));
+			
+			App::abort(500);
+		}
+		
+		$xpath = new DOMXpath($xml);
+		
+		$xpathQuery = sprintf('//%s[not(@%s) or @%s != \'%s\']', 'group', 'hide', 'hide', '1');
+		//$xpathQuery = sprintf('//%s', 'group');
+		
+		$groupNode = $xpath->query($xpathQuery, $xml);
+		
+		$groupArray = [];
+		
+		$groupArray = [base64_encode(Lang::get('app.all')) => Lang::get('app.all')];
+		
+		foreach ($groupNode as $group)
+		{
+			$xpathQuery = sprintf('./%s', 'lesson');
+			
+			$lessonNode = $xpath->query($xpathQuery, $group);
+			
+			$lessonKey = [];
+			
+			foreach ($lessonNode as $lesson)
+			{
+				$lessonKey[] = Helpers::getStringToUintHash($lesson->getAttribute('key'));
+			}
+			
+			$depth = 1;
+			$groupKey = Crypt::encrypt(serialize([ 'lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
+			$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $group->getAttribute($name));
+				
+			foreach ($lessonNode as $lesson)
+			{
+				$xpathQuery = sprintf('./%s', 'teacher');
+			
+				$teacherNode = $xpath->query($xpathQuery, $lesson);
+				
+				$teacherKey = [];
+				
+				foreach ($teacherNode as $teacher)
+				{
+					$teacherKey[] = Helpers::getStringToUintHash($teacher->getAttribute('key'));
+				}
+				
+				foreach ($teacherNode as $teacher)
+				{
+					$xpathQuery = sprintf('./%s', 'year');
+				
+					$yearNode = $xpath->query($xpathQuery, $teacher);
+					
+					$depth = 2;
+					$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => []]));
+					$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $teacher->getAttribute($name));
+					
+					$yearKey = [];
+			
+					foreach ($yearNode as $year)
+					{
+						$yearKey[] = Helpers::getStringToUintHash($year->getAttribute('key'));
+					}
+					
+					foreach ($yearNode as $year)
+					{
+						$depth = 3;
+						$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => $yearNode]));
+						$groupArray[$groupKey] = sprintf('%s&nbsp;%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), Lang::get('app.year'),$year->getAttribute('key'));
+					}
+				}
+			}
+		}
+		
+		// # return View::make('advanced_search')->with('groupArray', $groupArray);
+		$this->layout->content = View::make('advanced_search', compact('groupArray'));
+		return;
+	}
 	
+	public function processAdvancedPage()
+	{
+		$groupKey = Input::get('groupKey', '');
+		
+		$and = Input::get('and', '');
+		$and = trim(preg_replace('#[[:space:]]+#u', ' ', $and));
+		
+		$or = Input::get('or', '');
+		$or = trim(preg_replace('#[[:space:]]+#u', ' ', $or));
+		if ($or) { $or = sprintf('(%s)', preg_replace('# #', ' | ', $or)); }
+		
+		$not = Input::get('not', '');
+		$not = trim(preg_replace('#[[:space:]]+#u', ' ', $not));
+		if ($not) { $not = preg_replace('#(?:^|(?<= ))([^[:space:]]+)#u', '!$1', $not); }
+		
+		$phrase = Input::get('phrase', '');
+		if ($phrase) { $phrase = sprintf('"%s"', trim(preg_replace('#[[:space:]]+#u', ' ', $phrase))); }
+		
+		$query = trim(preg_replace('#[[:space:]]+#u', ' ', sprintf('%s %s %s %s', $phrase, $or, $not, $and)));
+		
+		// if ($groupKey == base64_encode(Lang::get(sprintf('%s/app.all_groups', Config::get('app_settings.theme'))))) {
+			// return Helpers::redirect(sprintf('/search/%s', urlencode($query)));
+		// }
+		// else {
+			// return Helpers::redirect(sprintf('/search/%s?groupKey=%s', urlencode($query), urlencode($groupKey)));
+		// }
+		
+		return Helpers::redirect(sprintf('/search/%s', urlencode($query)));
+	}
 	
 }

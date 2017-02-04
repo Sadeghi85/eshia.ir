@@ -69,7 +69,7 @@ input.file {
 <div class="center">
 استاد: {{ $teacher }}
 <br>
-درس: {{ $course }}
+درس: {{ $lesson }}
 <br>
 سال: {{ $date }}
 <br>
@@ -87,7 +87,7 @@ input.file {
 							$archive,
 							$convert,
 							$teacher,
-							$course,
+							$lesson,
 							$year
 						],
 			'class' => 'form-horizontal',
