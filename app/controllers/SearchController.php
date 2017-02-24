@@ -56,6 +56,16 @@ class SearchController extends BaseController {
 			);
 		}
 		
+		$groupKey = Input::get('groupKey', '');
+		$groupArray = $groupKey ? unserialize(Crypt::decrypt(urldecode($groupKey))) : null;
+		//var_dump($groupArray);die();
+		if ($groupArray)
+		{
+			!empty($groupArray['teachers']) ? $sphinx->setFilter('teacher_hash', $groupArray['teachers']) : '';
+			!empty($groupArray['lessons']) ? $sphinx->setFilter('lesson_hash', $groupArray['lessons']) : '';
+			!empty($groupArray['years']) ? $sphinx->setFilter('year_hash', $groupArray['years']) : '';
+		}
+		
 		if ($teacher and $lesson and $year) {
 			$sphinx->setFilter('teacher_hash', [Helpers::getStringToUintHash($teacher)]);
 			$sphinx->setFilter('lesson_hash', [Helpers::getStringToUintHash($lesson)]);
@@ -193,7 +203,7 @@ class SearchController extends BaseController {
 			}
 			
 			$depth = 1;
-			$groupKey = Crypt::encrypt(serialize([ 'lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
+			$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
 			$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $group->getAttribute($name));
 				
 			foreach ($lessonNode as $lesson)
@@ -204,10 +214,10 @@ class SearchController extends BaseController {
 				
 				$teacherKey = [];
 				
-				foreach ($teacherNode as $teacher)
-				{
-					$teacherKey[] = Helpers::getStringToUintHash($teacher->getAttribute('key'));
-				}
+				// foreach ($teacherNode as $teacher)
+				// {
+					// $teacherKey[] = Helpers::getStringToUintHash($teacher->getAttribute('key'));
+				// }
 				
 				foreach ($teacherNode as $teacher)
 				{
@@ -216,20 +226,22 @@ class SearchController extends BaseController {
 					$yearNode = $xpath->query($xpathQuery, $teacher);
 					
 					$depth = 2;
+					$teacherKey = [Helpers::getStringToUintHash($teacher->getAttribute('key'))];
 					$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => []]));
 					$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $teacher->getAttribute($name));
 					
 					$yearKey = [];
 			
-					foreach ($yearNode as $year)
-					{
-						$yearKey[] = Helpers::getStringToUintHash($year->getAttribute('key'));
-					}
+					// foreach ($yearNode as $year)
+					// {
+						// $yearKey[] = Helpers::getStringToUintHash($year->getAttribute('key'));
+					// }
 					
 					foreach ($yearNode as $year)
 					{
 						$depth = 3;
-						$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => $yearNode]));
+						$yearKey = [Helpers::getStringToUintHash($year->getAttribute('key'))];
+						$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => $yearKey]));
 						$groupArray[$groupKey] = sprintf('%s&nbsp;%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), Lang::get('app.year'),$year->getAttribute('key'));
 					}
 				}
@@ -261,14 +273,12 @@ class SearchController extends BaseController {
 		
 		$query = trim(preg_replace('#[[:space:]]+#u', ' ', sprintf('%s %s %s %s', $phrase, $or, $not, $and)));
 		
-		// if ($groupKey == base64_encode(Lang::get(sprintf('%s/app.all_groups', Config::get('app_settings.theme'))))) {
-			// return Helpers::redirect(sprintf('/search/%s', urlencode($query)));
-		// }
-		// else {
-			// return Helpers::redirect(sprintf('/search/%s?groupKey=%s', urlencode($query), urlencode($groupKey)));
-		// }
-		
-		return Helpers::redirect(sprintf('/search/%s', urlencode($query)));
+		if ($groupKey == base64_encode(Lang::get('app.all'))) {
+			return Helpers::redirect(sprintf('/search/%s', urlencode($query)));
+		}
+		else {
+			return Helpers::redirect(sprintf('/search/%s?groupKey=%s', urlencode($query), urlencode($groupKey)));
+		}
 	}
 	
 }

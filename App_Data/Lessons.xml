@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Lessons>
+	<group name="ناخواسته" arname="ناخواسته" hide="1">
+		<lesson key="abstract" name="خارج فقه - چکیده" arname="خارج فقه - چکیده">
+			<teacher key="makarem" name="مکارم،ناصر" arname="مکارم،ناصر">
+				<year key="94" />
+			</teacher>
+		</lesson>
+	</group>
+
+	<group name="اخلاق" arname="اخلاق">
+		<lesson key="akhlaq" name="اخلاق" arname="اخلاق">
+			<teacher key="mazaheri" name="مظاهری،حسین" arname="مظاهری،حسین">
+				<year key="89" />
+				<year key="90" />
+				<year key="91" />
+				
+				<year key="93" />
+			</teacher>
+		
+			<teacher key="tehrani" name="تهرانی،مجتبی" arname="تهرانی،مجتبی">
+				<year key="88" />
+				<year key="89" />
+				<year key="90" />
+				<year key="91" />
+			</teacher>
+		</lesson>
+	
+	</group>
+	
+	<group name="فلسفه" arname="الفلسفه">
+		<lesson key="asfar" name="اسفار" arname="اسفار">
+			<teacher key="eshaghnia" name="اسحاق نیا،استاد" arname="اسحاق نیا،استاد">
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="فیاضی،غلامرضا">
+				<year key="83" />
+				
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+	
+	</group>
+</Lessons>
