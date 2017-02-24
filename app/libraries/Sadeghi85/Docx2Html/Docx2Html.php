@@ -198,6 +198,72 @@ class Docx2Html
 		
 		$xpath = new \DOMXPath($this->domDocument);
 		
+		// ########################### NumberList
+		//if ($this->list2html)
+		//{
+			#transform the list in ooxml to formatted list with tabs and bullets
+			
+			$ilvl = $numId = -1;
+			
+			$this->listNumbering();
+			
+			$query = 'w:pPr/w:numPr';
+			$xmlLists = $xpath->query($query, $node);
+			$xmlLists = $xmlLists->item(0);
+			
+			if (isset($xmlLists) and $xmlLists->tagName == 'w:numPr')
+			{
+				if ($xmlLists->hasChildNodes())
+				{
+					foreach ($xmlLists->childNodes as $child)
+					{
+						if ($child->tagName == 'w:ilvl')
+						{
+							$ilvl = $child->getAttribute('w:val'); 
+						}
+						elseif ($child->tagName == 'w:numId')
+						{
+							$numId = $child->getAttribute('w:val');
+						}
+					}
+				}
+			}
+			
+			if (($ilvl != -1) and ($numId != -1))
+			{
+				//$ret = '';
+				for($i=-1; $i < $ilvl; $i++)
+				{
+					$ret .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+				}
+				
+				if ( ! isset($this->_currentNumber[$numId])) {
+					$this->_currentNumber[$numId] = 1;
+				} else {
+					$this->_currentNumber[$numId] += 1;
+				}
+				
+				if (is_numeric($this->numberingList[$numId][$ilvl])) {
+					//$ret .=  '<font size=5pt color="#06F">'.$this->_currentNumber[$numId].'.</font>  ' . $this->toText($node);  //print the bullet
+					$ret .=  '<font size=5pt color="#06F">'.$this->_currentNumber[$numId].'.</font>  ';
+				} else {
+					//$ret .=  '<font size=5pt color="#06F">'.$this->numberingList[$numId][$ilvl].'</font>  ' . $this->toText($node);  //print the bullet
+					$ret .=  '<font size=5pt color="#06F">'.$this->numberingList[$numId][$ilvl].'</font>  ';
+				}
+			}
+			
+			//else
+			//{
+				// $ret = $this->toText($node);
+			//}
+        //}
+		/* else
+		{
+			//if dont want to formatted lists, we strip from html tags
+			$ret = $this->toText($node);
+        }  */
+		// ########################### NumberList
+		
         $query = './/w:r';
 		$xmlRuns = $xpath->query($query, $node);
 		
@@ -362,8 +428,8 @@ class Docx2Html
 		}
 		
 		// poetry
-		if (preg_match('#\*{4,}#', $ret)) {
-			$ret = sprintf('<span style="width: 100%%;text-align: center;display: block;">%s</span>', preg_replace('#\*{4,}#','&nbsp;&nbsp;&nbsp;&nbsp;', $ret));
+		if (preg_match('#(\*|×){4,}#', $ret)) {
+			$ret = sprintf('<span style="width: 100%%;text-align: center;display: block;">%s</span>', preg_replace('#(\*|×){4,}#','&nbsp;&nbsp;&nbsp;&nbsp;', $ret));
 		}
 		
 		$query = './/w:pPr/w:pStyle';
@@ -431,67 +497,6 @@ class Docx2Html
 				$ret = sprintf('<strike>%s</strike>', $ret);
 			}
 		}
-		
-        //if ($this->list2html)
-		//{
-			#transform the list in ooxml to formatted list with tabs and bullets
-			
-			$ilvl = $numId = -1;
-			
-			$this->listNumbering();
-			
-			$query = 'w:pPr/w:numPr';
-			$xmlLists = $xpath->query($query, $node);
-			$xmlLists = $xmlLists->item(0);
-			
-			if (isset($xmlLists) and $xmlLists->tagName == 'w:numPr')
-			{
-				if ($xmlLists->hasChildNodes())
-				{
-					foreach ($xmlLists->childNodes as $child)
-					{
-						if ($child->tagName == 'w:ilvl')
-						{
-							$ilvl = $child->getAttribute('w:val'); 
-						}
-						elseif ($child->tagName == 'w:numId')
-						{
-							$numId = $child->getAttribute('w:val');
-						}
-					}
-				}
-			}
-			
-			if (($ilvl != -1) and ($numId != -1))
-			{
-				$ret = '';
-				for($i=-1; $i < $ilvl; $i++)
-				{
-					$ret .= '&nbsp;&nbsp;&nbsp;&nbsp;';
-				}
-				
-				if ( ! isset($this->_currentNumber[$numId])) {
-					$this->_currentNumber[$numId] = 1;
-				} else {
-					$this->_currentNumber[$numId] += 1;
-				}
-				
-				if (is_numeric($this->numberingList[$numId][$ilvl])) {
-					$ret .=  '<font size=5pt color="#06F">'.$this->_currentNumber[$numId].'.</font>  ' . $this->toText($node);  //print the bullet
-				} else {
-					$ret .=  '<font size=5pt color="#06F">'.$this->numberingList[$numId][$ilvl].'</font>  ' . $this->toText($node);  //print the bullet
-				}
-			}
-			//else
-			//{
-				// $ret = $this->toText($node);
-			//}
-        //}
-		/* else
-		{
-			//if dont want to formatted lists, we strip from html tags
-			$ret = $this->toText($node);
-        }  */
 
         //extract the expecific footnote to insert with the text content
         
