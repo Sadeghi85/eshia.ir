@@ -1,6 +1,87 @@
 
+@section('style')
+	@parent
+	
+	<link href="/assets/css/select2.min.css" rel="stylesheet" type="text/css"/>
+	
+	<style type="text/css">
+		
+	</style>
+	
+@stop
+
+@section('javascript')
+	@parent
+	
+	<script src="/assets/js/jquery-1.10.2.min.js"></script>
+	<script src="/assets/js/select2.full.min.js"></script>
+	
+	<script type="text/javascript">
+		var lessons = {{ json_encode($lessonArray) }};
+		
+		var teachers = {{ json_encode($teacherArray) }}
+
+		$("#lessons").select2({
+		  data: lessons,
+		  dir: "rtl"
+		})
+		
+		$("#teachers").select2({
+		  data: null,
+		  dir: "rtl"
+		})
+		
+		$("#lessons").on("select2:select", function (e) {
+			if (e)
+			{
+				var key = e.params.data.id;
+				//var obj = teachers[key]
+				//var data = [];
+				//for (elem in obj) {
+				//   data.push(obj[elem])
+				//}
+				//var data = $.map(teachers[key], function(el) { return el });
+				var data = teachers[key];
+				//console.log(teachers[key])
+				//$("#teachers").select2('data', null)
+				$("#teachers").select2().empty().trigger("change");
+				$("#teachers").select2({
+				  data: data,
+				  dir: "rtl"
+				}).trigger("change");
+				//$("#teachers").trigger('change.select2');
+			}
+		});
+	</script>
+
+	
+
+@stop
+
+
 @section('content')
 <div id="contents">
+
+	<div style="margin:10px 10px;">
+		<select id="lessons" style="width:300px;"></select>
+	</div>
+	
+	<div style="margin:10px 10px;">
+		<select id="teachers" style="width:300px;"></select>
+	</div>
+	
+	<!-- <div id="lessons" style="width:300px;margin-top:10px;">
+		<multiselect v-model="value" selected-label="" select-label="" deselect-label="" track-by="name" label="value" placeholder="" :close-on-select="true" :options="options" :searchable="true" :allow-empty="true" @select="onSelect"><span slot="noResult">نتیجه&zwnj;ای یافت نشد</span></multiselect>
+		<pre class="language-json"><code>@{{ value.value  }}</code></pre>
+	</div>
+
+	<div id="teachers" style="width:300px;margin-top:10px;">
+		<multiselect v-model="value" selected-label="" select-label="" deselect-label="" track-by="name" label="value" placeholder="" :close-on-select="true" :options="options" :searchable="true" :allow-empty="true" ><span slot="noResult">نتیجه&zwnj;ای یافت نشد</span></multiselect>
+		<pre class="language-json"><code>@{{ value.value  }}</code></pre>
+	</div>
+-->
+
+
 	<div id="contents_cover" class="Page_advancedSearch">
 		<table id="advancedsearch">
 			<tbody>

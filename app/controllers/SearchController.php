@@ -187,6 +187,10 @@ class SearchController extends BaseController {
 		
 		$groupArray = [];
 		
+		$lessonArray = [];
+		$teacherArray = [];
+		$yearArray = [];
+		
 		$groupArray = [base64_encode(Lang::get('app.all')) => Lang::get('app.all')];
 		
 		foreach ($groupNode as $group)
@@ -205,7 +209,10 @@ class SearchController extends BaseController {
 			$depth = 1;
 			$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
 			$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $group->getAttribute($name));
-				
+			
+			$lessonKeyEncrypted = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
+			$lessonArray[] = (object) [ 'id' => $lessonKeyEncrypted, 'text' => $group->getAttribute($name)];
+			
 			foreach ($lessonNode as $lesson)
 			{
 				$xpathQuery = sprintf('./%s', 'teacher');
@@ -230,6 +237,9 @@ class SearchController extends BaseController {
 					$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => []]));
 					$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $teacher->getAttribute($name));
 					
+					$teacherKeyEncrypted = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => []]));
+					$teacherArray[$lessonKeyEncrypted][] = (object) [ 'id' => $teacherKeyEncrypted, 'text' => $teacher->getAttribute($name)];
+					
 					$yearKey = [];
 			
 					// foreach ($yearNode as $year)
@@ -249,7 +259,7 @@ class SearchController extends BaseController {
 		}
 		
 		// # return View::make('advanced_search')->with('groupArray', $groupArray);
-		$this->layout->content = View::make('advanced_search', compact('groupArray'));
+		$this->layout->content = View::make('advanced_search', compact('groupArray', 'lessonArray', 'teacherArray'));
 		return;
 	}
 	
