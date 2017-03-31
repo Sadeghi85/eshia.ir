@@ -56,14 +56,37 @@ class SearchController extends BaseController {
 			);
 		}
 		
-		$groupKey = Input::get('groupKey', '');
-		$groupArray = $groupKey ? unserialize(Crypt::decrypt(urldecode($groupKey))) : null;
-		//var_dump($groupArray);die();
-		if ($groupArray)
+		//$groupKey = Input::get('groupKey', '');
+		//$groupArray = $groupKey ? unserialize(Crypt::decrypt(urldecode($groupKey))) : null;
+		
+		// if ($groupArray)
+		// {
+			// !empty($groupArray['teachers']) ? $sphinx->setFilter('teacher_hash', $groupArray['teachers']) : '';
+			// !empty($groupArray['lessons']) ? $sphinx->setFilter('lesson_hash', $groupArray['lessons']) : '';
+			// !empty($groupArray['years']) ? $sphinx->setFilter('year_hash', $groupArray['years']) : '';
+		// }
+		
+		$lessonKey = Input::get('lessonKey', '');
+		$teacherKey = Input::get('teacherKey', '');
+		$yearKey = Input::get('yearKey', '');
+		
+		$lessonArray = $lessonKey ? unserialize(Crypt::decrypt(urldecode($lessonKey))) : null;
+		$teacherArray = $teacherKey ? unserialize(Crypt::decrypt(urldecode($teacherKey))) : null;
+		$yearArray = $yearKey ? unserialize(Crypt::decrypt(urldecode($yearKey))) : null;
+		
+		if ($lessonArray)
 		{
-			!empty($groupArray['teachers']) ? $sphinx->setFilter('teacher_hash', $groupArray['teachers']) : '';
-			!empty($groupArray['lessons']) ? $sphinx->setFilter('lesson_hash', $groupArray['lessons']) : '';
-			!empty($groupArray['years']) ? $sphinx->setFilter('year_hash', $groupArray['years']) : '';
+			$sphinx->setFilter('lesson_hash', $lessonArray);
+		}
+		
+		if ($teacherArray)
+		{
+			$sphinx->setFilter('teacher_hash', $teacherArray);
+		}
+		
+		if ($yearArray)
+		{
+			$sphinx->setFilter('year_hash', $yearArray);
 		}
 		
 		if ($teacher and $lesson and $year) {
@@ -191,8 +214,10 @@ class SearchController extends BaseController {
 		$teacherArray = [];
 		$yearArray = [];
 		
-		$groupArray = [base64_encode(Lang::get('app.all')) => Lang::get('app.all')];
+		$lessonArray[] = (object) ['id' => base64_encode(Lang::get('app.all')), 'text' => Lang::get('app.all')];
 		
+		//$groupArray = [base64_encode(Lang::get('app.all')) => Lang::get('app.all')];
+
 		foreach ($groupNode as $group)
 		{
 			$xpathQuery = sprintf('./%s', 'lesson');
@@ -206,12 +231,14 @@ class SearchController extends BaseController {
 				$lessonKey[] = Helpers::getStringToUintHash($lesson->getAttribute('key'));
 			}
 			
-			$depth = 1;
-			$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
-			$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $group->getAttribute($name));
+			//$depth = 1;
+			//$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
+			//$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $group->getAttribute($name));
 			
-			$lessonKeyEncrypted = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => [], 'years' => []]));
-			$lessonArray[] = (object) [ 'id' => $lessonKeyEncrypted, 'text' => $group->getAttribute($name)];
+			$lessonKeyEncrypted = Crypt::encrypt(serialize($lessonKey));
+			$lessonArray[] = (object) ['id' => $lessonKeyEncrypted, 'text' => $group->getAttribute($name)];
+			
+			$teacherArray[$lessonKeyEncrypted][] = (object) ['id' => base64_encode(Lang::get('app.all')), 'text' => Lang::get('app.all')];
 			
 			foreach ($lessonNode as $lesson)
 			{
@@ -221,10 +248,7 @@ class SearchController extends BaseController {
 				
 				$teacherKey = [];
 				
-				// foreach ($teacherNode as $teacher)
-				// {
-					// $teacherKey[] = Helpers::getStringToUintHash($teacher->getAttribute('key'));
-				// }
+				$childTeacherArray = [];
 				
 				foreach ($teacherNode as $teacher)
 				{
@@ -232,40 +256,52 @@ class SearchController extends BaseController {
 				
 					$yearNode = $xpath->query($xpathQuery, $teacher);
 					
-					$depth = 2;
+					//$depth = 2;
 					$teacherKey = [Helpers::getStringToUintHash($teacher->getAttribute('key'))];
-					$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => []]));
-					$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $teacher->getAttribute($name));
+					//$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => []]));
+					//$groupArray[$groupKey] = sprintf('%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), $teacher->getAttribute($name));
 					
-					$teacherKeyEncrypted = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => []]));
-					$teacherArray[$lessonKeyEncrypted][] = (object) [ 'id' => $teacherKeyEncrypted, 'text' => $teacher->getAttribute($name)];
+					$teacherKeyEncrypted = Crypt::encrypt(serialize($teacherKey));
+					//$teacherArray[$lessonKeyEncrypted][] = (object) ['id' => $teacherKeyEncrypted, 'text' => $teacher->getAttribute($name) . ' - ' . $lesson->getAttribute($name)];
+					$childTeacherArray[] = (object) ['id' => $teacherKeyEncrypted, 'text' => $teacher->getAttribute($name)];
 					
 					$yearKey = [];
-			
-					// foreach ($yearNode as $year)
-					// {
-						// $yearKey[] = Helpers::getStringToUintHash($year->getAttribute('key'));
-					// }
+					
+					$yearArray[$teacherKeyEncrypted][] = (object) ['id' => base64_encode(Lang::get('app.all')), 'text' => Lang::get('app.all')];
 					
 					foreach ($yearNode as $year)
 					{
-						$depth = 3;
+						//$depth = 3;
 						$yearKey = [Helpers::getStringToUintHash($year->getAttribute('key'))];
-						$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => $yearKey]));
-						$groupArray[$groupKey] = sprintf('%s&nbsp;%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), Lang::get('app.year'),$year->getAttribute('key'));
+						//$groupKey = Crypt::encrypt(serialize(['lessons' => $lessonKey, 'teachers' => $teacherKey, 'years' => $yearKey]));
+						//$groupArray[$groupKey] = sprintf('%s&nbsp;%s&nbsp;%s', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $depth).str_repeat('-', $depth), Lang::get('app.year'),$year->getAttribute('key'));
+						
+						$yearKeyEncrypted = Crypt::encrypt(serialize($yearKey));
+						$yearArray[$teacherKeyEncrypted][] = (object) ['id' => $yearKeyEncrypted, 'text' => $year->getAttribute('key')];
 					}
 				}
+				
+				$teacherArray[$lessonKeyEncrypted][] = (object) ['text' => $lesson->getAttribute($name), 'children' => $childTeacherArray];
 			}
 		}
 		
 		// # return View::make('advanced_search')->with('groupArray', $groupArray);
-		$this->layout->content = View::make('advanced_search', compact('groupArray', 'lessonArray', 'teacherArray'));
+		$this->layout->content = View::make('advanced_search', compact('groupArray', 'lessonArray', 'teacherArray', 'yearArray'));
 		return;
 	}
 	
 	public function processAdvancedPage()
 	{
-		$groupKey = Input::get('groupKey', '');
+		//$groupKey = Input::get('groupKey', '');
+		//if ($groupKey == base64_encode(Lang::get('app.all'))) { $groupKey = ''; }
+		
+		$lessonKey = Input::get('lessonKey', '');
+		$teacherKey = Input::get('teacherKey', '');
+		$yearKey = Input::get('yearKey', '');
+		
+		if ($lessonKey == base64_encode(Lang::get('app.all'))) { $lessonKey = ''; }
+		if ($teacherKey == base64_encode(Lang::get('app.all'))) { $teacherKey = ''; }
+		if ($yearKey == base64_encode(Lang::get('app.all'))) { $yearKey = ''; }
 		
 		$and = Input::get('and', '');
 		$and = trim(preg_replace('#[[:space:]]+#u', ' ', $and));
@@ -283,12 +319,14 @@ class SearchController extends BaseController {
 		
 		$query = trim(preg_replace('#[[:space:]]+#u', ' ', sprintf('%s %s %s %s', $phrase, $or, $not, $and)));
 		
-		if ($groupKey == base64_encode(Lang::get('app.all'))) {
-			return Helpers::redirect(sprintf('/search/%s', urlencode($query)));
-		}
-		else {
-			return Helpers::redirect(sprintf('/search/%s?groupKey=%s', urlencode($query), urlencode($groupKey)));
-		}
+		// if ($groupKey == base64_encode(Lang::get('app.all'))) {
+			// return Helpers::redirect(sprintf('/search/%s', urlencode($query)));
+		// }
+		// else {
+			// return Helpers::redirect(sprintf('/search/%s?groupKey=%s', urlencode($query), urlencode($groupKey)));
+		// }
+		
+		return Helpers::redirect(sprintf('/search/%s?lessonKey=%s&teacherKey=%s&yearKey=%s', urlencode($query), urlencode($lessonKey), urlencode($teacherKey), urlencode($yearKey)));
 	}
 	
 }

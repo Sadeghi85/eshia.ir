@@ -1,9 +1,13 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html >
 <head>
 	<title>@lang('app.title')</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Expires" content="0"/>
+	
+	@section('meta') 
+
+	@show
 	
 	<link href="/Styles/Default.css" rel="stylesheet" type="text/css"/>
 	<link href="/Styles/eshia.css" rel="stylesheet" type="text/css"/>
@@ -16,14 +20,19 @@
 	   
 	   </style>
 	@show
-		<script type="text/javascript">
+	
+	<script type="text/javascript">
 		function getID()
 		{
-		var Lid=window.location.href;
-		Lid=Lid.substr(Lid.indexOf('#')+1);
-		document.getElementById(Lid).className="Selected-Course";
+			var Lid=window.location.href;
+			Lid=Lid.substr(Lid.indexOf('#')+1);
+			var El = document.getElementById(Lid);
+			if (El)
+			{
+				El.className="Selected-Course";
+			}
 		}
-		</script>	
+	</script>	
 </head>
 
 @php

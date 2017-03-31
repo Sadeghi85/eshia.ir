@@ -1,4 +1,8 @@
 
+@section('meta')
+	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0" />
+@stop
+
 @section('style')
 	@parent
 	
@@ -18,40 +22,58 @@
 	
 	<script type="text/javascript">
 		var lessons = {{ json_encode($lessonArray) }};
-		
-		var teachers = {{ json_encode($teacherArray) }}
+		var teachers = {{ json_encode($teacherArray) }};
+		var years = {{ json_encode($yearArray) }};
 
-		$("#lessons").select2({
-		  data: lessons,
-		  dir: "rtl"
+		$('#lessonKey').select2({
+			//minimumResultsForSearch: -1,
+			data: lessons,
+			dir: 'rtl'
 		})
 		
-		$("#teachers").select2({
-		  data: null,
-		  dir: "rtl"
+		$('#teacherKey').select2({
+			//minimumResultsForSearch: -1,
+			data: null,
+			dir: 'rtl'
 		})
 		
-		$("#lessons").on("select2:select", function (e) {
+		$('#yearKey').select2({
+			//minimumResultsForSearch: -1,
+			data: null,
+			dir: 'rtl'
+		})
+		
+		$('#lessonKey').on('select2:select', function (e) {
 			if (e)
 			{
 				var key = e.params.data.id;
-				//var obj = teachers[key]
-				//var data = [];
-				//for (elem in obj) {
-				//   data.push(obj[elem])
-				//}
-				//var data = $.map(teachers[key], function(el) { return el });
 				var data = teachers[key];
-				//console.log(teachers[key])
-				//$("#teachers").select2('data', null)
-				$("#teachers").select2().empty().trigger("change");
-				$("#teachers").select2({
-				  data: data,
-				  dir: "rtl"
-				}).trigger("change");
-				//$("#teachers").trigger('change.select2');
+				$('#teacherKey').select2().empty().trigger('change');
+				$('#teacherKey').select2({
+					//minimumResultsForSearch: -1,
+					data: data,
+					dir: 'rtl'
+				}).trigger('change');
+				
+				$('#yearKey').select2().empty().trigger('change');
 			}
 		});
+		
+		$('#teacherKey').on('select2:select', function (e) {
+			if (e)
+			{
+				var key = e.params.data.id;
+				var data = years[key];
+				$('#yearKey').select2().empty().trigger('change');
+				$('#yearKey').select2({
+					//minimumResultsForSearch: -1,
+					data: data,
+					dir: 'rtl'
+				}).trigger('change');
+			}
+		});
+		
+		
 	</script>
 
 	
@@ -62,24 +84,7 @@
 @section('content')
 <div id="contents">
 
-	<div style="margin:10px 10px;">
-		<select id="lessons" style="width:300px;"></select>
-	</div>
 	
-	<div style="margin:10px 10px;">
-		<select id="teachers" style="width:300px;"></select>
-	</div>
-	
-	<!-- <div id="lessons" style="width:300px;margin-top:10px;">
-		<multiselect v-model="value" selected-label="" select-label="" deselect-label="" track-by="name" label="value" placeholder="" :close-on-select="true" :options="options" :searchable="true" :allow-empty="true" @select="onSelect"><span slot="noResult">نتیجه&zwnj;ای یافت نشد</span></multiselect>
-		<pre class="language-json"><code>@{{ value.value  }}</code></pre>
-	</div>
-
-	<div id="teachers" style="width:300px;margin-top:10px;">
-		<multiselect v-model="value" selected-label="" select-label="" deselect-label="" track-by="name" label="value" placeholder="" :close-on-select="true" :options="options" :searchable="true" :allow-empty="true" ><span slot="noResult">نتیجه&zwnj;ای یافت نشد</span></multiselect>
-		<pre class="language-json"><code>@{{ value.value  }}</code></pre>
-	</div>
--->
 
 
 	<div id="contents_cover" class="Page_advancedSearch">
@@ -122,7 +127,7 @@
 							<span class="tdLabel">@lang('app.search_where')</span>
 							<table cellspacing="0" cellpadding="0">
 								<tbody>
-									<tr>
+									{{--<tr>
 										<td class="tdLabel">&nbsp;</td>
 										<td class="tdInput">
 											<select name="groupKey">
@@ -130,6 +135,31 @@
 													<option value="{{ $groupKey }}">{{ $groupName }}</option>
 												@endforeach
 											</select>
+										</td>
+									</tr>--}}
+									
+									<tr>
+										<td class="tdLabel">@lang('app.lesson')</td>
+										<td class="tdInput">
+											<div style="margin:10px 10px;">
+												<select name="lessonKey" id="lessonKey" style="width:300px;"></select>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="tdLabel">@lang('app.teacher')</td>
+										<td class="tdInput">
+											<div style="margin:10px 10px;">
+												<select name="teacherKey" id="teacherKey" style="width:300px;"></select>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td class="tdLabel">@lang('app.year')</td>
+										<td class="tdInput">
+											<div style="margin:10px 10px;">
+												<select name="yearKey"id="yearKey" style="width:300px;"></select>
+											</div>
 										</td>
 									</tr>
 								</tbody>
