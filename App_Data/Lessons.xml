@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Lessons>
-	<group name="ناخواسته" arname="ناخواسته" hide="1">
+	<group key="nakhasteh" name="ناخواسته" arname="ناخواسته" hide="1">
 		<lesson key="abstract" name="خارج فقه - چکیده" arname="خارج فقه - چکیده">
 			<teacher key="makarem" name="مکارم،ناصر" arname="مکارم،ناصر">
 				<year key="94" />
@@ -14,7 +14,7 @@
 		</lesson>
 	</group>
 
-	<group name="فقه" arname="فقه">
+	<group key="feqh" name="فقه" arname="فقه">
 
 		<lesson key="feqh" name="خارج فقه" arname="خارج فقه">
 			<teacher key="makarem" name="مکارم،ناصر" arname="مکارم،ناصر">
@@ -429,7 +429,7 @@
 		</lesson>
 			
 	</group>
-	<group name="اصول" arname="اصول">
+	<group key="osool" name="اصول" arname="اصول">
 		
 		<lesson key="osool" name="خارج اصول" arname="خارج اصول">
 			<teacher key="sobhani" name="سبحانی،جعفر" arname="سبحانی،جعفر">
@@ -705,7 +705,7 @@
 	</group>
 
 	
-	<group name="کلام" arname="کلام">
+	<group key="kalam" name="کلام" arname="کلام">
 		<lesson key="vahabiat" name="شبهات وهابيت" arname="شبهات وهابيت">
 			<teacher key="sobhani" name="سبحاني،جعفر" arname="سبحاني،جعفر">
 				<year key="89" />
@@ -776,7 +776,7 @@
 	
 	</group>
 
-	<group name="فلسفه" arname="الفلسفه">
+	<group key="falsafeh" name="فلسفه" arname="الفلسفه">
 		<lesson key="asfar" name="اسفار" arname="اسفار">
 			<teacher key="eshaghnia" name="اسحاق نيا،استاد" arname="اسحاق نيا،استاد">
 				<year key="92" />
@@ -889,7 +889,7 @@
 	</group>
 
 
-	<group name="طب" arname="طب">
+	<group key="teb" name="طب" arname="طب">
 		<lesson key="teb" name="طب" arname="طب">
 			<teacher key="tabrizian" name="تبریزیان،عباس" arname="تبریزیان،عباس">
 				<year key="90" />
@@ -920,7 +920,7 @@
 	
 	</group>
 	
-	<group name="تفسیر" arname="تفسیر">
+	<group key="tafsir" name="تفسیر" arname="تفسیر">
 		<lesson key="tafsir" name="تفسیر" arname="تفسیر">
 			<teacher key="javadi" name="جوادی،عبدالله" arname="جوادی،عبدالله">
 				<year key="86" />
@@ -1025,7 +1025,7 @@
 			</teacher>
 		</lesson>
 	</group>
-	<group name="عرفان" arname="عرفان">
+	<group key="erfan" name="عرفان" arname="عرفان">
 		<lesson key="manazel" name="منازل السائرین" arname="منازل السائرین">
 			<teacher key="heshmatpour" name="استاد حشمت پور" arname="استاد حشمت پور">
 				<year key="93" />
@@ -1035,7 +1035,7 @@
 	
 	</group>
 
-	<group name="رجال" arname="رجال">
+	<group key="rejal" name="رجال" arname="رجال">
 		<lesson key="rejal" name="بحث رجال" arname="بحث رجال">
 			<teacher key="fazlollah" name="فضل‌الله،عبدالکريم" arname="فضل‌الله،عبدالکريم">
 				<year key="36" />
@@ -1065,7 +1065,7 @@
 	
 	</group>
 	
-	<group name="دراية" arname="دراية">
+	<group key="derayeh" name="دراية" arname="دراية">
 		<lesson key="nehayeh" name="نهایة الدرایة" arname="نهایة الدرایة">
 			<teacher key="heshmatpour" name="استاد حشمت پور" arname="استاد حشمت پور">
 				<year key="91" />
@@ -1077,7 +1077,7 @@
 	
 	</group>
 	
-	<group name="تاريخ" arname="تاريخ">
+	<group key="tarikh" name="تاريخ" arname="تاريخ">
 		<lesson key="tarikh" name="بحث التاريخ" arname="بحث التاريخ">
 			<teacher key="makki" name="مکي، علي" arname="مکي، علي">
 				<year key="34" />
@@ -1087,7 +1087,7 @@
 	
 	</group>
 	
-	<group name="اخلاق" arname="اخلاق">
+	<group key="akhlagh" name="اخلاق" arname="اخلاق">
 		<lesson key="akhlaq" name="اخلاق" arname="اخلاق">
 			<teacher key="mazaheri" name="مظاهری،حسین" arname="مظاهری،حسین">
 				<year key="89" />
@@ -1107,7 +1107,7 @@
 	
 	</group>
 
-	<group name="حدیث" arname="حدیث">
+	<group key="hadis" name="حدیث" arname="حدیث">
 		<lesson key="hadis" name="حدیث شناسی" arname="حدیث شناسی">
 			<teacher key="tabatabaei" name="استاد سید محمد کاظم طباطبایی" arname="استاد سید محمد کاظم طباطبایی">
 				<year key="91" />

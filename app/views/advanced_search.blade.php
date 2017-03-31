@@ -1,15 +1,48 @@
 
 @section('meta')
-	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0" />
+	<!--<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=0" />-->
 @stop
 
 @section('style')
 	@parent
 	
-	<link href="/assets/css/select2.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/assets/jquery-easyui-1.5.1/themes/metro/easyui.css" rel="stylesheet" media="screen" />
+	<link href="/assets/jquery-easyui-rtl/easyui-rtl.css" rel="stylesheet" media="screen" />
 	
 	<style type="text/css">
+		.combobox-item, .combobox-group, .combobox-stick {
+			font-size: 16px;
+			font-family: Tahoma;
+		}
 		
+		.textbox .textbox-text {
+			font-size: 16px;
+			font-family: Tahoma;
+		}
+		
+		.textbox  {
+			border: 1px solid #cacaca !important;
+			-webkit-border-radius: 5px !important;
+			-moz-border-radius: 5px !important;
+		}
+		
+		.textbox:hover {
+			border: 1px solid #6295f3 !important;
+			-webkit-border-radius: 5px !important;
+			-moz-border-radius: 5px !important;
+		}
+		
+		.panel-body {
+			font-size: 16px;
+		}
+		
+		.combo-arrow-hover {
+		  background-color: #cce6ff !important;
+		}
+		.combo-arrow:hover {
+		  background-color: #cce6ff !important;
+		}
+
 	</style>
 	
 @stop
@@ -17,132 +50,120 @@
 @section('javascript')
 	@parent
 	
-	<script src="/assets/js/jquery-1.10.2.min.js"></script>
-	<script src="/assets/js/select2.full.min.js"></script>
+	<script src="/assets/jquery-easyui-1.5.1/jquery.min.js" type="text/javascript"></script>
+	<script src="/assets/jquery-easyui-1.5.1/jquery.easyui.min.js" type="text/javascript"></script>
+	<script src="/assets/jquery-easyui-rtl/easyui-rtl.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
-		var lessons = {{ json_encode($lessonArray) }};
-		var teachers = {{ json_encode($teacherArray) }};
-		var years = {{ json_encode($yearArray) }};
-
-		$('#lessonKey').select2({
-			//minimumResultsForSearch: -1,
-			data: lessons,
-			dir: 'rtl'
-		})
+	$('#lessonKey').combobox({
+		url: '{{ action('SearchController@getSearchData') }}',
+		method: 'get',
+		queryParams: { 'control': 'lessonKey' },
+		valueField:'id',
+		textField:'text',
+		groupField:'group',
+		groupPosition:'sticky',
+		height:'28',
+		label: '',
+		labelPosition: 'top',
+		panelHeight:'400px',
+		hasDownArrow: true,
+		mode: 'local',
+		formatter: formatItem,
 		
-		$('#teacherKey').select2({
-			//minimumResultsForSearch: -1,
-			data: null,
-			dir: 'rtl'
-		})
-		
-		$('#yearKey').select2({
-			//minimumResultsForSearch: -1,
-			data: null,
-			dir: 'rtl'
-		})
-		
-		$('#lessonKey').on('select2:select', function (e) {
-			if (e)
-			{
-				var key = e.params.data.id;
-				var data = teachers[key];
-				$('#teacherKey').select2().empty().trigger('change');
-				$('#teacherKey').select2({
-					//minimumResultsForSearch: -1,
-					data: data,
-					dir: 'rtl'
-				}).trigger('change');
-				
-				$('#yearKey').select2().empty().trigger('change');
-			}
-		});
-		
-		$('#teacherKey').on('select2:select', function (e) {
-			if (e)
-			{
-				var key = e.params.data.id;
-				var data = years[key];
-				$('#yearKey').select2().empty().trigger('change');
-				$('#yearKey').select2({
-					//minimumResultsForSearch: -1,
-					data: data,
-					dir: 'rtl'
-				}).trigger('change');
-			}
-		});
-		
-		
-	</script>
-
+		onSelect: function(s){
+            var url = '{{ action('SearchController@getSearchData') }}?id='+s.id;
+            $('#teacherKey').combobox('reload', url);
+			$('#teacherKey').combobox('clear');
+			$('#yearKey').combobox('reload', '');
+			$('#yearKey').combobox('clear');
+        }
+	});
 	
-
+	$('#teacherKey').combobox({
+		url: '',
+		method: 'get',
+		queryParams: { 'control': 'teacherKey' },
+		valueField:'id',
+		textField:'text',
+		groupField:'group',
+		groupPosition:'sticky',
+		height:'28',
+		label: '',
+		labelPosition: 'top',
+		panelHeight:'400px',
+		hasDownArrow: true,
+		mode: 'local',
+		formatter: formatItem,
+		
+		onSelect: function(s){
+            var url = '{{ action('SearchController@getSearchData') }}?id='+s.id;
+            $('#yearKey').combobox('reload', url);
+			$('#yearKey').combobox('clear');
+        }
+	});
+	
+	$('#yearKey').combobox({
+		url: '',
+		method: 'get',
+		queryParams: { 'control': 'yearKey' },
+		valueField:'id',
+		textField:'text',
+		groupField:'group',
+		groupPosition:'sticky',
+		height:'28',
+		label: '',
+		labelPosition: 'top',
+		panelHeight:'400px',
+		hasDownArrow: true,
+		mode: 'local',
+		formatter: formatItem,
+		
+	});
+	
+	function formatItem(row){
+		var s = row.desc;
+		return s;
+	}
+	</script>
 @stop
-
 
 @section('content')
 <div id="contents">
-
-	
-
-
 	<div id="contents_cover" class="Page_advancedSearch">
-		<table id="advancedsearch">
+	
+	    <div style="margin:35px 0 10px 0;"></div>
+		<div class="easyui-accordion" style="width:100%;height:600px;">
+			<div title="جستجو نوع 1" style="overflow:auto;padding:10px;">
+				<table id="advancedsearch">
 			<tbody>
 				<tr>
 					<td>
 						<form name="frmQuery" method="post">
-							<span class="tdLabel">&nbsp;</span>
+							
 							<table id="advanced" cellspacing="0" cellpadding="0">
 								<tbody>
+									
 									<tr>
-										<td class="tdLabel">@lang('app.search_find_items_that')</td>
-										<td class="tdInput"></td>
+										<td class="tdLabel">عبارت</td>
+										<td class="tdInput">
+											<div style="margin:10px 10px;">
+												<input style="width: 490px;" name="and" type="text" value="">
+											</div>
+										</td>
 									</tr>
-									<tr>
-										<td class="tdLabel">@lang('app.search_all_these_words')</td>
-										<td class="tdInput"><input name="and" type="text" value=""></td>
-									</tr>
-									<tr>
-										<td class="tdLabel">@lang('app.search_this_phrase')</td>
-										<td class="tdInput"><input name="phrase" type="text" value=""></td>
-									</tr>
-									<tr>
-										<td class="tdLabel">@lang('app.search_any_these_words')</td>
-										<td class="tdInput"><input name="or" type="text" value=""></td>
-									</tr>
-								</tbody>
-							</table>
-							<span class="tdLabel">@lang('app.search_but')</span>
-							<table cellspacing="0" cellpadding="0">
-								<tbody>
-									<tr>
-										<td class="tdLabel">@lang('app.search_not_these_words')</td>
-										<td class="tdInput"><input name="not" type="text" value=""></td>
-									</tr>
+									
 								</tbody>
 							</table>
 
-							<span class="tdLabel">@lang('app.search_where')</span>
 							<table cellspacing="0" cellpadding="0">
 								<tbody>
-									{{--<tr>
-										<td class="tdLabel">&nbsp;</td>
-										<td class="tdInput">
-											<select name="groupKey">
-												@foreach ($groupArray as $groupKey => $groupName)
-													<option value="{{ $groupKey }}">{{ $groupName }}</option>
-												@endforeach
-											</select>
-										</td>
-									</tr>--}}
-									
 									<tr>
 										<td class="tdLabel">@lang('app.lesson')</td>
 										<td class="tdInput">
 											<div style="margin:10px 10px;">
-												<select name="lessonKey" id="lessonKey" style="width:300px;"></select>
+												<input id="lessonKey" class="easyui-combobox" name="lessonKey" style="width:500px;">
+												
 											</div>
 										</td>
 									</tr>
@@ -150,7 +171,7 @@
 										<td class="tdLabel">@lang('app.teacher')</td>
 										<td class="tdInput">
 											<div style="margin:10px 10px;">
-												<select name="teacherKey" id="teacherKey" style="width:300px;"></select>
+												<input id="teacherKey" class="easyui-combobox" name="teacherKey" style="width:500px;">
 											</div>
 										</td>
 									</tr>
@@ -158,7 +179,7 @@
 										<td class="tdLabel">@lang('app.year')</td>
 										<td class="tdInput">
 											<div style="margin:10px 10px;">
-												<select name="yearKey"id="yearKey" style="width:300px;"></select>
+												<input id="yearKey" class="easyui-combobox" name="yearKey" style="width:500px;">
 											</div>
 										</td>
 									</tr>
@@ -170,6 +191,16 @@
 				</tr>
 			</tbody>
 		</table>
+			</div>
+			
+			<div title="جستجو نوع 2" style="padding:10px;">
+				
+			</div>
+			
+		</div>
+	
+	
+		
 	</div>
 </div>
 @stop

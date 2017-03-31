@@ -43,6 +43,11 @@ Route::get('/advanced-search', array('uses' => 'SearchController@showAdvancedPag
 Route::post('/{ar}/advanced-search', array('uses' => 'SearchController@processAdvancedPage'));
 Route::post('/advanced-search', array('uses' => 'SearchController@processAdvancedPage'));
 
+// Ajax
+Route::get('/search-data', array('uses' => 'SearchController@getSearchData'));
+Route::get('/{ar}/search-data', array('uses' => 'SearchController@getSearchData'));
+
+
 // Converter
 
 Route::get('/{feqh}/{archive}/word', 'ConvertController@word');

@@ -73,6 +73,94 @@ class Helpers {
 		return sprintf('%u', crc32($str));
 	}
 	
+	public static function prepareSearchFilters(&$lessonArray, &$teacherArray, &$yearArray)
+	{
+		$name = App::getLocale() == 'fa' ? 'name' : 'arname';
+		
+		$xmlContent = file_get_contents(base_path() . '\\App_Data\\Lessons.xml');
+		
+		$xml = new DomDocument;
+		
+		try	{
+			$xml->loadXML($xmlContent, LIBXML_NOBLANKS);
+		}
+		catch (\Exception $e) {
+			Log::error('Error loading Lessons.xml. ( '. __FILE__ .' on line '. __LINE__ .' )');
+			self::setExceptionErrorMessage(Lang::get('app.page_display_error'));
+			
+			App::abort(500);
+		}
+		
+		$xpath = new DOMXpath($xml);
+		
+		if ($lessonArray)
+		{
+			$key = $lessonArray;
+			
+			if ($key['lesson'])
+			{
+				$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s[@%s=\'%s\']', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'key', $key['lesson']);
+			}
+			else
+			{
+				$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson');
+			}
+			
+			$lessonNode = $xpath->query($xpathQuery, $xml);
+			$lessonArray = [];
+			
+			foreach ($lessonNode as $lesson)
+			{
+				$lessonArray[] = self::getStringToUintHash($lesson->getAttribute('key'));
+			}
+		}
+		
+		if ($teacherArray)
+		{
+			$key = $teacherArray;
+			
+			if ($key['lesson'])
+			{
+				$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s[@%s=\'%s\']/%s[@%s=\'%s\']', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'key', $key['lesson'], 'teacher', 'key', $key['teacher']);
+			}
+			else
+			{
+				$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s/%s[@%s=\'%s\']', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'teacher', 'key', $key['teacher']);
+			}
+			
+			$teacherNode = $xpath->query($xpathQuery, $xml);
+			$teacherArray = [];
+			
+			foreach ($teacherNode as $teacher)
+			{
+				$teacherArray[] = self::getStringToUintHash($teacher->getAttribute('key'));
+			}
+		}
+		
+		if ($yearArray)
+		{
+			$key = $yearArray;
+			
+			if ($key['lesson'])
+			{
+				$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s[@%s=\'%s\']/%s[@%s=\'%s\']/%s[@%s=\'%s\']', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'key', $key['lesson'], 'teacher', 'key', $key['teacher'], 'year', 'key', $key['year']);
+			}
+			else
+			{
+				$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s/%s[@%s=\'%s\']/%s[@%s=\'%s\']', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'teacher', 'key', $key['teacher'], 'year', 'key', $key['year']);
+			}
+			
+			$yearNode = $xpath->query($xpathQuery, $xml);
+			$yearArray = [];
+			
+			foreach ($yearNode as $year)
+			{
+				$yearArray[] = self::getStringToUintHash($year->getAttribute('key'));
+			}
+		}
+		
+	}
+	
 	public static function getPreferredTeachersArray()
 	{
 		$locale = App::getLocale();

@@ -73,7 +73,9 @@ class SearchController extends BaseController {
 		$lessonArray = $lessonKey ? unserialize(Crypt::decrypt(urldecode($lessonKey))) : null;
 		$teacherArray = $teacherKey ? unserialize(Crypt::decrypt(urldecode($teacherKey))) : null;
 		$yearArray = $yearKey ? unserialize(Crypt::decrypt(urldecode($yearKey))) : null;
-		
+		//dd($teacherArray);
+		Helpers::prepareSearchFilters($lessonArray, $teacherArray, $yearArray);
+		//dd($teacherArray);
 		if ($lessonArray)
 		{
 			$sphinx->setFilter('lesson_hash', $lessonArray);
@@ -196,7 +198,7 @@ class SearchController extends BaseController {
 		}
 		catch (\Exception $e) {
 			Log::error('Error loading Lessons.xml. ( '. __FILE__ .' on line '. __LINE__ .' )');
-			self::setExceptionErrorMessage(Lang::get('app.page_display_error'));
+			Helpers::setExceptionErrorMessage(Lang::get('app.page_display_error'));
 			
 			App::abort(500);
 		}
@@ -326,7 +328,149 @@ class SearchController extends BaseController {
 			// return Helpers::redirect(sprintf('/search/%s?groupKey=%s', urlencode($query), urlencode($groupKey)));
 		// }
 		
-		return Helpers::redirect(sprintf('/search/%s?lessonKey=%s&teacherKey=%s&yearKey=%s', urlencode($query), urlencode($lessonKey), urlencode($teacherKey), urlencode($yearKey)));
+		if (App::getLocale() == 'ar')
+		{
+			return Helpers::redirect(sprintf('/ar/search/%s?lessonKey=%s&teacherKey=%s&yearKey=%s', urlencode($query), urlencode($lessonKey), urlencode($teacherKey), urlencode($yearKey)));
+		}
+		else
+		{
+			return Helpers::redirect(sprintf('/search/%s?lessonKey=%s&teacherKey=%s&yearKey=%s', urlencode($query), urlencode($lessonKey), urlencode($teacherKey), urlencode($yearKey)));
+		}
+		
+	}
+	
+	public function getSearchData()
+	{
+		$control = Input::get('control', '');
+		
+		if ( ! $control)
+			return;
+		
+		$name = App::getLocale() == 'fa' ? 'name' : 'arname';
+		
+		$xmlContent = file_get_contents(base_path() . '\\App_Data\\Lessons.xml');
+		
+		$xml = new DomDocument;
+		
+		try	{
+			$xml->loadXML($xmlContent, LIBXML_NOBLANKS);
+		}
+		catch (\Exception $e) {
+			Log::error('Error loading Lessons.xml. ( '. __FILE__ .' on line '. __LINE__ .' )');
+			Helpers::setExceptionErrorMessage(Lang::get('app.page_display_error'));
+			
+			App::abort(500);
+		}
+		
+		$xpath = new DOMXpath($xml);
+		
+		switch ($control)
+		{
+			case 'lessonKey':
+				$xpathQuery = sprintf('//%s[not(@%s) or @%s != \'%s\']', 'group', 'hide', 'hide', '1');
+				$groupNode = $xpath->query($xpathQuery, $xml);
+				$groupArray = [];
+				$lessonArray = [];
+				
+				foreach ($groupNode as $group)
+				{
+					$xpathQuery = sprintf('./%s', 'lesson');
+					$lessonNode = $xpath->query($xpathQuery, $group);
+					
+					foreach ($lessonNode as $lesson)
+					{
+						$lessonKeyEncrypted = Crypt::encrypt(serialize(['group'=>$group->getAttribute('key'),'lesson'=>$lesson->getAttribute('key')]));
+						
+						$lessonArray[] = [
+							'id' => $lessonKeyEncrypted,
+							'text' => $lesson->getAttribute($name).pack('H*', 'e2808f'),
+							'desc' => $lesson->getAttribute($name).pack('H*', 'e2808f'),
+							'group' => $group->getAttribute($name).pack('H*', 'e2808f'),
+						];
+					}
+					
+					if ($lessonNode->length > 1)
+					{
+						$groupKeyEncrypted = Crypt::encrypt(serialize(['group'=>$group->getAttribute('key'),'lesson'=>null]));
+						$lessonArray[] = [
+							'id' => $groupKeyEncrypted,
+							'text' => $group->getAttribute($name).' (همه)'.pack('H*', 'e2808f'),
+							'desc' => $group->getAttribute($name).' (همه)'.pack('H*', 'e2808f'),
+							'group' => $group->getAttribute($name).pack('H*', 'e2808f'),
+						];
+					}
+				}
+				
+				return json_encode($lessonArray);
+				
+				break;
+				
+			case 'teacherKey':
+				$key = Input::get('id', '');
+				$key = unserialize(Crypt::decrypt(urldecode($key)));
+				$teacherArray = [];
+				
+				if ($key['lesson'])
+				{
+					$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s[@%s=\'%s\']/%s', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'key', $key['lesson'], 'teacher');
+				}
+				else
+				{
+					$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s/%s', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'teacher');
+				}
+				
+				$teacherNode = $xpath->query($xpathQuery, $xml);
+				
+				foreach ($teacherNode as $teacher)
+				{
+					$teacherKeyEncrypted = Crypt::encrypt(serialize(['group'=>$key['group'],'lesson'=>$key['lesson'],'teacher'=>$teacher->getAttribute('key')]));
+					
+					$teacherArray[] = [
+						'id' => $teacherKeyEncrypted,
+						'text' => $teacher->getAttribute($name).pack('H*', 'e2808f'),
+						'desc' => $teacher->getAttribute($name).pack('H*', 'e2808f'),
+					];
+				}
+				
+				return json_encode($teacherArray);
+				
+				break;
+				
+			case 'yearKey':
+				$key = Input::get('id', '');
+				$key = unserialize(Crypt::decrypt(urldecode($key)));
+				$yearArray = [];
+				
+				if ($key['lesson'])
+				{
+					$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s[@%s=\'%s\']/%s[@%s=\'%s\']/%s', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'key', $key['lesson'], 'teacher', 'key', $key['teacher'], 'year');
+				}
+				else
+				{
+					$xpathQuery = sprintf('//%s[(not(@%s) or @%s != \'%s\') and (@%s=\'%s\')]/%s/%s[@%s=\'%s\']/%s', 'group', 'hide', 'hide', '1', 'key', $key['group'], 'lesson', 'teacher', 'key', $key['teacher'], 'year');
+				}
+				
+				$yearNode = $xpath->query($xpathQuery, $xml);
+
+				foreach ($yearNode as $year)
+				{
+					$yearKeyEncrypted = Crypt::encrypt(serialize(['group'=>$key['group'],'lesson'=>$key['lesson'],'teacher'=>$key['teacher'],'year'=>$year->getAttribute('key')]));
+					
+					$yearArray[] = [
+						'id' => $yearKeyEncrypted,
+						'text' => $year->getAttribute('key'),
+						'desc' => $year->getAttribute('key'),
+					];
+				}
+				
+				return json_encode($yearArray);
+				
+				break;
+			default:
+				return;
+			
+		}
+		
 	}
 	
 }
