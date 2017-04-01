@@ -133,9 +133,8 @@
 	<div id="contents_cover" class="Page_advancedSearch">
 	
 	    <div style="margin:35px 0 10px 0;"></div>
-		<div class="easyui-accordion" style="width:100%;height:600px;">
-			<div title="جستجو نوع 1" style="overflow:auto;padding:10px;">
-				<table id="advancedsearch">
+		
+		<table id="advancedsearch">
 			<tbody>
 				<tr>
 					<td>
@@ -191,14 +190,6 @@
 				</tr>
 			</tbody>
 		</table>
-			</div>
-			
-			<div title="جستجو نوع 2" style="padding:10px;">
-				
-			</div>
-			
-		</div>
-	
 	
 		
 	</div>
