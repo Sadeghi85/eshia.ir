@@ -23,7 +23,7 @@ return array(
 	'manzoome' => 'منظومه',
 	'resalevojod' => 'رساله وجود رابط آقا علی حکیم',
 	'manazel' => 'منازل السائرین',
-	'falsafeh' => 'فلسفه‌ی فرهنگ',
+	'falsafeh' => 'فلسفه‌',
 	'mostahdeseh' => 'مسائل مستحدثه',
 	'falsafeh_osool' => 'فلسفه اصول- خارج اصول',
 	'vahabiat' => 'وهابیت',
@@ -32,4 +32,6 @@ return array(
 	'kashf' => 'کشف المراد',
 	'tarbiat' => 'فقه تربیتی',
 	'rejal' => 'رجال',
+	'ejtehad' => 'اجتهاد',
+	'falsafeh_farhang' => 'فلسفه‌ی فرهنگ',
 );

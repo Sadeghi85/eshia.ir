@@ -37,11 +37,12 @@ Route::get('/search/{query}', array('uses' => 'SearchController@showPage'))
 ->where('query', '.+');
 
 // Advanced Search
-Route::get('/{ar}/advanced-search', array('uses' => 'SearchController@showAdvancedPage'));
 Route::get('/advanced-search', array('uses' => 'SearchController@showAdvancedPage'));
+Route::get('/{ar}/advanced-search', array('uses' => 'SearchController@showAdvancedPage'));
 
-Route::post('/{ar}/advanced-search', array('uses' => 'SearchController@processAdvancedPage'));
 Route::post('/advanced-search', array('uses' => 'SearchController@processAdvancedPage'));
+Route::post('/{ar}/advanced-search', array('uses' => 'SearchController@processAdvancedPage'));
+
 
 // Ajax
 Route::get('/search-data', array('uses' => 'SearchController@getSearchData'));

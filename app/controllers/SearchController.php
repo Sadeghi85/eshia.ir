@@ -56,16 +56,6 @@ class SearchController extends BaseController {
 			);
 		}
 		
-		//$groupKey = Input::get('groupKey', '');
-		//$groupArray = $groupKey ? unserialize(Crypt::decrypt(urldecode($groupKey))) : null;
-		
-		// if ($groupArray)
-		// {
-			// !empty($groupArray['teachers']) ? $sphinx->setFilter('teacher_hash', $groupArray['teachers']) : '';
-			// !empty($groupArray['lessons']) ? $sphinx->setFilter('lesson_hash', $groupArray['lessons']) : '';
-			// !empty($groupArray['years']) ? $sphinx->setFilter('year_hash', $groupArray['years']) : '';
-		// }
-		
 		$lessonKey = Input::get('lessonKey', '');
 		$teacherKey = Input::get('teacherKey', '');
 		$yearKey = Input::get('yearKey', '');
@@ -73,9 +63,16 @@ class SearchController extends BaseController {
 		$lessonArray = $lessonKey ? unserialize(Crypt::decrypt(urldecode($lessonKey))) : null;
 		$teacherArray = $teacherKey ? unserialize(Crypt::decrypt(urldecode($teacherKey))) : null;
 		$yearArray = $yearKey ? unserialize(Crypt::decrypt(urldecode($yearKey))) : null;
-		//dd($teacherArray);
+		
+		$groupName = (array_key_exists('groupName', (array)$lessonArray)) ? $lessonArray['groupName'] : '';
+		$lessonName = (array_key_exists('lessonName', (array)$lessonArray)) ? $lessonArray['lessonName'] : '';
+		$teacherName = (array_key_exists('teacherName', (array)$teacherArray)) ? $teacherArray['teacherName'] : '';
+		$yearName = (array_key_exists('year', (array)$yearArray)) ? $yearArray['year'] : '';
+		if ( ! $lessonName)
+			$lessonName = $groupName;
+		
 		Helpers::prepareSearchFilters($lessonArray, $teacherArray, $yearArray);
-		//dd($teacherArray);
+		
 		if ($lessonArray)
 		{
 			$sphinx->setFilter('lesson_hash', $lessonArray);
@@ -164,7 +161,7 @@ class SearchController extends BaseController {
 			$paginator = Paginator::make($thisPage, min($results['total'], Config::get('app_settings.search_result_limit', 1000)), $perPage);
 			
 			$content = View::make('search')->with( [
-				'results' => $paginator, 'time' => $results['time'], 'totalCount' => $results['total_found'], 'resultCount' => $results['total'], 'page' => $page, 'perPage' => $perPage, 'query' => urlencode($query)
+				'results' => $paginator, 'time' => $results['time'], 'totalCount' => $results['total_found'], 'resultCount' => $results['total'], 'page' => $page, 'perPage' => $perPage, 'query' => $query, 'lessonName' => $lessonName, 'teacherName' => $teacherName, 'yearName' => $yearName
 			] );
 			
 			$this->layout->content = $content;
@@ -265,7 +262,7 @@ class SearchController extends BaseController {
 					$xpathQuery = sprintf('./%s', 'lesson');
 					$lessonNode = $xpath->query($xpathQuery, $group);
 					
-					$groupKeyEncrypted = Crypt::encrypt(serialize(['group'=>$group->getAttribute('key'),'lesson'=>null]));
+					$groupKeyEncrypted = Crypt::encrypt(serialize(['group'=>$group->getAttribute('key'),'lesson'=>null,'groupName'=>$group->getAttribute($name),'lessonName'=>null]));
 					$lessonArray[] = [
 						'id' => $groupKeyEncrypted,
 						'text' => $group->getAttribute($name),
@@ -275,7 +272,7 @@ class SearchController extends BaseController {
 					
 					foreach ($lessonNode as $lesson)
 					{
-						$lessonKeyEncrypted = Crypt::encrypt(serialize(['group'=>$group->getAttribute('key'),'lesson'=>$lesson->getAttribute('key')]));
+						$lessonKeyEncrypted = Crypt::encrypt(serialize(['group'=>$group->getAttribute('key'),'lesson'=>$lesson->getAttribute('key'),'groupName'=>$group->getAttribute($name),'lessonName'=>$lesson->getAttribute($name)]));
 						
 						$lessonArray[] = [
 							'id' => $lessonKeyEncrypted,
@@ -308,7 +305,7 @@ class SearchController extends BaseController {
 				
 				foreach ($teacherNode as $teacher)
 				{
-					$teacherKeyEncrypted = Crypt::encrypt(serialize(['group'=>$key['group'],'lesson'=>$key['lesson'],'teacher'=>$teacher->getAttribute('key')]));
+					$teacherKeyEncrypted = Crypt::encrypt(serialize(['group'=>$key['group'],'lesson'=>$key['lesson'],'teacher'=>$teacher->getAttribute('key'),'teacherName'=>$teacher->getAttribute($name)]));
 					
 					$teacherArray[] = [
 						'id' => $teacherKeyEncrypted,
