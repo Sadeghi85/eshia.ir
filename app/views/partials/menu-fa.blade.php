@@ -5,6 +5,7 @@
 <a href="/Feqh/Archive/qom/feyzieh/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه قم - مدرسه فیضیه</a>
 <a href="/Ar/Feqh/Archive/Qom/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه قم-به زبان عربی</a>
 <a href="/Feqh/Archive/qom/khan/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه قم - مدرسه خان</a>
+<a href="/Feqh/Archive/qomschools/" style="font-size:0.7em; text-indent:1.5em !important;">سایر مدارس قم</a>
 <div class="khat"></div>
 <a href="/Ar/Feqh/Archive/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه نجف</a>
 <a href="/Ar/Feqh/Archive/qaravieh/" style="font-size:0.7em; text-indent:1.5em !important;white-space: nowrap;">حوزه علمیه نجف-حرم امیرالمؤمنین(ع)</a>
@@ -26,6 +27,8 @@
 <a href="/feqh/Archive/qom/tafsir" style="font-size:0.7em; text-indent:1.5em !important;">تفسیر - قم</a>
 <a href="/feqh/Archive/mashhad/tafsir" style="font-size:0.7em; text-indent:1.5em !important;">تفسیر - مشهد</a>
 <a href="/Feqh/Archive/Rejal/" style="font-size:0.7em; text-indent:1.5em !important;">رجال</a>
+<div class="khat"></div>
+<a href="/Feqh/Archive/Imambaqer/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه امام باقر</a>
 <div class="khat"></div>
 <a href="/Feqh/Archive/Sayeredoroos/" style="font-size:0.7em; text-indent:1.5em !important;">سایر دروس</a>
 <div class="khat"></div>

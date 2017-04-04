@@ -15,6 +15,7 @@
 <a href="/feqh/archive/qom/" style="font-size:0.7em; text-indent:1.5em !important;">قم المقدسة</a>
 <a href="/Feqh/Archive/Qom/Feyzieh/" style="font-size:0.7em; text-indent:1.5em !important;">مدرسة الفيضية</a>						
 <a href="/Feqh/Archive/Qom/khan/" style="font-size:0.7em; text-indent:1.5em !important;">مدرسة الخان</a>
+<a href="/Ar/Feqh/Archive/qomschools/" style="font-size:0.7em; text-indent:1.5em !important;"> قم المقدسة - سائرالمدارس</a>
 <div class="khat"></div>	
 <a href="/Feqh/Archive/Mashhad/" style="font-size:0.7em; text-indent:1.5em !important;">مشهد المقدسة</a>
 <div class="khat"></div>
