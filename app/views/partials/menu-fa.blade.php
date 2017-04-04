@@ -28,8 +28,6 @@
 <a href="/feqh/Archive/mashhad/tafsir" style="font-size:0.7em; text-indent:1.5em !important;">تفسیر - مشهد</a>
 <a href="/Feqh/Archive/Rejal/" style="font-size:0.7em; text-indent:1.5em !important;">رجال</a>
 <div class="khat"></div>
-<a href="/Feqh/Archive/Imambaqer/" style="font-size:0.7em; text-indent:1.5em !important;">حوزه علمیه امام باقر</a>
-<div class="khat"></div>
 <a href="/Feqh/Archive/Sayeredoroos/" style="font-size:0.7em; text-indent:1.5em !important;">سایر دروس</a>
 <div class="khat"></div>
 <a href="/Ar/Feqh/Archive/Translate/" style="font-size:0.7em; text-indent:1.5em !important;">تقریر عربی درس‌ها</a>
