@@ -8,7 +8,7 @@
 		</lesson>
 		
 		<lesson key="ocar" name="اُکَر ثاوذوسیوس" arname="اُکَر ثاوذوسیوس">
-			<teacher key="heshmatpour" name="استاد حشمت پور" arname="استاد حشمت پور">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسين">
 				<year key="94" />
 			</teacher>
 		</lesson>
@@ -16,7 +16,7 @@
 
 	<group key="feqh" name="فقه" arname="فقه">
 
-		<lesson key="feqh" name="خارج فقه" arname="خارج فقه">
+		<lesson key="feqh" name="خارج فقه" arname="بحث الفقه">
 			<teacher key="makarem" name="مکارم،ناصر" arname="مکارم،ناصر">
 				<year key="86" />
 				<year key="87" />
@@ -29,7 +29,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="sobhani" name="سبحانی،جعفر" arname="سبحانی،جعفر">
+			<teacher key="sobhani" name="سبحانی،جعفر" arname="السبحاني،جعفر">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -39,7 +39,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="javadi" name="جوادی،عبدالله" arname="جوادی،عبدالله">
+			<teacher key="javadi" name="جوادی،عبدالله" arname="الجوادي،عبدالله">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -49,7 +49,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="shobeiry" name="شبیری،حسن" arname="شبیری،حسن">
+			<teacher key="shobeiry" name="شبیری،حسن" arname="الشبیري،حسن">
 				<year key="87" />
 				<year key="88" />
 				<year key="89" />
@@ -59,7 +59,7 @@
 				<year key="93" />
 				<year key="94" />
 			</teacher>
-			<teacher key="noori" name="نوری،حسین" arname="نوری،حسین">
+			<teacher key="noori" name="نوری،حسین" arname="النوري،حسین">
 				<year key="87" />
 				<year key="88" />
 				<year key="89" />
@@ -71,7 +71,7 @@
 				<year key="95" />
 			</teacher>
 			
-			<teacher key="mortazavi" name="مرتضوی،حسن" arname="مرتضوی،حسن">
+			<teacher key="mortazavi" name="مرتضوی،حسن" arname="المرتضوي،حسن">
 				<year key="89" />
 				<year key="90" />
 				<year key="91" />
@@ -80,7 +80,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="ashrafi" name="اشرفی،مصطفی" arname="اشرفی،مصطفی">
+			<teacher key="ashrafi" name="اشرفی،مصطفی" arname="الأشرفي،مصطفی">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -90,7 +90,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="ashrafiar" name="اشرفی،مصطفی" arname="اشرفی،مصطفی">
+			<teacher key="ashrafiar" name="اشرفی،مصطفی" arname="الأشرفي،مصطفی">
 				<year key="32" />
 				<year key="33" />
 				<year key="34" />
@@ -108,7 +108,7 @@
 				<year key="95" />
 			</teacher>
 			
-			<teacher key="mazaheri" name="مظاهری،حسین" arname="مظاهری،حسین">
+			<teacher key="mazaheri" name="مظاهری،حسین" arname="المظاهري،حسین">
 				<year key="87" />
 				<year key="88" />
 				<year key="89" />
@@ -119,11 +119,11 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="tehrani" name="تهرانی،مجتبی" arname="تهرانی،مجتبی">
+			<teacher key="tehrani" name="تهرانی،مجتبی" arname="التهراني،مجتبی">
 				<year key="89" />
 				<year key="90" />
 			</teacher>
-			<teacher key="jazayeri" name="جزایری،محمدعلی" arname="جزایری،محمدعلی">
+			<teacher key="jazayeri" name="جزایری،محمدعلی" arname="الجزايري،محمدعلی">
 				<year key="90" />
 				<year key="91" />
 				<year key="92" />
@@ -139,15 +139,15 @@
 				<year key="95" />
 			</teacher>
 
-			<teacher key="khomeini" name="خمینی، روح‌الله" arname="خمینی، روح‌الله">
+			<teacher key="khomeini" name="خمینی، روح‌الله" arname="الخمیني، روح‌الله">
 				<year key="50" />
 			</teacher>
-			<teacher key="bahjat" name="بهجت،محمدتقی" arname="بهجت،محمدتقی">
+			<teacher key="bahjat" name="بهجت،محمدتقی" arname="البهجت،محمدتقی">
 				<year key="86" />
 				<year key="87" />
 			</teacher>
 
-			<teacher key="shahroudi" name="شاهرودی،محمود" arname="شاهرودی،محمود">
+			<teacher key="shahroudi" name="شاهرودی،محمود" arname="الشاهرودي،محمود">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -156,11 +156,11 @@
 				<year key="93" />
 				<year key="94" />
 			</teacher>
-			<teacher key="yazdi" name="یزدی،محمد" arname="یزدی،محمد">
+			<teacher key="yazdi" name="یزدی،محمد" arname="الیزدي،محمد">
 				<year key="90" />
 				<year key="91" />
 			</teacher>
-			<teacher key="moghtadaei" name="مقتدایی،مرتضی" arname="مقتدایی،مرتضی">
+			<teacher key="moghtadaei" name="مقتدایی،مرتضی" arname="المقتدايي،مرتضی">
 				<year key="87" />
 				<year key="88" />
 				<year key="89" />
@@ -171,16 +171,16 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="malakouti" name="ملکوتی،مسلم" arname="ملکوتی،مسلم">
+			<teacher key="malakouti" name="ملکوتی،مسلم" arname="الملکوتی،مسلم">
 				<year key="92" />
 			</teacher>
-			<teacher key="alavi" name="علوی،بروجردی" arname="علوی،بروجردی">
+			<teacher key="alavi" name="علوی،بروجردی" arname="العلوی،بروجردی">
 				<year key="93" />
 				<year key="94" />
 				<year key="95" />
 			</teacher>
 
-			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="مصطفوی،کاظم">
+			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="المصطفوي،کاظم">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -317,10 +317,10 @@
 			<teacher key="khabbaz" name="الخباز، منير" arname="الخباز، منير">
 				<year key="36" />
 			</teacher>
-			<teacher key="milani" name="میلانی، محمدهادی" arname="میلانی، محمدهادی">
+			<teacher key="milani" name="میلانی، محمدهادی" arname="الميلاني، محمدهادی">
 				<year key="90" />
 			</teacher>
-			<teacher key="modaresi" name="مدرسي،محمدتقی" arname="مدرسي،محمدتقی">
+			<teacher key="modaresi" name="مدرسي،محمدتقی" arname="المدرسي،محمدتقی">
 				<year key="37" />
 			</teacher>
 			<teacher key="fazeli" name="الفاضلي،سلطان" arname="الفاضلي،سلطان">
@@ -338,7 +338,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="madadi" name="استاد مددی" arname="استاد مددی">
+			<teacher key="madadi" name="مددی، احمد" arname="المددي، احمد">
 				<year key="91" />
 			</teacher>
 			<teacher key="shabzendehdar" name="شب زنده دار،محمد" arname="شب زنده دار،محمد">
@@ -348,7 +348,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="shahidi2" name="شهیدی، استاد" arname="شهیدی، استاد">
+			<teacher key="shahidi2" name="شهیدی، محمدتقی" arname="الشهيدي، محمدتقي">
 				<year key="94" />
 				<year key="95" />
 			</teacher>
@@ -357,7 +357,7 @@
 				<year key="37" />
 			</teacher>
 
-			<teacher key="abedi" name="عابدی، احمد" arname="عابدی، احمد">
+			<teacher key="abedi" name="عابدی، احمد" arname="العابدي، احمد">
 				<year key="90" />
 			</teacher>
 			<teacher key="alheidary" name="الحيدري،کمال" arname="الحيدري،کمال">
@@ -365,16 +365,16 @@
 				<year key="32" />
 				<year key="33" />
 			</teacher>
-			<teacher key="boushehri" name="حسینی بوشهری، هاشم" arname="حسینی بوشهری، هاشم">
+			<teacher key="boushehri" name="حسینی بوشهری، هاشم" arname="الحسینی بوشهری، هاشم">
 				<year key="91" />
 			</teacher>
-			<teacher key="salehi" name="صالحی،محمدهاشم" arname="صالحی،محمدهاشم">
+			<teacher key="salehi" name="صالحی،محمدهاشم" arname="الصالحي،محمدهاشم">
 				<year key="90" />
 			</teacher>
 		</lesson>
 		
 		<lesson key="mostahdeseh" name="مسائل مستحدثه" arname="مسائل مستحدثه">
-			<teacher key="makarem" name="مکارم،ناصر" arname="مکارم،ناصر">
+			<teacher key="makarem" name="مکارم،ناصر-مستحدثه" arname="مکارم،ناصر-مستحدثه">
 				<year key="70" />
 				<year key="71" />
 				<year key="72" />
@@ -385,7 +385,7 @@
 				<year key="77" />
 				<year key="78" />
 			</teacher>
-			<teacher key="ashrafi" name="اشرفی،مصطفی" arname="اشرفی،مصطفی">
+			<teacher key="ashrafi" name="اشرفی،مصطفی-مستحدثه" arname="الأشرفي،مصطفی-مستحدثه">
 				<year key="91" />
 				
 				<year key="93" />
@@ -399,7 +399,7 @@
 		</lesson>
 		
 		<lesson key="tarbiat" name="فقه تربیتی - امر به معروف و نهی از منکر" arname="فقه تربیتی - امر به معروف و نهی از منکر">
-			<teacher key="arafi" name="اعرافی، علیرضا" arname="اعرافی، علیرضا">
+			<teacher key="arafi" name="اعرافی، علیرضا" arname="الأعرافي، علیرضا">
 				<year key="77" />
 				<year key="78" />
 				
@@ -420,7 +420,7 @@
 			</teacher>
 		</lesson>
 		<lesson key="ejtehad" name="خارج فقه-اجتهاد و تقلید" arname="خارج فقه-اجتهاد و تقلید">
-			<teacher key="arafi" name="اعرافی، علیرضا" arname="اعرافی، علیرضا">
+			<teacher key="arafi" name="اعرافی، علیرضا" arname="الأعرافي، علیرضا">
 				<year key="92" />
 				<year key="93" />
 				<year key="94" />
@@ -432,7 +432,7 @@
 	<group key="osool" name="اصول" arname="اصول">
 		
 		<lesson key="osool" name="خارج اصول" arname="خارج اصول">
-			<teacher key="sobhani" name="سبحانی،جعفر" arname="سبحانی،جعفر">
+			<teacher key="sobhani" name="سبحانی،جعفر" arname="السبحاني،جعفر">
 				<year key="86" />
 				<year key="87" />
 				<year key="88" />
@@ -444,10 +444,10 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="shobeiry" name="شبیری،حسن" arname="شبیری،حسن">
+			<teacher key="shobeiry" name="شبیری،حسن" arname="الشبيري،حسن">
 				<year key="95" />
 			</teacher>
-			<teacher key="khalkhali" name="خلخالی،محمدمهدی" arname="خلخالی،محمدمهدی">
+			<teacher key="khalkhali" name="خلخالی،محمدمهدی" arname="الخلخالي،محمدمهدی">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -457,7 +457,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="ashrafi" name="اشرفی،مصطفی" arname="اشرفی،مصطفی">
+			<teacher key="ashrafi" name="اشرفی،مصطفی" arname="الأشرفي،مصطفی">
 				<year key="89" />
 				<year key="90" />
 				<year key="91" />
@@ -466,7 +466,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="ashrafiar" name="اشرفی،مصطفی" arname="اشرفی،مصطفی">
+			<teacher key="ashrafiar" name="اشرفی،مصطفی" arname="الأشرفي،مصطفی">
 				<year key="34" />
 			</teacher>
 			<teacher key="rezazadeh" name="رضازاده،رجب‌علی" arname="رضازاده،رجب‌علی">
@@ -479,10 +479,10 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="shahroudiar" name="شاهرودی،محمود" arname="شاهرودی،محمود">
+			<teacher key="shahroudiar" name="شاهرودی،محمود" arname="الشاهرودي،محمود">
 				<year key="32" />
 			</teacher>
-			<teacher key="shahroudi" name="شاهرودی،محمود" arname="شاهرودی،محمود">
+			<teacher key="shahroudi" name="شاهرودی،محمود" arname="الشاهرودي،محمود">
 				<year key="88" />
 				
 				<year key="90" />
@@ -493,7 +493,7 @@
 			</teacher>
 			
 			
-			<teacher key="mazaheri" name="مظاهری،حسین" arname="مظاهری،حسین">
+			<teacher key="mazaheri" name="مظاهری،حسین" arname="المظاهري،حسین">
 				<year key="87" />
 				<year key="88" />
 				<year key="89" />
@@ -504,7 +504,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="jazayeri" name="جزایری،محمدعلی" arname="جزایری،محمدعلی">
+			<teacher key="jazayeri" name="جزایری،محمدعلی" arname="الجزايري،محمدعلی">
 				<year key="90" />
 				<year key="91" />
 				<year key="92" />
@@ -512,14 +512,14 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="tehrani" name="تهرانی،مجتبی" arname="تهرانی،مجتبی">
+			<teacher key="tehrani" name="تهرانی،مجتبی" arname="التهراني،مجتبی">
 				<year key="87" />
 				
 				<year key="89" />
 				<year key="90" />
 			</teacher>
 
-			<teacher key="bahjat" name="بهجت،محمدتقی" arname="بهجت،محمدتقی">
+			<teacher key="bahjat" name="بهجت،محمدتقی" arname="البهجت،محمدتقی">
 				<year key="87" />
 			</teacher>
 			
@@ -622,12 +622,12 @@
 				<year key="33" />
 				<year key="36" />
 			</teacher>
-			<teacher key="arafi" name="اعرافی، علیرضا" arname="اعرافی، علیرضا">
+			<teacher key="arafi" name="اعرافی، علیرضا" arname="الأعرافي، علیرضا">
 				<year key="86" />
 				
 				<year key="95" />
 			</teacher>
-			<teacher key="araki" name="اراکی،محسن" arname="اراکی،محسن">
+			<teacher key="araki" name="اراکی،محسن" arname="الأراکي،محسن">
 				<year key="94" />
 			</teacher>
 			
@@ -640,16 +640,16 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="ganjee2" name="قائینی،استاد" arname="قائینی،استاد">
+			<teacher key="ganjee2" name="قائینی، محمد" arname="القائيني، محمد">
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="madadi2" name="مددی،استاد" arname="مددی،استاد">
+			<teacher key="madadi2" name="مددی،محمود" arname="المددي،محمود">
 				<year key="94" />
 				<year key="95" />
 			</teacher>
 			
-			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="مصطفوی،کاظم">
+			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="المصطفوي،کاظم">
 				<year key="91" />
 				<year key="92" />
 				<year key="93" />
@@ -667,12 +667,12 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="shahidi2" name="شهیدی، استاد" arname="شهیدی، استاد">
+			<teacher key="shahidi2" name="شهیدی، محمدتقی" arname="الشهيدي، محمدتقي">
 				<year key="94" />
 				<year key="95" />
 			</teacher>
 			
-			<teacher key="alavi" name="علوی،بروجردی" arname="علوی،بروجردی">
+			<teacher key="alavi" name="علوی بروجردی، محمدجواد" arname="العلوي بروجردي، محمدجواد">
 				<year key="93" />
 				<year key="94" />
 				<year key="95" />
@@ -681,13 +681,13 @@
 				<year key="32" />
 				<year key="33" />
 			</teacher>
-			<teacher key="salehi" name="صالحی،محمدهاشم" arname="صالحی،محمدهاشم">
+			<teacher key="salehi" name="صالحی،محمدهاشم" arname="الصالحي،محمدهاشم">
 				<year key="90" />
 			</teacher>
 			
 		</lesson>
-		<lesson key="falsafeh_osool" name="خارج اصول2" arname="خارج اصول2">
-			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="رشاد،علی‌اکبر">
+		<lesson key="falsafeh_osool" name="فلسفه اصول" arname="فلسفه اصول">
+			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
 				<year key="91" />
 				<year key="92" />
 				<year key="93" />
@@ -695,7 +695,7 @@
 				<year key="95" />
 			</teacher>
 			
-			<teacher key="rashadar" name="رشاد،علی‌اکبر" arname="رشاد،علی‌اکبر">
+			<teacher key="rashadar" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
 				<year key="34" />
 				<year key="35" />
 			</teacher>
@@ -706,8 +706,8 @@
 
 	
 	<group key="kalam" name="کلام" arname="کلام">
-		<lesson key="vahabiat" name="شبهات وهابيت" arname="شبهات وهابيت">
-			<teacher key="sobhani" name="سبحاني،جعفر" arname="سبحاني،جعفر">
+		<lesson key="vahabiat" name="شبهات وهابيت" arname="شبهات الوهابية">
+			<teacher key="sobhani" name="سبحاني،جعفر" arname="السبحاني،جعفر">
 				<year key="89" />
 				
 				<year key="94" />
@@ -715,13 +715,13 @@
 		</lesson>
 
 		<lesson key="kalam" name="کلام جديد" arname="کلام جديد">
-			<teacher key="sobhani" name="سبحاني،جعفر" arname="سبحاني،جعفر">
+			<teacher key="sobhani" name="سبحاني،جعفر" arname="السبحاني،جعفر">
 				<year key="91" />
 				
 				<year key="93" />
 			</teacher>
 
-			<teacher key="rabani" name="رباني،علي" arname="رباني،علي">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
 				<year key="87" />
 				
 				<year key="89" />
@@ -735,28 +735,28 @@
 			
 		</lesson>
 		<lesson key="emamat" name="امامت" arname="امامت">
-			<teacher key="rabani" name="رباني،علي" arname="رباني،علي">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
 				<year key="89" />
 			</teacher>
 		</lesson>
-		<lesson key="khase" name="امامت خاصه" arname="امامت خاصه">
-			<teacher key="rabani" name="رباني،علي" arname="رباني،علي">
+		<lesson key="khase" name="امامت خاصه" arname="امامة الخاصة">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
 				<year key="91" />
 			</teacher>
 		</lesson>
 		<lesson key="morajeat" name="کتاب المراجعات" arname="کتاب المراجعات">
-			<teacher key="rabani" name="رباني،علي" arname="رباني،علي">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
 				<year key="94" />
 				<year key="95" />
 			</teacher>
 		</lesson>
 		<lesson key="kashf" name="شرح کشف المراد" arname="شرح کشف المراد">
-			<teacher key="rabani" name="رباني،علي" arname="رباني،علي">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
 				<year key="89" />
 			</teacher>
 		</lesson>
-		<lesson key="mahdaviat" name="مهدويت" arname="مهدويت">
-			<teacher key="tabasi" name="استاد طبسي" arname="استاد طبسي">
+		<lesson key="mahdaviat" name="مهدويت" arname="المهدوية">
+			<teacher key="tabasi" name="طبسی، نجم‌الدین" arname="الطبسي، نجم‌الدين">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -768,7 +768,7 @@
 			</teacher>
 		</lesson>
 		<lesson key="tamhid" name="تمهيد القواعد - عرفان نظري" arname="تمهيد القواعد - عرفان نظري">
-			<teacher key="eshaghnia" name="اسحاق نيا،استاد" arname="اسحاق نيا،استاد">
+			<teacher key="eshaghnia" name="اسحاق‌نيا، رضا" arname="الإسحاق‌نيا، رضا">
 				<year key="92" />
 			</teacher>
 		</lesson>
@@ -776,15 +776,15 @@
 	
 	</group>
 
-	<group key="falsafeh" name="فلسفه" arname="الفلسفه">
-		<lesson key="asfar" name="اسفار" arname="اسفار">
-			<teacher key="eshaghnia" name="اسحاق نيا،استاد" arname="اسحاق نيا،استاد">
+	<group key="falsafeh" name="فلسفه" arname="الفلسفة">
+		<lesson key="asfar" name="اسفار" arname="الأسفار">
+			<teacher key="eshaghnia" name="اسحاق‌نيا، رضا" arname="الإسحاق‌نيا، رضا">
 				<year key="92" />
 				<year key="93" />
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="fayazi" name="فياضي،غلامرضا" arname="فياضي،غلامرضا">
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
 				<year key="83" />
 				
 				<year key="93" />
@@ -793,49 +793,49 @@
 			</teacher>
 		</lesson>
 		<lesson key="bedayeh" name="بداية الحکمة" arname="بداية الحکمة">
-			<teacher key="fayazi" name="فياضي،غلامرضا" arname="فياضي،غلامرضا">
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
 				<year key="62" />
 			</teacher>
 		</lesson>
-		<lesson key="hekmat" name="مباني حکمت متعاليه" arname="مباني حکمت متعاليه">
-			<teacher key="fayazi" name="فياضي،غلامرضا" arname="فياضي،غلامرضا">
+		<lesson key="hekmat" name="مباني حکمت متعاليه" arname="مباني الحکمة المتعالية">
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
 				<year key="92" />
 				<year key="93" />
 				<year key="94" />
 			</teacher>
 		</lesson>
 		<lesson key="nahayeh" name="نهاية الحکمة" arname="نهاية الحکمة">
-			<teacher key="fayazi" name="فياضي،غلامرضا" arname="فياضي،غلامرضا">
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
 				<year key="69" />
 			</teacher>
 		</lesson>
-		<lesson key="esharat" name="شرح الاشارات" arname="شرح الاشارات">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+		<lesson key="esharat" name="شرح الاشارات" arname="شرح الإشارات">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="89" />
 			</teacher>
 		</lesson>
 
 		<lesson key="manzoome" name="منظومه" arname="منظومه">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="93" />
 				<year key="94" />
 				<year key="95" />
 			</teacher>
 		</lesson>
-		<lesson key="resalevojod" name="رساله وجود" arname="رساله وجود">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+		<lesson key="resalevojod" name="رساله وجود" arname="رسالة الوجود">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="93" />
 				<year key="94" />
 			</teacher>
 		</lesson>
-		<lesson key="sahifeh" name="لوامع الأنوار(شرح عرفاني صحيفه سجاديه)" arname="لوامع الأنوار(شرح عرفاني صحيفه سجاديه)">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+		<lesson key="sahifeh" name="لوامع الأنوار(شرح عرفاني صحيفه سجاديه)" arname="لوامع الأنوار(شرح العرفاني لصحيفة السجادية)">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="92" />
 				<year key="93" />
 			</teacher>
 		</lesson>
 		<lesson key="shavareq" name="شوارق الإلهام(لاهيجي)" arname="شوارق الإلهام(لاهيجي)">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="91" />
 				<year key="92" />
 				<year key="93" />
@@ -844,7 +844,7 @@
 			</teacher>
 		</lesson>
 		<lesson key="shefa" name="طبيعيات شفا" arname="طبيعيات شفا">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="90" />
 				<year key="91" />
 				<year key="92" />
@@ -853,8 +853,8 @@
 				<year key="95" />
 			</teacher>
 		</lesson>
-		<lesson key="shefa_borhan" name="برهان شفا" arname="برهان شفا">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+		<lesson key="shefa_borhan" name="برهان شفا" arname="برهان الشفاء">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="91" />
 				<year key="92" />
 				<year key="93" />
@@ -862,14 +862,14 @@
 				<year key="95" />
 			</teacher>
 		</lesson>
-		<lesson key="tohid" name="شرح توحيد صدوق(قاضي سعيد)" arname="شرح توحيد صدوق(قاضي سعيد)">
-			<teacher key="heshmatpour" name="حشمت پور، استاد" arname="حشمت پور، استاد">
+		<lesson key="tohid" name="شرح توحيد صدوق(قاضي سعيد)" arname="شرح التوحيد للصدوق(قاضي سعيد)">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
 				<year key="91" />
 				<year key="92" />
 				<year key="93" />
 			</teacher>
 		</lesson>
-			<lesson key="falsafeh" name="فلسفه" arname="فلسفه">
+			<lesson key="falsafeh" name="فلسفه" arname="الفلسفة">
 			<teacher key="khosropanah" name="استاد خسروپناه" arname="استاد خسروپناه">
 				<year key="83" />
 			</teacher>
@@ -880,7 +880,7 @@
 		</lesson>
 		
 		<lesson key="falsafeh_farhang" name="فلسفه‌ي فرهنگ" arname="فلسفه‌ي فرهنگ">
-			<teacher key="rashad" name="رشاد،علي‌اکبر" arname="رشاد،علي‌اکبر">
+			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
 				<year key="90" />
 				<year key="91" />
 			</teacher>
@@ -889,8 +889,8 @@
 	</group>
 
 
-	<group key="teb" name="طب" arname="طب">
-		<lesson key="teb" name="طب" arname="طب">
+	<group key="teb" name="طب" arname="الطب">
+		<lesson key="teb" name="طب" arname="الطب">
 			<teacher key="tabrizian" name="تبریزیان،عباس" arname="تبریزیان،عباس">
 				<year key="90" />
 				
@@ -899,7 +899,7 @@
 				<year key="95" />
 			</teacher>
 			
-			<teacher key="zeiaei" name="ضیائی،حسن" arname="ضیائی،حسن">
+			<teacher key="zeiaei" name="ضیائی،حسن" arname="الضيائي،حسن">
 				<year key="88" />
 				
 				<year key="91" />
@@ -911,7 +911,7 @@
 			
 		</lesson>
 		
-		<lesson key="teb2" name="طب2" arname="طب2">
+		<lesson key="teb2" name="طب-بخش دوم" arname="طب- قسم الثاني">
 			<teacher key="tabrizian" name="تبریزیان،عباس" arname="تبریزیان،عباس">
 				<year key="94" />
 				<year key="95" />
@@ -920,9 +920,9 @@
 	
 	</group>
 	
-	<group key="tafsir" name="تفسیر" arname="تفسیر">
-		<lesson key="tafsir" name="تفسیر" arname="تفسیر">
-			<teacher key="javadi" name="جوادی،عبدالله" arname="جوادی،عبدالله">
+	<group key="tafsir" name="تفسیر" arname="التفسير">
+		<lesson key="tafsir" name="تفسیر" arname="التفسير">
+			<teacher key="javadi" name="جوادی،عبدالله" arname="الجوادي،عبدالله">
 				<year key="86" />
 				<year key="87" />
 				<year key="88" />
@@ -934,7 +934,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="sobhani" name="سبحانی،جعفر" arname="سبحانی،جعفر">
+			<teacher key="sobhani" name="سبحانی،جعفر" arname="السبحاني،جعفر">
 				<year key="91" />
 				<year key="92" />
 				<year key="93" />
@@ -943,7 +943,7 @@
 			<teacher key="makarem" name="مکارم،ناصر" arname="مکارم،ناصر">
 				<year key="91" />
 			</teacher>
-			<teacher key="modaresi" name="مدرسي،محمدتقی" arname="مدرسي،محمدتقی">
+			<teacher key="modaresi" name="مدرسی،محمدتقی" arname="المدرسي،محمدتقی">
 				<year key="37" />
 			</teacher>
 			<teacher key="hoseiny" name="الحسيني،مجتبی" arname="الحسيني،مجتبی">
@@ -957,43 +957,43 @@
 				<year key="31" />
 			</teacher>
 
-			<teacher key="ashrafi_tafsir" name="اشرفی،مصطفی" arname="اشرفی،مصطفی">
+			<teacher key="ashrafi_tafsir" name="اشرفی،مصطفی" arname="الأشرفي،مصطفی">
 				<year key="89" />
 			</teacher>
-			<teacher key="alamolhoda" name="استاد علم الهدی" arname="استاد علم الهدی">
+			<teacher key="alamolhoda" name="علم‌الهدی، احمد" arname="علم‌الهدی، احمد">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
 				<year key="91" />
 			</teacher>
-			<teacher key="elahi" name="استاد الهی زاده" arname="استاد الهی زاده">
+			<teacher key="elahi" name="الهی‌زاده، محمدحسین" arname="الهي‌زاده، محمدحسین">
 				<year key="89" />
 				<year key="90" />
 			</teacher>
-			<teacher key="gerayeli" name="استاد گرایلی" arname="استاد گرایلی">
+			<teacher key="gerayeli" name="گرایلی، حسین" arname="گرايلي، حسين">
 				<year key="89" />
 				<year key="90" />
 			</teacher>
-			<teacher key="morvarid" name="استاد مهدی مروارید" arname="استاد مهدی مروارید">
+			<teacher key="morvarid" name="مروارید، مهدی" arname="مرواريد، مهدي">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
 				<year key="91" />
 			</teacher>
-			<teacher key="morvarid_mohammad" name="استاد محمد مروارید" arname="استاد محمد مروارید">
+			<teacher key="morvarid_mohammad" name="مروارید، محمد" arname="مرواريد، محمد">
 				<year key="90" />
 				<year key="91" />
 			</teacher>
-			<teacher key="mosavi_shahroudi" name="استاد موسوی شاهرودی" arname="استاد موسوی شاهرودی">
+			<teacher key="mosavi_shahroudi" name="موسوی شاهرودی، محمد" arname="الموسوي الشاهرودي، محمد">
 				<year key="88" />
 			</teacher>
-			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="مصطفوی،کاظم">
+			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="المصطفوي،کاظم">
 				<year key="91" />
 				<year key="92" />
 				<year key="93" />
 				<year key="94" />
 			</teacher>
-			<teacher key="rabbanibirjandi" name="استاد ربانی بیرجندی" arname="استاد ربانی بیرجندی">
+			<teacher key="rabbanibirjandi" name="ربانی بیرجندی، محمدحسن" arname="ربانی بیرجندی، محمدحسن">
 				<year key="89" />
 				<year key="90" />
 				<year key="91" />
@@ -1002,32 +1002,32 @@
 				<year key="90" />
 				<year key="91" />
 			</teacher>
-			<teacher key="seyyedan" name="استاد سیدان" arname="استاد سیدان">
+			<teacher key="seyyedan" name="سیدان، جعفر" arname="سیدان، جعفر">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
 			</teacher>
 		</lesson>
 		<lesson key="ayat" name="تحلیل نحوی آیات الأحکام" arname="تحلیل نحوی آیات الأحکام">
-			<teacher key="jamal" name="حاجی محمد،جمال الدین" arname="حاجی محمد،جمال الدین">
+			<teacher key="jamal" name="حاجی محمد،جمال الدین" arname="حاجي محمد،جمال الدین">
 				<year key="92" />
 			</teacher>
 		</lesson>
-		<lesson key="fahm_quran" name="منطق فهم قرآن" arname="منطق فهم قرآن">
-			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="رشاد،علی‌اکبر">
+		<lesson key="fahm_quran" name="منطق فهم قرآن" arname="منطق فهم القرآن">
+			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="الرشاد،علياکبر">
 				<year key="92" />
 				<year key="93" />
 			</teacher>
 		</lesson>
 		<lesson key="salasin" name="اعراب الثلاثین" arname="اعراب الثلاثین">
-			<teacher key="jamal" name="حاجی محمد،جمال الدین" arname="حاجی محمد،جمال الدین">
+			<teacher key="jamal" name="حاجی محمد،جمال الدین" arname="حاجي محمد،جمال الدین">
 				<year key="92" />
 			</teacher>
 		</lesson>
 	</group>
-	<group key="erfan" name="عرفان" arname="عرفان">
+	<group key="erfan" name="عرفان" arname="العرفان">
 		<lesson key="manazel" name="منازل السائرین" arname="منازل السائرین">
-			<teacher key="heshmatpour" name="استاد حشمت پور" arname="استاد حشمت پور">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسين" arname="حشمت پور، محمدحسين">
 				<year key="93" />
 				<year key="94" />
 			</teacher>
@@ -1042,7 +1042,7 @@
 				<year key="37" />
 			</teacher>
 			
-			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="مصطفوی،کاظم">
+			<teacher key="mostafavi" name="مصطفوی،کاظم" arname="المصطفوي،کاظم">
 				<year key="89" />
 				
 				<year key="91" />
@@ -1053,11 +1053,11 @@
 				<year key="37" />
 			</teacher>
 			
-			<teacher key="shobeiry" name="شبیری،حسن" arname="شبیری،حسن">
+			<teacher key="shobeiry" name="شبیری،حسن" arname="الشبيري الزنجاني،حسن">
 				<year key="62" />
 			</teacher>
 			
-			<teacher key="shobeiry_mohammad" name="شبیری،محمد جواد" arname="شبیری،محمد جواد">
+			<teacher key="shobeiry_mohammad" name="شبیری،محمد جواد" arname="الشبيري،محمد جواد">
 				<year key="91" />
 			</teacher>
 			
@@ -1067,7 +1067,7 @@
 	
 	<group key="derayeh" name="دراية" arname="دراية">
 		<lesson key="nehayeh" name="نهایة الدرایة" arname="نهایة الدرایة">
-			<teacher key="heshmatpour" name="استاد حشمت پور" arname="استاد حشمت پور">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسين">
 				<year key="91" />
 				
 				<year key="94" />
@@ -1077,7 +1077,7 @@
 	
 	</group>
 	
-	<group key="tarikh" name="تاريخ" arname="تاريخ">
+	<group key="tarikh" name="تاريخ" arname="التاريخ">
 		<lesson key="tarikh" name="بحث التاريخ" arname="بحث التاريخ">
 			<teacher key="makki" name="مکي، علي" arname="مکي، علي">
 				<year key="34" />
@@ -1089,7 +1089,7 @@
 	
 	<group key="akhlagh" name="اخلاق" arname="اخلاق">
 		<lesson key="akhlaq" name="اخلاق" arname="اخلاق">
-			<teacher key="mazaheri" name="مظاهری،حسین" arname="مظاهری،حسین">
+			<teacher key="mazaheri" name="مظاهری،حسین" arname="المظاهري،حسین">
 				<year key="89" />
 				<year key="90" />
 				<year key="91" />
@@ -1097,7 +1097,7 @@
 				<year key="93" />
 			</teacher>
 		
-			<teacher key="tehrani" name="تهرانی،مجتبی" arname="تهرانی،مجتبی">
+			<teacher key="tehrani" name="تهرانی،مجتبی" arname="التهراني،مجتبی">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
@@ -1109,7 +1109,7 @@
 
 	<group key="hadis" name="حدیث" arname="حدیث">
 		<lesson key="hadis" name="حدیث شناسی" arname="حدیث شناسی">
-			<teacher key="tabatabaei" name="استاد سید محمد کاظم طباطبایی" arname="استاد سید محمد کاظم طباطبایی">
+			<teacher key="tabatabaei" name="طباطبایی، محمدکاظم" arname="طباطبايي، محمدکاظم">
 				<year key="91" />
 			</teacher>
 		</lesson>
