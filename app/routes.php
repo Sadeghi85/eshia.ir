@@ -17,6 +17,9 @@ Route::pattern('archive', '(?i)archive(?-i)');
 Route::pattern('convert', '(?i)convert(?-i)');
 Route::pattern('text', '(?i)text(?-i)');
 
+// search2
+Route::get('/search2', array('uses' => 'Search2Controller@showPage'));
+
 // Player
 Route::get('/player/{req}', array('uses' => 'PlayerController@showPage'))
 ->where('req', '.+');
