@@ -7,3 +7,4 @@
 <span><a href="/feqh/report/asatid/">آمار</a>&zwnj;</span>
 <span><a href="/eshia/">درباره ما</a>&zwnj;</span>
 <span><a href="/map/">نقشه سایت</a>&zwnj;</span>
+<span><a href="/advanced-search">جستجوی پیشرفته</a>&zwnj;</span>

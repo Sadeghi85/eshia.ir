@@ -5,3 +5,4 @@
 <span><a href="/Ar/News/">جديد الموقع</a>&zwnj;</span>
 <span><a href="/Ar/Poster/">الإعلانات</a>&zwnj;</span>
 <span><a href="/Ar/feqh/report/asatid/">الإحصائیات</a>&zwnj;</span>
+<span><a href="/Ar/advanced-search">بحث متقدم</a>&zwnj;</span>
