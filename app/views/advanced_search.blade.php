@@ -144,7 +144,7 @@
 								<tbody>
 									
 									<tr>
-										<td class="tdLabel">عبارت</td>
+										<td class="tdLabel">@lang('app.phrase')</td>
 										<td class="tdInput">
 											<div style="margin:10px 10px;">
 												<input style="width: 490px;" name="and" type="text" value="">
