@@ -11,7 +11,7 @@
 
 		@if (Input::get('lessonKey', ''))
 		<div class="searchagain">
-			<span>{{ sprintf(trans('app.search_form_again_info'), '<font color="#ff6c13">', '</font>', $teacherName, '<font color="#ff6c13">', '</font>', $lessonName, '<font color="#ff6c13">', '</font>', $yearName) }}</span>
+			<span>{{ sprintf(trans('app.search_form_again_info'), '<font color="#ff6c13">', '</font>', $lessonName, '<font color="#ff6c13">', '</font>', $teacherName, '<font color="#ff6c13">', '</font>', $yearName) }}</span>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<form style="display:inline;" method="post" action="{{ action('SearchController@processAdvancedPage') }}">
 				
@@ -37,9 +37,9 @@
 				<div class="searchlink">
 					<a href="{{ Helpers::to(sprintf('/Feqh/Archive/text/%s/%s/%s/%s/%s', $result['attrs']['teacher'], $result['attrs']['lesson'], $result['attrs']['year'], $result['attrs']['date'], urlencode($query))) }}" title="">
 						@if (strlen($result['attrs']['date']) == 6)
-							{{ sprintf(trans('app.search_info_date'), '<font color="#ff6c13">', '</font>', $result['attrs']['represented_teacher'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_lesson'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_date']) }}
+							{{ sprintf(trans('app.search_info_date'), '<font color="#ff6c13">', '</font>', $result['attrs']['represented_lesson'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_teacher'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_date']) }}
 						@else
-							{{ sprintf(trans('app.search_info_session'), '<font color="#ff6c13">', '</font>', $result['attrs']['represented_teacher'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_lesson'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_date']) }}
+							{{ sprintf(trans('app.search_info_session'), '<font color="#ff6c13">', '</font>', $result['attrs']['represented_lesson'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_teacher'], '<font color="#ff6c13">', '</font>', $result['attrs']['represented_date']) }}
 						@endif
 					</a>
 				</div>
