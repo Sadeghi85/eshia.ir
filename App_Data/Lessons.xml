@@ -12,10 +12,17 @@
 				<year key="94" />
 			</teacher>
 		</lesson>
+		<teacher key="khosropanah" name="استاد خسروپناه" arname="استاد خسروپناه">
+			<year key="83" />
+		</teacher>
+			<teacher key="rostami" name="استاد رستمی" arname="استاد رستمی">
+				<year key="90" />
+				<year key="91" />
+			</teacher>
+
 	</group>
 
 	<group key="feqh" name="فقه" arname="فقه">
-
 		<lesson key="feqh" name="خارج فقه" arname="بحث الفقه">
 			<teacher key="makarem" name="مکارم،ناصر" arname="مکارم،ناصر">
 				<year key="86" />
@@ -372,7 +379,6 @@
 				<year key="90" />
 			</teacher>
 		</lesson>
-		
 		<lesson key="mostahdeseh" name="مسائل مستحدثه" arname="مسائل مستحدثه">
 			<teacher key="makarem" name="مکارم،ناصر-مستحدثه" arname="مکارم،ناصر-مستحدثه">
 				<year key="70" />
@@ -391,43 +397,11 @@
 				<year key="93" />
 			</teacher>
 		</lesson>
-		
 		<lesson key="qavaed" name="القواعد الفقهية" arname="القواعد الفقهية">
 			<teacher key="khabbaz" name="الخباز، منير" arname="الخباز، منير">
 				<year key="36" />
 			</teacher>
 		</lesson>
-		
-		<lesson key="tarbiat" name="فقه تربیتی - امر به معروف و نهی از منکر" arname="فقه تربیتی - امر به معروف و نهی از منکر">
-			<teacher key="arafi" name="اعرافی، علیرضا" arname="الأعرافي، علیرضا">
-				<year key="77" />
-				<year key="78" />
-				
-				<year key="82" />
-				<year key="83" />
-				<year key="84" />
-				<year key="85" />
-				<year key="86" />
-				<year key="87" />
-				<year key="88" />
-				<year key="89" />
-				<year key="90" />
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="ejtehad" name="خارج فقه-اجتهاد و تقلید" arname="خارج فقه-اجتهاد و تقلید">
-			<teacher key="arafi" name="اعرافی، علیرضا" arname="الأعرافي، علیرضا">
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-			
 	</group>
 	<group key="osool" name="اصول" arname="اصول">
 		
@@ -686,240 +660,7 @@
 			</teacher>
 			
 		</lesson>
-		<lesson key="falsafeh_osool" name="فلسفه اصول" arname="فلسفه اصول">
-			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-			
-			<teacher key="rashadar" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
-				<year key="34" />
-				<year key="35" />
-			</teacher>
-		</lesson>
-
-		
 	</group>
-
-	
-	<group key="kalam" name="کلام" arname="کلام">
-		<lesson key="vahabiat" name="شبهات وهابيت" arname="شبهات الوهابية">
-			<teacher key="sobhani" name="سبحاني،جعفر" arname="السبحاني،جعفر">
-				<year key="89" />
-				
-				<year key="94" />
-			</teacher>
-		</lesson>
-
-		<lesson key="kalam" name="کلام جديد" arname="کلام جديد">
-			<teacher key="sobhani" name="سبحاني،جعفر" arname="السبحاني،جعفر">
-				<year key="91" />
-				
-				<year key="93" />
-			</teacher>
-
-			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
-				<year key="87" />
-				
-				<year key="89" />
-				<year key="90" />
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-			
-		</lesson>
-		<lesson key="emamat" name="امامت" arname="امامت">
-			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
-				<year key="89" />
-			</teacher>
-		</lesson>
-		<lesson key="khase" name="امامت خاصه" arname="امامة الخاصة">
-			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
-				<year key="91" />
-			</teacher>
-		</lesson>
-		<lesson key="morajeat" name="کتاب المراجعات" arname="کتاب المراجعات">
-			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="kashf" name="شرح کشف المراد" arname="شرح کشف المراد">
-			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
-				<year key="89" />
-			</teacher>
-		</lesson>
-		<lesson key="mahdaviat" name="مهدويت" arname="المهدوية">
-			<teacher key="tabasi" name="طبسی، نجم‌الدین" arname="الطبسي، نجم‌الدين">
-				<year key="88" />
-				<year key="89" />
-				<year key="90" />
-				<year key="91" />
-				<year key="92" />
-				
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="tamhid" name="تمهيد القواعد - عرفان نظري" arname="تمهيد القواعد - عرفان نظري">
-			<teacher key="eshaghnia" name="اسحاق‌نيا، رضا" arname="الإسحاق‌نيا، رضا">
-				<year key="92" />
-			</teacher>
-		</lesson>
-		
-	
-	</group>
-
-	<group key="falsafeh" name="فلسفه" arname="الفلسفة">
-		<lesson key="asfar" name="اسفار" arname="الأسفار">
-			<teacher key="eshaghnia" name="اسحاق‌نيا، رضا" arname="الإسحاق‌نيا، رضا">
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
-				<year key="83" />
-				
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="bedayeh" name="بداية الحکمة" arname="بداية الحکمة">
-			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
-				<year key="62" />
-			</teacher>
-		</lesson>
-		<lesson key="hekmat" name="مباني حکمت متعاليه" arname="مباني الحکمة المتعالية">
-			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-			</teacher>
-		</lesson>
-		<lesson key="nahayeh" name="نهاية الحکمة" arname="نهاية الحکمة">
-			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
-				<year key="69" />
-			</teacher>
-		</lesson>
-		<lesson key="esharat" name="شرح الاشارات" arname="شرح الإشارات">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="89" />
-			</teacher>
-		</lesson>
-
-		<lesson key="manzoome" name="منظومه" arname="منظومه">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="resalevojod" name="رساله وجود" arname="رسالة الوجود">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="93" />
-				<year key="94" />
-			</teacher>
-		</lesson>
-		<lesson key="sahifeh" name="لوامع الأنوار(شرح عرفاني صحيفه سجاديه)" arname="لوامع الأنوار(شرح العرفاني لصحيفة السجادية)">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="92" />
-				<year key="93" />
-			</teacher>
-		</lesson>
-		<lesson key="shavareq" name="شوارق الإلهام(لاهيجي)" arname="شوارق الإلهام(لاهيجي)">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="shefa" name="طبيعيات شفا" arname="طبيعيات شفا">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="90" />
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="shefa_borhan" name="برهان شفا" arname="برهان الشفاء">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-		<lesson key="tohid" name="شرح توحيد صدوق(قاضي سعيد)" arname="شرح التوحيد للصدوق(قاضي سعيد)">
-			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-			</teacher>
-		</lesson>
-			<lesson key="falsafeh" name="فلسفه" arname="الفلسفة">
-			<teacher key="khosropanah" name="استاد خسروپناه" arname="استاد خسروپناه">
-				<year key="83" />
-			</teacher>
-			
-			<teacher key="makki" name="مکي، علي" arname="مکي، علي">
-				<year key="34" />
-			</teacher>
-		</lesson>
-		
-		<lesson key="falsafeh_farhang" name="فلسفه‌ي فرهنگ" arname="فلسفه‌ي فرهنگ">
-			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
-				<year key="90" />
-				<year key="91" />
-			</teacher>
-		</lesson>
-
-	</group>
-
-
-	<group key="teb" name="طب" arname="الطب">
-		<lesson key="teb" name="طب" arname="الطب">
-			<teacher key="tabrizian" name="تبریزیان،عباس" arname="تبریزیان،عباس">
-				<year key="90" />
-				
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-			
-			<teacher key="zeiaei" name="ضیائی،حسن" arname="الضيائي،حسن">
-				<year key="88" />
-				
-				<year key="91" />
-				<year key="92" />
-				<year key="93" />
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-			
-		</lesson>
-		
-		<lesson key="teb2" name="طب-بخش دوم" arname="طب- قسم الثاني">
-			<teacher key="tabrizian" name="تبریزیان،عباس" arname="تبریزیان،عباس">
-				<year key="94" />
-				<year key="95" />
-			</teacher>
-		</lesson>
-	
-	</group>
-	
 	<group key="tafsir" name="تفسیر" arname="التفسير">
 		<lesson key="tafsir" name="تفسیر" arname="التفسير">
 			<teacher key="javadi" name="جوادی،عبدالله" arname="الجوادي،عبدالله">
@@ -998,16 +739,282 @@
 				<year key="90" />
 				<year key="91" />
 			</teacher>
-			<teacher key="rostami" name="استاد رستمی" arname="استاد رستمی">
-				<year key="90" />
-				<year key="91" />
-			</teacher>
 			<teacher key="seyyedan" name="سیدان، جعفر" arname="سیدان، جعفر">
 				<year key="88" />
 				<year key="89" />
 				<year key="90" />
 			</teacher>
 		</lesson>
+	</group>
+	<group key="kalam" name="کلام" arname="کلام">
+		<lesson key="vahabiat" name="شبهات وهابيت" arname="شبهات الوهابية">
+			<teacher key="sobhani" name="سبحاني،جعفر" arname="السبحاني،جعفر">
+				<year key="89" />
+				
+				<year key="94" />
+			</teacher>
+		</lesson>
+
+		<lesson key="kalam" name="کلام جديد" arname="کلام جديد">
+			<teacher key="sobhani" name="سبحاني،جعفر" arname="السبحاني،جعفر">
+				<year key="91" />
+				
+				<year key="93" />
+			</teacher>
+
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
+				<year key="87" />
+				
+				<year key="89" />
+				<year key="90" />
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+			
+		</lesson>
+		<lesson key="emamat" name="امامت" arname="امامت">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
+				<year key="89" />
+			</teacher>
+		</lesson>
+		<lesson key="khase" name="امامت خاصه" arname="امامة الخاصة">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
+				<year key="91" />
+			</teacher>
+		</lesson>
+		<lesson key="morajeat" name="کتاب المراجعات" arname="کتاب المراجعات">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="kashf" name="شرح کشف المراد" arname="شرح کشف المراد">
+			<teacher key="rabani" name="رباني،علي" arname="الرباني،علي">
+				<year key="89" />
+			</teacher>
+		</lesson>
+		<lesson key="mahdaviat" name="مهدويت" arname="المهدوية">
+			<teacher key="tabasi" name="طبسی، نجم‌الدین" arname="الطبسي، نجم‌الدين">
+				<year key="88" />
+				<year key="89" />
+				<year key="90" />
+				<year key="91" />
+				<year key="92" />
+				
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="tamhid" name="تمهيد القواعد - عرفان نظري" arname="تمهيد القواعد - عرفان نظري">
+			<teacher key="eshaghnia" name="اسحاق‌نيا، رضا" arname="الإسحاق‌نيا، رضا">
+				<year key="92" />
+			</teacher>
+		</lesson>
+		
+	
+	</group>
+	<group key="falsafeh" name="فلسفه" arname="الفلسفة">
+		<lesson key="asfar" name="اسفار" arname="الأسفار">
+			<teacher key="eshaghnia" name="اسحاق‌نيا، رضا" arname="الإسحاق‌نيا، رضا">
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
+				<year key="83" />
+				
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="bedayeh" name="بداية الحکمة" arname="بداية الحکمة">
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
+				<year key="62" />
+			</teacher>
+		</lesson>
+		<lesson key="hekmat" name="مباني حکمت متعاليه" arname="مباني الحکمة المتعالية">
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+			</teacher>
+		</lesson>
+		<lesson key="nahayeh" name="نهاية الحکمة" arname="نهاية الحکمة">
+			<teacher key="fayazi" name="فیاضی،غلامرضا" arname="الفياضي،غلامرضا">
+				<year key="69" />
+			</teacher>
+		</lesson>
+		<lesson key="esharat" name="شرح الاشارات" arname="شرح الإشارات">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="89" />
+			</teacher>
+		</lesson>
+		<lesson key="manzoome" name="منظومه" arname="منظومه">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="resalevojod" name="رساله وجود" arname="رسالة الوجود">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="93" />
+				<year key="94" />
+			</teacher>
+		</lesson>
+		<lesson key="sahifeh" name="لوامع الأنوار(شرح عرفاني صحيفه سجاديه)" arname="لوامع الأنوار(شرح العرفاني لصحيفة السجادية)">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="92" />
+				<year key="93" />
+			</teacher>
+		</lesson>
+		<lesson key="shavareq" name="شوارق الإلهام(لاهيجي)" arname="شوارق الإلهام(لاهيجي)">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="shefa" name="طبيعيات شفا" arname="طبيعيات شفا">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="90" />
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="shefa_borhan" name="برهان شفا" arname="برهان الشفاء">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="tohid" name="شرح توحيد صدوق(قاضي سعيد)" arname="شرح التوحيد للصدوق(قاضي سعيد)">
+			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسین">
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+			</teacher>
+		</lesson>
+			<lesson key="falsafeh" name="فلسفه" arname="الفلسفة">
+			<teacher key="makki" name="مکي، علي" arname="مکي، علي">
+				<year key="34" />
+			</teacher>
+		</lesson>
+		<lesson key="falsafeh_farhang" name="فلسفه‌ي فرهنگ" arname="فلسفه‌ي فرهنگ">
+			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
+				<year key="90" />
+				<year key="91" />
+			</teacher>
+		</lesson>
+		<lesson key="falsafeh_osool" name="فلسفه اصول" arname="فلسفه اصول">
+			<teacher key="rashad" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+			
+			<teacher key="rashadar" name="رشاد،علی‌اکبر" arname="الرشاد،علي‌اکبر">
+				<year key="34" />
+				<year key="35" />
+			</teacher>
+		</lesson>
+	</group>
+	<group key="Subjective" name="فقه موضوعی" arname="الفقة الموضوعية">
+		<lesson key="tarbiat" name="فقه تربیتی - امر به معروف و نهی از منکر" arname="فقه تربیتی - امر به معروف و نهی از منکر">
+			<teacher key="arafi" name="اعرافی، علیرضا" arname="الأعرافي، علیرضا">
+				<year key="77" />
+				<year key="78" />
+				
+				<year key="82" />
+				<year key="83" />
+				<year key="84" />
+				<year key="85" />
+				<year key="86" />
+				<year key="87" />
+				<year key="88" />
+				<year key="89" />
+				<year key="90" />
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+		<lesson key="ejtehad" name="خارج فقه-اجتهاد و تقلید" arname="خارج فقه-اجتهاد و تقلید">
+			<teacher key="arafi" name="اعرافی، علیرضا" arname="الأعرافي، علیرضا">
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+	</group>
+	<group key="teb" name="طب" arname="الطب">
+		<lesson key="teb" name="طب" arname="الطب">
+			<teacher key="tabrizian" name="تبریزیان،عباس" arname="تبریزیان،عباس">
+				<year key="90" />
+				
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+			
+			<teacher key="zeiaei" name="ضیائی،حسن" arname="الضيائي،حسن">
+				<year key="88" />
+				
+				<year key="91" />
+				<year key="92" />
+				<year key="93" />
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+			
+		</lesson>
+		
+		<lesson key="teb2" name="طب-بخش دوم" arname="طب- قسم الثاني">
+			<teacher key="tabrizian" name="تبریزیان،عباس" arname="تبریزیان،عباس">
+				<year key="94" />
+				<year key="95" />
+			</teacher>
+		</lesson>
+	
+	</group>
+	<group key="akhlagh" name="اخلاق" arname="اخلاق">
+		<lesson key="akhlaq" name="اخلاق" arname="اخلاق">
+			<teacher key="mazaheri" name="مظاهری،حسین" arname="المظاهري،حسین">
+				<year key="89" />
+				<year key="90" />
+				<year key="91" />
+				
+				<year key="93" />
+			</teacher>
+		
+			<teacher key="tehrani" name="تهرانی،مجتبی" arname="التهراني،مجتبی">
+				<year key="88" />
+				<year key="89" />
+				<year key="90" />
+				<year key="91" />
+			</teacher>
+		</lesson>
+	
+	</group>
+	<group key="Adabiat" name="ادبیات" arname="الأدبيات">
 		<lesson key="ayat" name="تحلیل نحوی آیات الأحکام" arname="تحلیل نحوی آیات الأحکام">
 			<teacher key="jamal" name="حاجی محمد،جمال الدین" arname="حاجي محمد،جمال الدین">
 				<year key="92" />
@@ -1034,7 +1041,6 @@
 		</lesson>
 	
 	</group>
-
 	<group key="rejal" name="رجال" arname="رجال">
 		<lesson key="rejal" name="بحث رجال" arname="بحث رجال">
 			<teacher key="fazlollah" name="فضل‌الله،عبدالکريم" arname="فضل‌الله،عبدالکريم">
@@ -1064,8 +1070,7 @@
 		</lesson>
 	
 	</group>
-	
-	<group key="derayeh" name="دراية" arname="دراية">
+	<group key="derayeh" name="دراية" arname="الدراية">
 		<lesson key="nehayeh" name="نهایة الدرایة" arname="نهایة الدرایة">
 			<teacher key="heshmatpour" name="حشمت پور، محمدحسین" arname="حشمت پور، محمدحسين">
 				<year key="91" />
@@ -1076,7 +1081,6 @@
 		</lesson>
 	
 	</group>
-	
 	<group key="tarikh" name="تاريخ" arname="التاريخ">
 		<lesson key="tarikh" name="بحث التاريخ" arname="بحث التاريخ">
 			<teacher key="makki" name="مکي، علي" arname="مکي، علي">
@@ -1086,28 +1090,7 @@
 		</lesson>
 	
 	</group>
-	
-	<group key="akhlagh" name="اخلاق" arname="اخلاق">
-		<lesson key="akhlaq" name="اخلاق" arname="اخلاق">
-			<teacher key="mazaheri" name="مظاهری،حسین" arname="المظاهري،حسین">
-				<year key="89" />
-				<year key="90" />
-				<year key="91" />
-				
-				<year key="93" />
-			</teacher>
-		
-			<teacher key="tehrani" name="تهرانی،مجتبی" arname="التهراني،مجتبی">
-				<year key="88" />
-				<year key="89" />
-				<year key="90" />
-				<year key="91" />
-			</teacher>
-		</lesson>
-	
-	</group>
-
-	<group key="hadis" name="حدیث" arname="حدیث">
+	<group key="hadis" name="حدیث" arname="الحديث">
 		<lesson key="hadis" name="حدیث شناسی" arname="حدیث شناسی">
 			<teacher key="tabatabaei" name="طباطبایی، محمدکاظم" arname="طباطبايي، محمدکاظم">
 				<year key="91" />
@@ -1115,6 +1098,4 @@
 		</lesson>
 	
 	</group>
-	
-		
 </Lessons>
