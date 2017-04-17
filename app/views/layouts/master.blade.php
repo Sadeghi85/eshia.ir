@@ -44,6 +44,7 @@
 <body onload="getID();">
 	<table id="mainpage" border="0" cellspacing="0" cellpadding="0">
 		<tr>
+		
 			<td class="leftSection">
 				<div class="top-header">
 					<table class="top-header-table">
@@ -54,10 +55,10 @@
 					</table>
 				</div>
 				<div class="header-area">
-					<table class="header-links">
+					<table class="header-links" cellspacing="0px" cellpadding="0px">
 						<tr>
-							<div class="mainsearchbox">
-								<td style="width:250px;" >
+							<!--<div class="mainsearchbox">-->
+								<td class="header-links-TD-search">
 									<form action="#" id="mainSearchPanel" class="searchform" onsubmit="do_search(document.getElementById('search_input').value);return false;" style="">
 										<div>
 											<label for="search_input" ></label>
@@ -66,9 +67,13 @@
 										</div>
 									</form>
 								</td>
-							</div>
+								<td class="header-links-TDadv-search">
+									<span><a href="/advanced-search">پیشرفته</a>&zwnj;</span>
+								</td>
+	
+							<!--</div>-->
 							
-							<td style="width:80%;">
+							<td  class="header-links-TD1">
 								@include($header)
 							</td>
 						</tr>
@@ -76,47 +81,10 @@
 				</div>
 
 				
-				<div class="messenger-area" id="messenger">
-					<div class="messengerlink">
-
-						<div class="button">
-							@if ($locale === 'ar')
-							<a href="/Feqh/monitoring/">
-								<div class="course-monitoringar">
-								</div>
-							</a>							
-							@else							
-							<a href="/Feqh/monitoring/">
-								<div class="course-monitoring">
-								</div>
-							</a>
-							@endif
-							
-						@if ($locale === 'ar')
-							<a href="/Ar/Feqh/Timing/">
-								<div class="livear">
-								</div>
-							</a>
-								@else							
-							<a href="/Feqh/Timing/">
-								<div class="live">
-								</div>
-							</a>
-							@endif
-							
-							<div class="frequance">
-							</div>
-								
-						</div>						
-
-						{{ $searchContentForm or '' }}
-						
-					</div>
-				</div>
-				
 				<div id="content">@yield('content')</div>
 				
 			</td>
+
 			<td class="rightSection">
 				<div id="logo">
 					@if ($locale === 'ar')
@@ -197,5 +165,8 @@
 		}
 	</script>
 @show
+
+<!----------------------------------------------------------------------------------------------------------------->
+
 </body>
 </html>
