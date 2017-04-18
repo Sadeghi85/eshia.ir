@@ -68,7 +68,7 @@
 									</form>
 								</td>
 								<td class="header-links-TDadv-search">
-									<span><a href="/advanced-search">پیشرفته</a>&zwnj;</span>
+									<span><a href="/advanced-search">@lang('app.advanced_button')</a>&zwnj;</span>
 								</td>
 	
 							<!--</div>-->

@@ -42,5 +42,5 @@ return array(
 	'search_form_again_info' => '%s درس :%s %s %s، استاد :%s %s %s، سال :%s %s',
 	'default_search' => 'جستجو در همه دروس...',
 	'content_search' => 'جستجو در این درس...',
-	
+	'advanced_button' => 'پیشرفته',
 );

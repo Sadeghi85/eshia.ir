@@ -222,7 +222,8 @@ color:#fff !important;
 	background: #b2ddff;
 	font-style:normal;
 }
-.SearchInput:hover {
+
+.SearchInput:hover, .SearchInput:checked, .SearchInput:enabled, .SearchInput:in-range, .SearchInput:visited, .SearchInput:active, .SearchInput:valid, .SearchInput:optional, .SearchInput:root, .SearchInput:in-range{
 border:none !important;
 }
 .SearchKey {

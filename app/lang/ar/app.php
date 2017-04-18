@@ -41,5 +41,5 @@ return array(
 	'search_info_session' => '%s الاستاذ :%s %s %s، الدرس : %s %s %s، الجلسة : %s %s',
 	'default_search' => 'البحث في کل الدروس...',
 	'content_search' => 'البحث في هذا الدرس...',
-	
+	'advanced_button' => 'المتقدمة',
 );
