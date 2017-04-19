@@ -22,7 +22,7 @@ return array(
 	'year' => 'سال:',
 	
 	#Query--------------------------------------------------------------------------------------------------------------------
-	'query_search_result' => 'نتيجه يافت شد',
+	'query_search_result' => 'نتیجه یافت شد',
 	'query_search_result_not_found' => 'هیچ موضوعی در مورد :query یافت نشد',
 	'query_timed_out' => 'جستجو از زمان مجاز بیشتر طول کشید؛ عبارات ساده تر انتخاب کنید',
 	#Search-------------------------------------------------------------------------------------------------------------------
@@ -37,10 +37,10 @@ return array(
 	'search_one_group' => 'جستجو در یک گروه',
 	'search_search' => 'جستجو',
 	'search_seconds' => 'ثانیه',
-	'search_info_date' =>  '%s درس :%s %s %s، استاد :%s %s %s، تاریخ :%s %s',
-	'search_info_session' => '%s  درس :%s %s %s، استاد :%s %s %s، جلسه :%s %s',
-	'search_form_again_info' => '%s درس :%s %s %s، استاد :%s %s %s، سال :%s %s',
+	'search_info_date' =>  '%s درس :%s %s %s <font color="#38576f">/</font> استاد :%s %s %s <font color="#38576f">/</font> تاریخ :%s %s',
+	'search_info_session' => '%s  درس :%s %s %s <font color="#38576f">/</font> استاد :%s %s %s <font color="#38576f">/</font> جلسه :%s %s',
+	'search_form_again_info' => '%s درس :%s %s %s <font color="#38576f">/</font> استاد :%s %s %s <font color="#38576f">/</font> سال :%s %s',
 	'default_search' => 'جستجو در همه دروس...',
 	'content_search' => 'جستجو در این درس...',
-	'advanced_button' => 'پیشرفته',
+	
 );
