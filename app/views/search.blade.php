@@ -1,5 +1,4 @@
 @section('content')
-
 <div class="searchcontent">
 	<div class="searchcounter">
 		<div class="pagenave">
@@ -9,24 +8,23 @@
 			<span class="result_count">{{ $totalCount }}</span>&nbsp;&nbsp;@lang('app.query_search_result')&nbsp;&nbsp;({{ sprintf('%01.2f', $time) }}&nbsp;&nbsp;@lang('app.search_seconds'))
 		</div>
 
+
+	</div>
 		@if (Input::get('lessonKey', ''))
 		<div class="searchagain">
 			<span>{{ sprintf(trans('app.search_form_again_info'), '<font color="#ff6c13">', '</font>', $lessonName, '<font color="#ff6c13">', '</font>', $teacherName, '<font color="#ff6c13">', '</font>', $yearName) }}</span>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<form style="display:inline;" method="post" action="{{ action('SearchController@processAdvancedPage') }}">
-				
-				<input type="text" name="and" value="{{ $query }}" style="font-family:eshiatrad_ttf, eshiatrad;width:195px;vertical-align:middle;height:12px;font-size:13pt;background:#e4f0fa;border-radius:0;" />
+			<form  class="resform" style="display:inline;" method="post" action="{{ action('SearchController@processAdvancedPage') }}">
+				<input type="submit" value="" id="searchButton" class="SearchKey" style="position: relative;top:4px;left:0px;margin-right:-5px;background-color: aliceblue;border-radius:3px;height: 23px;" />
+				<input type="text" name="and" value="{{ $query }}" style="font-family:eshiatrad_ttf, eshiatrad;width:195px;vertical-align:middle;height:12px;font-size:10pt;margin-top:5px; background:#e4f0fa;border-radius:3;margin-bottom:2px;margin-left: 5px" />
 				
 				<input type="hidden" name="lessonKey" value="{{ Input::get('lessonKey', '') }}" />
 				<input type="hidden" name="teacherKey" value="{{ Input::get('teacherKey', '') }}" />
 				<input type="hidden" name="yearKey" value="{{ Input::get('yearKey', '') }}" />
-				
-				<input type="submit" value="" id="searchButton" class="SearchKey" style="position: relative;top:3px;left:0px;margin-right:-5px;" />
 			</form>
 		</div>
 		@endif
-	</div>
-
+	
 	<!--------------------------- result-->
 	<div>
 		@foreach ($results as $key => $result)
