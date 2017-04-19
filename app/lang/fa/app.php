@@ -42,5 +42,5 @@ return array(
 	'search_form_again_info' => '%s درس :%s %s %s <font color="#38576f">/</font> استاد :%s %s %s <font color="#38576f">/</font> سال :%s %s',
 	'default_search' => 'جستجو در همه دروس...',
 	'content_search' => 'جستجو در این درس...',
-	
+	'advanced_button' => 'پیشرفته',
 );
