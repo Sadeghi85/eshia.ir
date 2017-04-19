@@ -198,7 +198,7 @@
 				<year key="95" />
 			</teacher>
 
-			<teacher key="haery" name="الحائري،کاظم" arname="الحائري،کاظم">
+			<teacher key="haeri_kazem" name="الحائري،کاظم" arname="الحائري،کاظم">
 				<year key="32" />
 			</teacher>
 			
@@ -498,7 +498,7 @@
 			</teacher>
 			
 			
-			<teacher key="haery2" name="الحائري،علي‌رضا" arname="الحائري،علي‌رضا">
+			<teacher key="haery_alireza" name="الحائري،علي‌رضا" arname="الحائري،علي‌رضا">
 				<year key="30" />
 				<year key="31" />
 				<year key="32" />
