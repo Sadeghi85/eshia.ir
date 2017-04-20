@@ -306,7 +306,7 @@ class Docx2Html
 			if ($softHyphen->length)
 			{
 				$ret .= pack('H*', 'e2808c');
-				continue;
+				//continue;
 			}
 			
 			$query = 'w:t';
@@ -531,7 +531,7 @@ class Docx2Html
      */
 	public function getHtml()
 	{
-		$this->htmlOutput = $this->_cleanHtml($this->htmlOutput);
+		$this->htmlOutput = $this->_cleanHtml($this->htmlOutput);//dd($this->htmlOutput);
 		$this->htmlOutput = $this->_insertSurehInFootnote($this->htmlOutput);
 		$this->htmlOutput = $this->_mergeExtraTags($this->htmlOutput);
 		$this->htmlOutput = $this->_createFootnotes($this->htmlOutput);
@@ -573,6 +573,8 @@ class Docx2Html
 							base64_decode('2KLbjNmH'),
 							# آیات
 							base64_decode('2KLbjNin2Ko='),
+							# آیات
+							base64_decode('2KLZitin2Ko='),
 							# آيه
 							base64_decode('2KLZitmH'),
 							# آية
@@ -928,7 +930,7 @@ class Docx2Html
 			if ($softHyphen->length)
 			{
 				$ret .= pack('H*', 'e2808c');
-				continue;
+				//continue;
 			}
 			
 			$query = 'w:t';
