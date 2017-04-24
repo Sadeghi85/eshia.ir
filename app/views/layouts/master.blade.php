@@ -4,7 +4,7 @@
 	<title>@lang('app.title')</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Expires" content="0"/>
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	@section('meta') 
 
 	@show
@@ -12,7 +12,6 @@
 	<link href="/Styles/Default.css" rel="stylesheet" type="text/css"/>
 	<link href="/Styles/eshia.css" rel="stylesheet" type="text/css"/>
 	<link href="/assets/css/search.css" rel="stylesheet" type="text/css"/>
-	
 	<link rel="shortcut icon" href="/Images/favicon.ico"/>
 	
 	@section('style') 
