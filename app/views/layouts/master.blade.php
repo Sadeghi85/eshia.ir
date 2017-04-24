@@ -77,6 +77,9 @@
 								@include($header)
 							</td>
 						</tr>
+						<td  class="header-links-TD1media" colspan="2">
+								@include($header)
+						</td>
 					</table>
 				</div>
 

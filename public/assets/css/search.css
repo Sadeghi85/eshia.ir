@@ -173,6 +173,15 @@ background: #a2cae9;
 text-align:center !important;
 padding:0px 5px 3px !important;
 }
+
+@media screen and (max-width: 900px) {
+	.header-links-TDadv-search {
+width: 10%;
+}
+	#mainSearchPanel {
+		width: 100%;
+	}
+}
 .header-links-TDadv-search:hover {
 background: #81b2de;
 cursor:pointer;
