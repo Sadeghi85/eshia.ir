@@ -129,7 +129,13 @@
 @stop
 
 @section('content')
-<div id="contents">
+
+
+<table class="page-mother-Table" cellspacing="10px">
+	<tr>
+<td class="page-mother-Table-td-2-part-1">	
+	<span><center><b>جستجوی پیشرفته</b></center></span>	
+		<div id="contents">
 	<div id="contents_cover" class="Page_advancedSearch">
 	
 	    <div style="margin:35px 0 10px 0;"></div>
@@ -147,7 +153,7 @@
 										<td class="tdLabel">@lang('app.phrase')</td>
 										<td class="tdInput">
 											<div style="margin:10px 10px;">
-												<input style="width: 490px;" name="and" type="text" value="">
+												<input style="width: 490px;" name="and" type="text" v>
 											</div>
 										</td>
 									</tr>
@@ -161,7 +167,7 @@
 										<td class="tdLabel">@lang('app.lesson')</td>
 										<td class="tdInput">
 											<div style="margin:10px 10px;">
-												<input id="lessonKey" class="easyui-combobox" name="lessonKey" style="width:500px;">
+												<input id="lessonKey" class="easyui-combobox" name="lessonKey" style="width:500px;" >
 												
 											</div>
 										</td>
@@ -194,6 +200,16 @@
 		
 	</div>
 </div>
+</td>
+	
+	</tr>
+	</tbody></table>
+
+
+
+
+
+
 @stop
 
 @section('title')
