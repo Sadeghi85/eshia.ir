@@ -134,7 +134,7 @@
 <table class="page-mother-Table" cellspacing="10px">
 	<tr>
 <td class="page-mother-Table-td-2-part-1">	
-	<span><center><b>جستجوی پیشرفته</b></center></span>	
+	<span><center><b>@lang('app.advanced_search')</b></center></span>	
 		<div id="contents">
 	<div id="contents_cover" class="Page_advancedSearch">
 	
@@ -153,7 +153,7 @@
 										<td class="tdLabel">@lang('app.phrase')</td>
 										<td class="tdInput">
 											<div style="margin:10px 10px;">
-												<input style="width: 490px;" name="and" type="text" v>
+												<input style="width: 490px; font-family: Tahoma;font-size:16px;" name="and" type="text" placeholder="@lang('app.words_search')">
 											</div>
 										</td>
 									</tr>
