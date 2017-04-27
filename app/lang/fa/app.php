@@ -43,4 +43,7 @@ return array(
 	'default_search' => 'جستجو در همه دروس...',
 	'content_search' => 'جستجو در این درس...',
 	'advanced_button' => 'پیشرفته',
+	'advanced_search' => 'جستجوی پیشرفته',
+	
+	'words_search' => 'کلمه (کلمات) مورد نظر',
 );

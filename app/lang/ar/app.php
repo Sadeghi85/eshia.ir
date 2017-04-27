@@ -42,4 +42,7 @@ return array(
 	'default_search' => 'البحث في کل الدروس...',
 	'content_search' => 'البحث في هذا الدرس...',
 	'advanced_button' => 'المتقدمة',
+	'advanced_search' => 'البحث المتقدم',
+	
+	'words_search' => 'کلمه (کلمات)',
 );
