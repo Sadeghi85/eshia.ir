@@ -147,6 +147,10 @@ class SiteController extends BaseController {
 				$this->layout->searchContentForm = View::make('search-content', compact('teacher', 'lesson', 'year'));
 			}
 			
+			if ($teacher and $lesson and $year and $date) {
+				$this->layout->lessonsList = View::make('lessons-list', compact('teacher', 'lesson', 'year', 'date'));
+			}
+			
 			$this->layout->content = View::make('page', compact('content'));
 			
 			return;

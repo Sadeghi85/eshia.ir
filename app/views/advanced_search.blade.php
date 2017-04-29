@@ -73,11 +73,24 @@
 		
 		onSelect: function(s){
             var url = '{{ action('SearchController@getSearchData') }}?id='+s.id;
-            $('#teacherKey').combobox('reload', url);
+            
 			$('#teacherKey').combobox('clear');
-			$('#yearKey').combobox('reload', '');
+			$('#teacherKey').combobox('reload', url);
+			
 			$('#yearKey').combobox('clear');
-        }
+			$('#yearKey').combobox('reload', '');
+        },
+		filter: function(q, row){
+			
+			if (q.length == 0) {
+				$('#lessonKey').combobox('clear');
+				$('#teacherKey').combobox('clear');
+				$('#yearKey').combobox('clear');
+			}
+			
+			var opts = $('#lessonKey').combobox('options');
+			return row[opts.textField].indexOf(q) != -1;
+		}
 	});
 	
 	$('#teacherKey').combobox({
@@ -96,11 +109,23 @@
 		mode: 'local',
 		formatter: formatItem,
 		
-		onSelect: function(s){
+		onSelect: function(s) {
             var url = '{{ action('SearchController@getSearchData') }}?id='+s.id;
-            $('#yearKey').combobox('reload', url);
+			
 			$('#yearKey').combobox('clear');
-        }
+            $('#yearKey').combobox('reload', url);
+			
+        },
+		filter: function(q, row) {
+			
+			if (q.length == 0) {
+				$('#teacherKey').combobox('clear');
+				$('#yearKey').combobox('clear');
+			}
+			
+			var opts = $('#teacherKey').combobox('options');
+			return row[opts.textField].indexOf(q) != -1;
+		}
 	});
 	
 	$('#yearKey').combobox({
@@ -118,6 +143,15 @@
 		hasDownArrow: true,
 		mode: 'local',
 		formatter: formatItem,
+		filter: function(q, row){
+			
+			if (q.length == 0) {
+				$('#yearKey').combobox('clear');
+			}
+			
+			var opts = $('#yearKey').combobox('options');
+			return row[opts.textField].indexOf(q) != -1;
+		}
 		
 	});
 	
@@ -125,6 +159,7 @@
 		var s = row.desc;
 		return s;
 	}
+	
 	</script>
 @stop
 
