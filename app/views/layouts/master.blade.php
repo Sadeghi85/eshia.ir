@@ -56,16 +56,6 @@
 				<div class="header-area">
 					<table class="header-links" cellspacing="0px" cellpadding="0px">
 						<tr>
-							<!--<div class="mainsearchbox">-->
-								<td class="header-links-TD-search">
-									<form action="#" id="mainSearchPanel" class="searchform" onsubmit="do_search(document.getElementById('search_input').value);return false;" style="">
-										<div>
-											<label for="search_input" ></label>
-											<input name="key" id="search_input" value="@lang('app.default_search')" class="SearchInput ui-autocomplete-input empty-search-item" onfocus="if (this.value == '@lang('app.default_search')') {this.value = ''; this.className='SearchInput ui-autocomplete-input'}" onblur="if (this.value == '') {this.value = '@lang('app.default_search')'; this.className='SearchInput ui-autocomplete-input empty-search-item'}" />
-											<input type="submit" id="searchButton" value="" class="SearchKey">
-										</div>
-									</form>
-								</td>
 								<td class="header-links-TDadv-search">
 									@if($locale == 'ar')
 										<span><a href="/Ar/advanced-search">@lang('app.advanced_button')</a>&zwnj;</span>
@@ -73,6 +63,18 @@
 										<span><a href="/advanced-search">@lang('app.advanced_button')</a>&zwnj;</span>
 									@endif
 								</td>
+							<!--<div class="mainsearchbox">-->
+								<td class="header-links-TD-search">
+									<form action="#" id="mainSearchPanel" class="searchform" onsubmit="do_search(document.getElementById('search_input').value);return false;" style="">
+									<div>
+											<label for="search_input" ></label>
+											<input type="submit" id="searchButton" value="" class="SearchKey">
+											<input name="key" id="search_input" value="@lang('app.default_search')" class="SearchInput ui-autocomplete-input empty-search-item" onfocus="if (this.value == '@lang('app.default_search')') {this.value = ''; this.className='SearchInput ui-autocomplete-input'}" onblur="if (this.value == '') {this.value = '@lang('app.default_search')'; this.className='SearchInput ui-autocomplete-input empty-search-item'}" />
+											
+										</div>
+									</form>
+								</td>
+
 	
 							<!--</div>-->
 							
