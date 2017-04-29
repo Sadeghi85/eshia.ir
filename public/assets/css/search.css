@@ -2,13 +2,13 @@
 @font-face
 {
 font-family:"eshiatrad_ttf";
-src: url('../Styles/Fonts/eshiatrad.ttf') format('truetype'); 
+src: url('/Styles/Fonts/eshiatrad.ttf') format('truetype'); 
 }
 
 @font-face
 {
 font-family:"eshiatrad";
-src: url("../Styles/Fonts/eshiatrad.eot"); 
+src: url("/Styles/Fonts/eshiatrad.eot"); 
 }
 
 /*-------------------------------- search ---*/
