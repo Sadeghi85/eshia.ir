@@ -160,6 +160,37 @@
 		return s;
 	}
 	
+	$( document ).ready(function() {
+		$('#lessonKey').combobox('textbox').bind('click', function() {
+			if ($('#lessonKey').combobox('panel').parent().css('display') === 'none') {
+				$('#lessonKey').combobox('showPanel');
+			}
+			else {
+				$('#lessonKey').combobox('hidePanel');
+			}
+		});
+		
+		$('#teacherKey').combobox('textbox').bind('click', function() {
+			if ($('#teacherKey').combobox('panel').parent().css('display') === 'none') {
+				$('#teacherKey').combobox('showPanel');
+			}
+			else {
+				$('#teacherKey').combobox('hidePanel');
+			}
+		});
+		
+		$('#yearKey').combobox('textbox').bind('click', function() {
+			if ($('#yearKey').combobox('panel').parent().css('display') === 'none') {
+				$('#yearKey').combobox('showPanel');
+			}
+			else {
+				$('#yearKey').combobox('hidePanel');
+			}
+		});
+	});
+
+	
+	
 	</script>
 @stop
 
