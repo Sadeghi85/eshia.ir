@@ -180,8 +180,10 @@ margin-top: 5px;
 }
 .header-links-TDadv-search {
 border-radius:4px;
-border-bottom-right-radius: 0px !important;
-border-top-right-radius: 0px !important;
+-webkit-border-bottom-right-radius: 0px !important;
+-webkit-border-top-right-radius: 0px !important;
+-moz-border-bottom-right-radius: 0px !important;
+-moz-border-top-right-radius: 0px !important;
 border:2px solid #fff;
 border-right:none;
 min-height:30px;
@@ -213,8 +215,10 @@ color:#fff !important;
 	background: #b2ddff;
 	border:2px solid #FFF;
 	width:220px;
-	border-bottom-left-radius: 0px !important;
-	border-top-left-radius: 0px !important;
+	-moz-border-bottom-left-radius: 0px !important;
+	-moz-border-top-left-radius: 0px !important;
+	-webkit-border-bottom-left-radius: 0px !important;
+	-webkit-border-top-left-radius: 0px !important;
 	padding:0px 1px 0px 0px !important;
 	
 }
@@ -271,6 +275,7 @@ border:none !important;
 	width:31px;
 	height:28px;
 	border: 0 !important;
+	-ms-border-radius: 5px !important;
 	-webkit-border-radius: 5px !important;
 	-moz-border-radius: 5px !important;
 	border-radius: 5px !important;	
