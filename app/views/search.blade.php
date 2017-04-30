@@ -15,8 +15,8 @@
 			<span>{{ sprintf(trans('app.search_form_again_info'), '<font color="#ff6c13">', '</font>', $lessonName, '<font color="#ff6c13">', '</font>', $teacherName, '<font color="#ff6c13">', '</font>', $yearName) }}</span>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<form  class="resform" style="display:inline;" method="post" action="{{ action('SearchController@processAdvancedPage') }}">
-				<input type="submit" value="" id="searchButton" class="SearchKey" style="position: relative;top:4px;left:0px;margin-right:-5px;background-color: aliceblue;border-radius:3px;height: 23px;" />
-				<input type="text" name="and" value="{{ $query }}" style="font-family:eshiatrad_ttf, eshiatrad;width:195px;vertical-align:middle;height:12px;font-size:10pt;margin-top:5px; background:#e4f0fa;border-radius:3;margin-bottom:2px;margin-left: 5px" />
+				<input type="submit" value="" id="searchButton" class="SearchKey" style="position: relative;top:4px;left:0px;margin-right:-5px;background-color: aliceblue;border-radius:3px;" />
+				<input type="text" name="and" value="{{{ $query }}}" style="font-family:eshiatrad_ttf, eshiatrad;width:195px;vertical-align:middle;height:12px;font-size:12pt;margin-top:5px; background:#e4f0fa;border-radius:3;margin-bottom:2px;margin-left: 5px" />
 				
 				<input type="hidden" name="lessonKey" value="{{ Input::get('lessonKey', '') }}" />
 				<input type="hidden" name="teacherKey" value="{{ Input::get('teacherKey', '') }}" />
