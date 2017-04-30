@@ -3,8 +3,8 @@
 @endphp
 <span class="backtoleslist">
 @if($locale == 'ar')
-	<a  href="/Ar/Feqh/Archive/{{ $teacher }}/{{ $lesson }}/{{ $year }}_{{ $year+1 }}#lesson_{{ $date }}">  < الرجوع إلى قائمة الدروس</a>
+	<a  href="/Ar/Feqh/Archive/{{ $teacher }}/{{ $lesson }}/{{ $year }}_{{ $year+1 }}#lesson_{{ $date }}">  <  قائمة الدروس</a>
 @else
-	<a href="/Feqh/Archive/{{ $teacher }}/{{ $lesson }}/{{ $year }}#lesson_{{ $date }}"> < بازگشت  به لیست دروس </a>
+	<a href="/Feqh/Archive/{{ $teacher }}/{{ $lesson }}/{{ $year }}#lesson_{{ $date }}"> < فهرست دروس</a>
 @endif
 </span>
