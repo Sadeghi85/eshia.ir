@@ -9,9 +9,11 @@
 
 	@show
 	
-	<link href="/Styles/Default.css?201704301630" rel="stylesheet" type="text/css"/>
-	<link href="/Styles/eshia.css?201704301630" rel="stylesheet" type="text/css"/>
-	<link href="/assets/css/search.css?201704301630" rel="stylesheet" type="text/css"/>
+
+	<link href="/Styles/Default.css?201704301646" rel="stylesheet" type="text/css"/>
+	<link href="/Styles/eshia.css?201704301646" rel="stylesheet" type="text/css"/>
+	<link href="/assets/css/search.css?201704301646" rel="stylesheet" type="text/css"/>
+
 	<link rel="shortcut icon" href="/Images/favicon.ico"/>
 	
 	@section('style') 
