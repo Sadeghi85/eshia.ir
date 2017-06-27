@@ -558,6 +558,15 @@ class Docx2Html
 		$content = preg_replace('#</ref>#', "</ref>\r\n", $content);
 		
 		$content = preg_replace_callback(
+						'#<ref>(.*?)</ref>#iu',
+						function ($matches)
+						{
+							return sprintf('<ref>%s</ref>', preg_replace('#<[^>]+>#iu', '', $matches[1]));
+						},
+						$content
+					);
+		
+		$content = preg_replace_callback(
 						sprintf
 						(
 							'#<ref>.*?(?:%s|%s|%s)\s*([\p{L} \p{M}\p{Cf}]+)\s*%s\s*(?:%s|%s|%s|%s|%s|%s|%s|%s)\s*(\d+)([^<]*)</ref>#iu',
@@ -577,6 +586,8 @@ class Docx2Html
 							base64_decode('2KLZitin2Ko='),
 							# آيه
 							base64_decode('2KLZitmH'),
+							# آیة
+							base64_decode('2KLbjNip'),
 							# آية
 							base64_decode('2KLZitip'),
 							# الآية
