@@ -431,7 +431,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="ashrafi" name="اشرفی،مصطفی" arname="الأشرفي،مصطفی">
+			<teacher key="ashrafi" name="اشرفی شاهرودی،مصطفی" arname="الأشرفي الشاهرودي،مصطفی">
 				<year key="89" />
 				<year key="90" />
 				<year key="91" />
@@ -486,7 +486,7 @@
 				<year key="94" />
 				<year key="95" />
 			</teacher>
-			<teacher key="tehrani" name="تهرانی،مجتبی" arname="التهراني،مجتبی">
+			<teacher key="tehrani" name="تهرانی،مجتبی" arname="الطهراني،مجتبی">
 				<year key="87" />
 				
 				<year key="89" />
